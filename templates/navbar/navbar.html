@@ -1,0 +1,117 @@
+{% load i18n %}
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static '/images/navbar/humanbot.png' %}" width="40px" height="40px"/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                         {% trans 'collect' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li class="separator">Télécharger un fichier</li>
+                        <li><a class="dropdown-item" href="{% url 'display_collect' %}">CSV</a></li>
+                        <li ><a class="dropdown-item disabled" href="{% url 'display_collect' %}">PDF</a></li>
+                        <li><a class="dropdown-item disabled" href="#">XML</a></li>
+                        <li><a class="dropdown-item" href="{% url 'display_collect' %}">JSON</a></li>
+                        <li class="separator">Questionner</li>
+                        <li><a class="dropdown-item" href="{% url 'my_questionnary' %}">Mes questionnaires</a></li>
+                        <li><a class="dropdown-item" href="{% url 'new_questionnary' %}">Nouveau questionnaire</a></li>
+                        <li><a class="dropdown-item" href="{% url 'publish_questionnary' %}">Publier un questionnaire</a></li>
+                        <li><a class="dropdown-item" href="{% url 'pyscript' %}">Exemple pyscript</a></li>
+                        <li><a class="dropdown-item" href="{% url 'd3js_word_cloud' %}">Word cloud</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans 'clean' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url 'display_clean' %}">Supprimer des colonnes</a></li>
+                        <li><a class="dropdown-item" href="#">Supprimer des lignes</a></li>
+                        <li><a class="dropdown-item" href="#">Supprimer les valeurs aberrantes</a></li>
+                        <li><a class="dropdown-item" href="#">Remplacer des valeurs</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans 'explore' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url 'display_explore' %}">Composition nutritionnelle d'un aliment</a></li>
+                        <li><a class="dropdown-item" href="#">Recherche par élément nutritif</a></li>
+                        <li><a class="dropdown-item" href="#">Recherche par score nutritionnel</a></li>
+                        <li><a class="dropdown-item" href="{% url 'index_document' %}">Indexer document</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans 'visualize' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{% url 'lineplot' %}">lineplot</a></li>
+                        <li><a class="dropdown-item" href="#">histplot</a></li>
+                        <li><a class="dropdown-item" href="#">catplot</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans 'useful_links' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="https://pandas.pydata.org/docs/index.html" target="_blank">pandas</a></li>
+                        <li><a class="dropdown-item" href="https://numpy.org/doc/stable/" target="_blank">numpy</a></li>
+                        <li><a class="dropdown-item" href="https://seaborn.pydata.org/tutorial.html" target="_blank">seaborn tutoriel</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                       {% trans 'languages' %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+
+                        {% for lang in languages %}
+                            <li>
+                                <a class="dropdown-item" href="/{{ lang.code }}/{{request.get_full_path|slice:'4:'}}">
+                                    {{ lang.name_translated }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                       Thème
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item" href="#" target="_blank">Thème 1</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-item" href="#" target="_blank">Thème 2</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+

@@ -1,0 +1,52 @@
+﻿{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau questionnaire</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/new_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+{% endblock %}
+
+{% block content %}
+    <body>
+        <label class="label-xxl">Let's plot random numbers</label>
+        <div id="plot"></div>
+        <py-config type="json">
+            {
+            "packages": ["numpy", "matplotlib"]
+            }
+        </py-config>
+        <py-script output="plot">
+            <!-- import matplotlib.pyplot as plt
+            import numpy as np
+            x = np.random.randn(50)
+            y = np.random.randn(50)
+            fig, ax = plt.subplots()
+            ax.scatter(x, y)
+            fig -->
+
+            <!-- import pandas as pd
+            import matplotlib.pyplot as plt
+            import wordcloud
+            from wordcloud import WordCloud
+
+            #Importing Dataset
+            df = pd.read_csv("C:\\temp\mots_vides.csv")
+            #Checking the Data
+            df.head()
+            # Display the generated Word Cloud
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis("off")
+            plt.show() -->
+        </py-script>
+
+
+    </body>
+{% endblock %}
+{% block script %}   
+
+   
+{% endblock %}

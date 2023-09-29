@@ -1,0 +1,30 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Visualize</title>{% endblock %}
+{% block style %}
+    <link rel='stylesheet' href="{%  static '/css/visualize/visualize.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-5 rounded">
+        <div><img src="{%  static '/images/visualize/visualize_file.png' %}" width="8%" height="10%"/><label class="label-xxl">Visualiser vos données</label></div>
+        {% include 'common/spinner.html' %}
+        <label for="file" class="form-label label-xl" >Sélectionner un fichier </label>
+        <input class="form-control" list="listFiles" id="file" placeholder="Saisissez tout ou partie du nom ">
+        <datalist id="listFiles">
+            {% for file in list_files %}
+                <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </datalist>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}   
+    <script>
+            
+    </script>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'common/common_lib.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block style %}
+<link rel='stylesheet' href="{%  static '/css/quaero/login.css' %}" />
+<style>
+    .message {
+        color: gray;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    
+    <div class="row justify-content-md-center">
+        <h3 class="message">Pour accéder au module questionnaire vous devez vous connecter avec vos identifiants ou vous enregistrer si vous n'êtes pas encore inscrit.</h3>
+        <div class="col col-lg-5 bloc ">
+            <p class="titre" style="color: gray;">{% trans "not_registred_yet" %}</p>
+            <input type="text" id="identifiant_nouveau" value="" class="form-control" placeholder="Identifiant">
+            <span id="labelEmailFormatInvalidNouveau" class="d-none">Le format de l'email saisi est invalide</span>
+            <span id="labelEmailVideNouveau" class="d-none">Vous devez saisir un email pour créer votre compte</span>
+            <span id="labelEmailNouveauExist" class="d-none">Cet email est déjà enregistré.</span>
+            <div class="input-group">
+                <input class="form-control" type="password" id="password_nouveau" placeholder="password" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <div class="input-group-text" id="btnGroupAddon"><img id="img_password_nouveau" class="" title="afficher mot de passe" src="{% static '/images/quaero/visible.png' %}" width="35px" height="45px"></div>
+            </div>
+            <span id="labelPasswordLongueurNouveau" class="d-none">Le mot de passe doit comporter au moins 8 caractères</span>
+            <button class="btn btn-secondary btn-action" onclick="validateNouveau()">Valider</button>
+        </div>
+        <div class="col col-lg-1 bloc centered ">
+            <div class="d-flex" style="height: 250px;">
+                <div class="vr"></div>
+            </div>
+        </div>
+        <div class="col col-lg-5 bloc ">
+            <p class="titre">{% trans "already_registred" %}</p>
+            <div id="message" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Email ou mot de passe incorrects</strong>
+            </div>
+            <input type="text" id="identifiant" value="" class="form-control" placeholder="Identifiant">
+            <span id="labelEmailFormatInvalid" class="d-none">Le format de l'email saisi est invalide</span>
+            <span id="labelEmailVide" class="d-none">Vous devez saisir un email pour vous identifier</span>
+            
+            <span id="labelEmailDontExist" class="d-none">Login incorrect, veuillez recommencer.</span>
+            <div class="input-group">
+                <input class="form-control" type="password" id="password" placeholder="password" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <div class="input-group-text" id="btnGroupAddon"><img id="img_password" class="" title="afficher mot de passe" src="{% static '/images/quaero/visible.png' %}" width="35px" height="45px"></div>
+            </div>
+            <span id="labelPasswordLongueur" class="d-none">Le mot de passe doit comporter au moins 8 caractères</span>
+            <span id="labelPasswordIncorrect" class="d-none">Mot de passe incorrect, veuillez recommencer.</span>
+            <button class="btn btn-secondary btn-action" onclick="validate()">Valider</button>
+            <button class="btn btn-link lien btn-action">Mot de passe oublié ?</button>
+        </div>
+    </div>
+{% endblock %}    
+{% block script %}  
+
+<script>
+    $("#img_password_nouveau").on('click', function(){
+        if ($("#password_nouveau").attr("type") == "password"){
+            $("#img_password_nouveau").attr("src","{% static '/images/quaero/visible_not.png' %}");
+            $("#password_nouveau").attr("type","text");
+        }else{
+            $("#img_password_nouveau").attr("src","{% static '/images/quaero/visible.png' %}");
+            $("#password_nouveau").attr("type","password");
+        }
+    });
+
+    $("#img_password").on('click', function(){
+        if ($("#password").attr("type") == "password"){
+            $("#img_password").attr("src","{% static '/images/quaero/visible_not.png' %}");
+            $("#password").attr("type","text");
+        }else{
+            $("#img_password").attr("src","{% static '/images/quaero/visible.png' %}");
+            $("#password").attr("type","password");
+        }
+    });
+    function emailIsValid (email) {
+        return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)*$/.test(email)
+    }
+
+    function validateNouveau(){
+        var compt = 0;
+        $('span').attr('class','d-none');
+        var email = $('#identifiant_nouveau').val();
+        var password = $('#password_nouveau').val();
+        if(email == ""){
+            $("#labelEmailVideNouveau").attr('class', "badge bg-danger d-block");
+            compt+=1;
+        }else{
+            if(emailIsValid(email) == false){
+                $("#labelEmailFormatInvalidNouveau").attr('class', "badge bg-danger d-block");
+                compt+=1;
+            };
+        }
+
+        if(password.length < 8){
+            $('#labelPasswordLongueurNouveau').attr('class','badge bg-danger d-block');
+            compt+=1;
+        }
+
+        if (compt == 0) {
+            $.ajax({
+                url: "{% url 'validate_nouveau' %}",
+                method: 'get',
+                data: {
+                    email: email,
+                    password: password
+                },
+                success: function (response) {
+                    if (response > 0){
+                        $("#labelEmailNouveauExist").attr('class', "badge bg-danger d-block");
+                    }else{
+                        window.location.href = "{% url 'new_questionnary' %}";
+                    }
+                }
+            });
+        }
+    }
+
+    function validate(){
+        var compt = 0;
+        $('span').attr('class','d-none');
+        var email = $('#identifiant').val();
+        var password = $('#password').val()
+        if(email == ""){
+            $("#labelEmailVide").attr('class', "badge bg-danger d-block");
+            compt+=1
+        }else{
+            if(emailIsValid(email) == false){
+                $("#labelEmailFormatInvalid").attr('class', "badge bg-danger d-block");
+                compt+=1
+            };
+        }
+        if(password.length < 8){
+            $('#labelPasswordLongueur').attr('class','badge bg-danger d-block');
+            compt+=1
+        }
+        if (compt == 0) {
+            $.ajax({
+                url: "{% url 'validate_login_user' %}",
+                method: 'get',
+                data: {
+                    email: email,
+                    password: password
+                },
+                success: function (response) {
+                    if (response ==0){
+                        $("#message").attr('class', "alert alert-danger alert-dismissible fade show d-block");
+                    }else{
+                        window.location.href = "{% url 'new_questionnary' %}";
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+{% endblock script%}

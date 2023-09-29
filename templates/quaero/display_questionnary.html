@@ -1,0 +1,79 @@
+﻿{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Saisie</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/new_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        li::marker{
+            font-size: 3vh;
+            color:rgb(74, 56, 177);
+            right : 15%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    
+    <div class="bg-light p-5 rounded">
+        <div style="margin-top: 50px;">
+            <ol class="questions" id="questionnary">
+            </ol>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}   
+    <script src="{%  static '/js/quaero/display_questionnary/display_questionnary.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/new_questionnary.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/echelle.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/fermee.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/notation.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/ouverte.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/tableau.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/branchement.js' %}"></script>
+    <script>
+        $( document ).ready(function() {
+
+            var list_questionnary = '{{list_questionnary.0.3|escapejs}}';
+            if(list_questionnary!=""){
+                list_questionnary = JSON.parse(list_questionnary.replace(/'/g, `"`));
+                var contentAll = list_questionnary[1];
+                var nbQuestions = Object.keys(contentAll.questions).length;
+                //for(var i=0;i<nbQuestions;i++){
+                    var lib_type = contentAll['questions'][0].type;
+                    switch(lib_type){
+                        case "fermee_simple":
+                            display_questionnary_question_fermee(contentAll, 0, "radio");
+                        break;
+                        case "fermee_multiple":
+                            display_questionnary_question_fermee(contentAll, 0, "checkbox");
+                        break;
+                        case "echelle":
+                            
+                        break;
+                        case "tableau":
+                            
+                        break;
+                        case "ouverte":
+                            
+                        break;
+                        case "notation":
+                            
+                        break;
+                        case "date":
+                            
+                        break;
+                        case "heure":
+                        
+                        break;
+                    }
+                //}
+            }
+        });              
+
+    </script>
+
+{% endblock %}

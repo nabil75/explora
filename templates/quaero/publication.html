@@ -1,0 +1,98 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/publication.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="toolbox">
+        <ul class="">
+            <li class="li-toolbox"><img class="img_toolbox" id="img_telecharger" src="{%  static '/images/quaero/emailing.png' %}"  title="Télécharger un fichier de destinataires";/> </li>
+            <ul id="menu-questions" class="d-none">
+                <li class="li-toolbox"><img class="img_toolbox" id="img_current_questions" src="{%  static '/images/quaero/current_questions.png' %}" title="Types de question courants"/> </li>
+                <ul id="current_questions" class="d-none">
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_fermee_simple" src="{%  static '/images/quaero/fermee_simple.png' %}" title="Question fermée à choix unique"/> </li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_fermee_multiple" src="{%  static '/images/quaero/fermee_multiple.png' %}" title="Question Fermée à choix multiple"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_ouverte" src="{%  static '/images/quaero/ouverte.png' %}" title="Question ouverte"/> </li>
+                </ul>
+                <li class="li-toolbox"><img class="img_toolbox" id="img_others_questions" src="{%  static '/images/quaero/others_questions.png' %}" title="Autres types de question"/> </li>
+                <ul id="others_questions" class="d-none">
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_tableau" src="{%  static '/images/quaero/grille.png' %}"  title="Question sous forme de Tableau"/> </li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_echelle" src="{%  static '/images/quaero/echelle.png' %}"  title="Question échelle"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_notation" src="{%  static '/images/quaero/star.png' %}"  title="Question notation"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_date" src="{%  static '/images/quaero/date.png' %}"  title="Question date"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_heure" src="{%  static '/images/quaero/heure.png' %}"  title="Question heure"/></li>
+                </ul>
+            </ul>
+            
+            <li class="li-toolbox"><img class="img_toolbox" id="img_save" src="{%  static '/images/quaero/save.png' %}" data-url="{% url 'save_questionnary' %}" title="Sauvegarder"/></li>
+            <li class="li-toolbox"><img class="img_toolbox" id="img_reduce_expand" src="{%  static '/images/quaero/reduire.png' %}"  title="Réduire toutes les questions"/></li>
+        </ul>
+    </div>
+    <div class="bg-light p-5 rounded">
+
+        <div class="fonctionnalite">
+            <h4>Sélectionner les destinataires</h4>
+            <input class="form-control" placeholder="Choisir une liste" id="liste_destinataire"/>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Destinataires</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for questionnary in list_questionnary %}
+                    <tr>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        
+        <div class="fonctionnalite">
+            <h4>Ajouter une liste de destinataires</h4>
+            <label class="form-label">Nom de la liste</label>
+            <input class="form-control" id="nouvelle_liste"/>
+            <label class="form-label">Description</label>
+            <textarea class="form-control"></textarea>
+        </div>
+    </div>
+
+    {% include 'quaero/publication_telecharger_fichier.html' %}
+
+
+{% endblock %}
+{% block script %}   
+    <script src="{%  static '/js/quaero/publication/publication.js' %}"></script>
+    <script>
+        $( function() {
+          listes = '{{ liste_destinataire | escapejs}}';
+          var listeElem = listes.split('|*>|<*|');
+          my_liste =[]
+          for (var liste in listeElem) {
+            my_liste.push(listeElem[liste])
+          }
+          $("#liste_destinataire").autocomplete({
+            source: my_liste
+          });
+        } );
+    </script>
+    <script>
+        $( document ).ready(function() {
+
+
+        });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+﻿<!-- {% load static %} -->
+<li class="question">
+    <input class="d-none" value="notation"/>
+    <div class="d-flex justify-content-between head-question">
+        <img class=" ui-sortable handle ancre" src="{%  static '/images/quaero/ancre.png' %}"  title="Saisissez ici le pavé question pour le déplacer" width="25px" height="25px" />
+        <h5 class="type-question">Question de type <strong class="text-uppercase">notation</strong></h5>
+        <div>
+            <img class="remove-question" src="{%  static '/images/quaero/supprimer.png' %}"  title="Supprimer la question" onclick='remove_question(this)'/>
+            <img name="img_reduce" class="img_collapse" src="{%  static '/images/quaero/collapse.png' %}"  title="Réduire la question" onclick='collapse_question(this)'/>
+        </div>
+    </div>
+    <input class="form-control input-border-bottom libelle-question"  placeholder="Libellé de la question" />
+
+    <div class="div_modalites">
+        <div class="note">
+            <h2 class="notation-denominateur">-</h2>
+            <h2 class="notation-denominateur">/5</h2>
+        </div>
+        <div class="d-flex justify-content-center">  
+            <label>
+                <input type="checkbox" name="rating" value="1">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je ne suis pas du tout satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>
+            <label>
+                <input type="checkbox" name="rating" value="2">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je suis plutôt peu satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>            
+            <label>
+                <input id="3" type="checkbox" name="rating" value="3">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je suis moyennement satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>
+            <label>
+                <input type="checkbox" name="rating" value="4">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je suis plutôt satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>
+            <label>
+                <input type="checkbox" name="rating" value="5">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je suis très satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>
+            <label class="d-none">
+                <input type="checkbox" name="rating" value="6">
+                <img class="img_star" src="{%  static '/images/quaero/etoile_vide.png' %}"  title="je suis très satisfait" onmouseover="fullStar(this)" onmouseout="emptyStar(this)" onclick="clickStar(this)"/>
+            </label>
+        </div>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-between">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label label-s">Obligatoire</label>
+        </div>
+        <img class="img_actions" src="{%  static '/images/quaero/jump.png' %}"  title="Définir un branchement conditionnel" onclick="display_modal_branchement(this)"/>
+        <img class="align-items-start footer-right" src="{%  static '/images/quaero/eye.png' %}" title="Voir le résultat" onclick="display_question_notation(this)"/>
+    </div>
+    <div>
+        <textarea class="branchement d-block" placeholder="Branchement" readonly></textarea>
+    </div>
+</li>

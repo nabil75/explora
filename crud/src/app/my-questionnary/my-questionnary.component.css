@@ -1,0 +1,19 @@
+.img-action{
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+table {
+    width: 100%;
+}
+
+/* mat-header-row mat-cell{
+    font-size:large;
+    color: blue;
+    justify-content: center;
+} */
+

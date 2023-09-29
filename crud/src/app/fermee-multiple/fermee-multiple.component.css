@@ -1,0 +1,252 @@
+.label-xxl{
+  font-size: 4vh;
+  margin-top: 50px;
+  margin-bottom: 3%;
+  color : rgb(74, 56, 177);
+}
+.label-xl{
+  font-size: 3vh;
+  margin-top: 3%;
+}
+
+.label-a{
+  font-size: 1.5vh;
+  color: rgb(74, 56, 177);
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.label-l{
+  font-size: large;
+  color: rgb(74, 56, 177);
+  font-weight: bolder;
+}
+.label-m{
+  font-size: medium;
+  color: rgb(74, 56, 177);
+  font-weight: bolder;
+}
+.label-s{
+  font-size: 1.5vh;
+  color: rgb(74, 56, 177);
+}
+.saisie-number{
+  width: 4.2vh; margin-top: -0.5vh; margin-left: 1vh; text-align: right; font-size: 2vh;
+}
+
+#main{
+  margin-top: 3%; border-radius: 10px 10px 10px 10px; border: 3px solid rgb(235, 231, 240); padding: 0% 2% 0% 5%;
+}
+li.question::marker{
+  font-size: 3vh;
+  color:rgb(74, 56, 177);
+  right : 15%;
+}
+li.modalite::marker{
+  font-size: large;
+  color:rgb(74, 56, 177);
+  position: relative;
+  right : 2%;
+}
+li.ligne::marker{
+  font-size: large;
+  color:rgb(74, 56, 177);
+  position: relative;
+  right : 2%;
+}
+li.colonne::marker{
+  font-size: large;
+  color:rgb(74, 56, 177);
+  position: relative;
+  right : 2%;
+}
+.input-border-bottom{
+  border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
+  border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+}
+.libelle-question{
+  margin-top: 3%;
+}
+.img_toolbox{
+  cursor: pointer; border: 1px thin rgb(217, 215, 231); border-radius: 1vh 1vh 1vh 1vh; width: 5vh; height: 5vh; min-width: 4vh;min-height: 4vh;
+}
+.img_toolbox:hover{
+  cursor: pointer; border: 4px solid rgb(228, 225, 243); border-radius: 1vh 1vh 1vh 1vh; width: 5vh; height: 5vh; min-width: 4vh;min-height: 4vh;
+}
+.img_actions{
+  cursor: pointer; width: 35px; height: 35px; margin-top: -10px; margin-left: -65px;
+}
+.toolbox {
+  display: block; position: fixed; left: 0; width: 50px; top: 20%;
+}
+.li-toolbox{
+  margin-bottom: 3px; margin-left: -30px; list-style-type: none;
+}
+.question{
+  background-color: rgb(240, 236, 239); padding: 1%; border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+  background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%)
+}
+.type-question{
+  color: white;
+  font-size: 2vh;
+}
+.head-question{
+  margin-top: -0.5vh;
+}
+
+@-moz-document url-prefix() {
+  .head-question{
+      margin-top: 0px;
+  }
+}
+
+/* head question */
+.ancre{
+  cursor: grab;
+}
+.img_collapse{
+  cursor: pointer; width: 4vh; height: 4vh; margin-top: -0.6vh; border-radius: 5px 5px 5px 5px;
+}
+.remove-question{
+  float: right;
+  width: 4vh;
+  height: 4vh;
+  cursor: pointer;
+  margin-top: -0.5vh;
+}
+.form-switch .form-check-input:checked {
+  background-color: rgb(74, 62, 143); border-color: rgb(192, 189, 212);
+}
+.modalite{
+  width: 90%; padding-left:1em;
+}
+.btn-modalite{
+  margin-left: 20px;
+}
+.input-modalite{
+  width: 60%;
+}
+.input-ligne{
+  width: 70%;
+} */
+.input-colonne{
+  width: 70%;
+}
+.label-modalite{
+  width: 20%;
+}
+.select-modalite{
+  width: 25%;
+  margin-top: -10px;
+  margin-left: 15px;
+}
+.select-question{
+  width: 10%;
+  margin-top: -10px;
+  margin-left: 15px;
+}
+.btn-modal{
+  border: 4px solid rgb(156, 148, 193);
+  border-radius: 6px 6px 6px 6px;
+  color: rgb(74, 56, 117);
+  font-size: large;
+  padding: 1%;
+  background-color:white;
+  width: 20%;
+  height: 1%;
+}
+.footer-right{
+  margin-left: 25px;
+  margin-top: 5px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.lien{
+  font-size: small;
+  margin-left: 2%;
+  color : rgb(74, 56, 177);
+}
+.modal-title{
+  color : rgb(74, 56, 177);
+  font-size: x-large;
+}
+.branchement{
+  margin-top: 3%; width: 100%; border-radius: 5px 5px 5px 5px; border: 5px solid rgb(194, 185, 212);
+}
+.modal-footer, .modal-header{
+  background-color: rgb(242, 241, 248);
+}
+table {
+  border-width:3px;
+  border-style:solid;
+}
+td {
+  border-width:1px;
+  border-style:solid;
+}
+th{
+  min-width: 15vh;
+}
+.textarea{
+  width: 100%; margin-top: 1%; border-radius: 5px 5px 5px 5px; border: 5px solid rgb(194, 185, 212); float:right;
+}
+
+label > input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+label > input[type=checkbox] + img {
+  cursor: pointer;
+}
+
+.rating{
+  padding: 2%;
+}
+.notation-denominateur{
+  color: rgb(74, 56, 177);
+}
+.note{
+  padding: 2%;
+  margin: auto; text-align: center;
+  display: flex; content: center; vertical-align: middle; border: 4px rgb(69, 32, 161) solid; border-radius: 50% 50% 50% 50%; width: 6em; height: 6em;
+  box-shadow: 0 20px 30px rgb(156, 148, 193);
+}
+.note-echelle{
+  margin: auto; text-align: center;
+  display: flex; content: center; vertical-align: middle; border: 2px rgb(69, 32, 161) solid; border-radius: 50% 50% 50% 50%;  width: 3em; height: 3em;
+  box-shadow: 0 20px 30px rgb(156, 148, 193);
+}
+.message{
+  position:fixed;
+  padding: 2%;
+  top:40%;
+  left:40%;
+  margin: auto;
+  background-color:rgb(228, 225, 243);
+  color: rgb(45, 35, 105);
+  border: solid 2px rgb(45, 35, 105);
+  min-width: 250px;
+  min-height: 100px;
+  max-width:500px;
+  max-height: 300px;
+  border-radius: 10px 10px 10px 10px
+}
+.intitule{
+  font-size: 3vh;
+}
+#intituleQuestionnaireVide{
+  width: fit-content;
+}
+
+.bouton-label-modalite{
+  border: none; background-color: transparent;font-size: 1.5vh; color:rgb(74, 56, 117);cursor: none;
+}
+.bouton-modalite{
+  font-size: 1.3vh; color:rgb(74, 56, 117); border:3px solid #B591E0; padding: 3px;
+}
+.bouton-modalite:hover{
+  background-color:rgb(74, 56, 117); border:3px solid #B591E0;; color: white; padding: 3px;
+}

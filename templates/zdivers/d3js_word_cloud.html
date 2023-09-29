@@ -1,0 +1,196 @@
+﻿{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau questionnaire</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/new_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="//cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="//cdn.amcharts.com/lib/5/wc.js"></script>
+    <script src="//cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        #chartdiv {
+            width: 100%;
+            height: 95vh;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <body>
+        <h1 id="chartdiv" class="" style="margin-top: 100px; color: rgb(74,56,117)"></h1>
+        <!-- <div id="chartdiv"></div> -->
+
+
+        {% block script %}
+        <script>
+
+            $( document ).ready(function() {
+
+                    // * This demo was created using amCharts 5.
+                    // *
+                    // * For more information visit:
+                    // * https://www.amcharts.com/
+                    // *
+                    // * Documentation is available at:
+                    // * https://www.amcharts.com/docs/v5/
+   
+
+                    // Create root element
+                    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                    var root = am5.Root.new("chartdiv");
+
+
+                    // Set themes
+                    // https://www.amcharts.com/docs/v5/concepts/themes/
+                    root.setThemes([
+                    am5themes_Animated.new(root)
+                    ]);
+
+
+                    // Add wrapper container
+                    var container = root.container.children.push(am5.Container.new(root, {
+                    width: am5.percent(100),
+                    height: am5.percent(100),
+                    layout: root.verticalLayout
+                    }));
+
+
+                    // Add chart title
+                    var title = container.children.push(am5.Label.new(root, {
+                    text: "Que voyez-vous comme autres évolutions indispensables ?",
+                    fontSize: 20,
+                    x: am5.percent(50),
+                    centerX: am5.percent(50)
+                    }));
+
+
+                    // Add series
+                    // https://www.amcharts.com/docs/v5/charts/word-cloud/
+                    var series = container.children.push(am5wc.WordCloud.new(root, {
+                    categoryField: "tag",
+                    valueField: "weight",
+                    calculateAggregates: true // this is needed for heat rules to work
+                    }));
+
+
+                    // Set up heat rules
+                    // https://www.amcharts.com/docs/v5/charts/word-cloud/#Via_heat_rules
+                    series.set("heatRules", [{
+                    target: series.labels.template,
+                    dataField: "value",
+                    min: am5.color(0xFFD4C2),
+                    max: am5.color(0xFF621F),
+                    key: "fill"
+                    }]);
+
+
+                    // Configure labels
+                    series.labels.template.setAll({
+                    paddingTop: 5,
+                    paddingBottom: 5,
+                    paddingLeft: 5,
+                    paddingRight: 5,
+                    fontFamily: "Courier New",
+                    cursorOverStyle: "pointer"
+                    });
+
+
+                    // Add click event on words
+                    // https://www.amcharts.com/docs/v5/charts/word-cloud/#Events
+                    series.labels.template.events.on("click", function(ev) {
+                    const category = ev.target.dataItem.get("category");
+                    window.open("https://stackoverflow.com/questions/tagged/" + encodeURIComponent(category));
+                    });
+
+
+                    // Data from:
+                    // https://insights.stackoverflow.com/survey/2021#section-most-popular-technologies-programming-scripting-and-markup-languages
+                    series.data.setAll([
+                        {tag: "calcul", weight:5},
+                        {tag: "confirmation", weight:5},
+                        {tag: "contributions", weight:5},
+                        {tag: "ensemble", weight:5},
+                        {tag: "entretien", weight:5},
+                        {tag: "EVM", weight:5},
+                        {tag: "fiche", weight:5},
+                        {tag: "financier", weight:5},
+                        {tag: "infos", weight:5},
+                        {tag: "siren", weight:5},
+                        {tag: "enjeu", weight:6},
+                        {tag: "erreur", weight:6},
+                        {tag: "GAF", weight:6},
+                        {tag: "message", weight:6},
+                        {tag: "application", weight:7},
+                        {tag: "Fibre", weight:7},
+                        {tag: "filtres", weight:7},
+                        {tag: "holding", weight:7},
+                        {tag: "liens", weight:7},
+                        {tag: "taches", weight:7},
+                        {tag: "gestion", weight:8},
+                        {tag: "indicateur", weight:8},
+                        {tag: "proposition", weight:8},
+                        {tag: "attribuer", weight:9},
+                        {tag: "dynamique", weight:9},
+                        {tag: "mieux", weight:9},
+                        {tag: "double", weight:10},
+                        {tag: "DPE", weight:10},
+                        {tag: "excel", weight:10},
+                        {tag: "IBM", weight:10},
+                        {tag: "endettement", weight:11},
+                        {tag: "possible", weight:11},
+                        {tag: "agents", weight:12},
+                        {tag: "ann", weight:12},
+                        {tag: "fibre", weight:12},
+                        {tag: "meilleure", weight:12},
+                        {tag: "tableau", weight:12},
+                        {tag: "bouton", weight:13},
+                        {tag: "impact", weight:13},
+                        {tag: "Pour", weight:13},
+                        {tag: "modification", weight:14},
+                        {tag: "perte", weight:14},
+                        {tag: "attente", weight:15},
+                        {tag: "classe", weight:16},
+                        {tag: "ECOFIN", weight:17},
+                        {tag: "bug", weight:18},
+                        {tag: "alerte", weight:20},
+                        {tag: "automatique", weight:20},
+                        {tag: "processus", weight:20},
+                        {tag: "regard", weight:20},
+                        {tag: "risque", weight:20},
+                        {tag: "suppression", weight:20},
+                        {tag: "FQG", weight:21},
+                        {tag: "compte", weight:23},
+                        {tag: "exemple", weight:23},
+                        {tag: "regulateur", weight:23},
+                        {tag: "jour", weight:23},
+                        {tag: "retraitement", weight:27},
+                        {tag: "analyste", weight:29},
+                        {tag: "commentaire", weight:29},
+                        {tag: "entreprise", weight:31},
+                        {tag: "outil", weight:32},
+                        {tag: "analyse", weight:34},
+                        {tag: "bilan", weight:40},
+                        {tag: "cran", weight:40},
+                        {tag: "FQE", weight:41},
+                        {tag: "pouvoir", weight:43},
+                        {tag: "filiale", weight:44},
+                        {tag: "ratio", weight:44},
+                        {tag: "agi", weight:51},
+                        {tag: "anacot", weight:51},
+                        {tag: "groupe", weight:53}
+                        // {tag: "dossier", weight:215},
+                        // {tag: "cotation", weight:220}
+                    ]);
+            });
+        </script>
+        {% endblock %}   
+    </body>
+{% endblock %}

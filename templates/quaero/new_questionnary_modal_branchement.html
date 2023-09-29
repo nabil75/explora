@@ -1,0 +1,39 @@
+﻿{% load static %}
+    <!-- Modal branchement-->
+    <div class="modal fade" id="branchementModal" tabindex="-1" aria-labelledby="branchementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title" id="branchementModalLabel" style="width: 95%"></label>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="div_branchement_modal_body">
+                    <div class="d-flex justify-content-center d-block" style="margin-bottom: 15px;">
+                        <input id="branchement_index_question" placeholder="Index" value=""/>
+                        <input id="branchement_libelle_question" placeholder="Question" value=""/>
+                        <input id="branchement_list_modalites" placeholder="Modalités" value=""/>
+                        <input id="branchement_list_questions" placeholder="Liste des indexes des questions suivantes" value=""/>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <h4 class="label-l">Quelle que soit la réponse passer à la question </h4>
+                        <select class="form-select select-question" id="branchement_select_questions"></select> 
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <h3 style="color : rgb(74, 56, 177);">OU</h3>
+                    </div>
+                    <hr>
+                    <div id="div_branchements">
+
+                    </div>                    
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-link lien" onclick="add_branchement()">ajouter un branchement</button> 
+                </div>
+                
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn-modal" onclick="validate_branchement()">Valider</button> -->
+                </div>
+            </div>
+        </div>
+    </div>

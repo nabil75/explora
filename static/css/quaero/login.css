@@ -1,0 +1,56 @@
+﻿
+.flag{
+    border-radius: 50% 50% 50% 50%;
+    cursor: pointer;
+    margin-top: 10%;
+    border: rgb(250, 247, 247) solid 2px;
+}
+input {
+    background-color: white !important;
+    border-radius: 0 0 0 0 !important;
+    border-bottom: 1px solid gray !important;
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
+    box-shadow: none !important;
+    margin-top: 25px !important;
+    outline: none !important;
+}
+.titre{
+    font-size: 3vh;
+    color: gray;
+}
+.lien{
+    float: right; 
+    font-size: 2vh;
+}
+.btn-action {
+    margin-top: 25px;
+    text-align: left;
+}
+.centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.container{
+    height: 100%;
+}
+.bloc {
+    margin-top: 5%;
+}
+#btnGroupAddon{
+    background-color: transparent;
+    border-bottom: 1px solid gray !important;
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
+    border-radius: 0 0 0 0;
+}
+input:-webkit-autofill{
+    box-shadow: 0 0 0 30px white inset !important;
+}
+span{
+    margin-top: 5px;
+}

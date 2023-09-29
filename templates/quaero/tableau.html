@@ -1,0 +1,43 @@
+﻿<!-- {% load static %} -->
+<li class="question">
+    <input class="d-none" value="tableau"/>
+    <div class="d-flex justify-content-between  head-question">
+        <img class=" ui-sortable handle ancre" src="{%  static '/images/quaero/ancre.png' %}"  title="Saisissez ici le pavé question pour le déplacer" width="25px" height="25px" />
+        <h5 class="type-question">Question fermée de type <strong class="text-uppercase">tableau</strong></h5>
+        <div>
+            <img class="remove-question" src="{%  static '/images/quaero/supprimer.png' %}"  title="Supprimer la question" onclick='remove_question(this)'/>
+            <img name="img_reduce" class="img_collapse" src="{%  static '/images/quaero/collapse.png' %}"  title="Réduire la question" onclick='collapse_question(this)'/>
+        </div>
+    </div>
+    <input class="form-control input-border-bottom libelle-question"  placeholder="Libellé de la question" />
+    <div class="div_modalites">
+        <div class="d-flex justify-content-between">
+            <div class="div_lignes col-lg-5">
+                <ol class="lignes">
+                    {% include 'quaero/ligne.html' %}
+                    {% include 'quaero/ligne.html' %}
+                </ol>
+                <button type="button" class="btn btn-link lien" onclick="add_ligne(this)">ajouter ligne</button> 
+            </div>
+            <div class="div_colonnes col-lg-5">
+                <ol class="colonnes">
+                    {% include 'quaero/colonne.html' %}
+                    {% include 'quaero/colonne.html' %}
+                </ol>
+                <button type="button" class="btn btn-link lien" onclick="add_colonne(this)">ajouter colonne</button> 
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label label-s">Obligatoire</label>
+        </div>
+        <img class="img_actions" src="{%  static '/images/quaero/jump.png' %}"  title="Définir un branchement conditionnel" onclick="display_modal_branchement(this)"/>
+        <img class="align-items-start footer-right" src="{%  static '/images/quaero/eye.png' %}" title="Voir le résultat" onclick="display_question_tableau(this)"/>
+    </div>
+    <div>
+        <textarea class="branchement d-block" placeholder="Branchement" readonly></textarea>
+    </div>
+</li>

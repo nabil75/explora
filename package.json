@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "angular": "^1.6.10",
+    "circular-json": "^0.5.9"
+  }
+}

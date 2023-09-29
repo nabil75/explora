@@ -1,0 +1,142 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Clean</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/clean/clean.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-5 rounded">
+        <div><img src="{%  static '/images/clean/clean_file.png' %}" width="8%" height="10%"/><label class="label-xxl">Préparer votre jeu de données</label></div>
+        {% include 'common/spinner.html' %}
+        <label for="file" class="form-label label-xl" >Sélectionner un fichier </label>
+        <input class="form-control" list="listFiles" id="file" placeholder="Saisissez tout ou partie du nom ">
+        <datalist id="listFiles">
+            {% for file in list_files %}
+                <option value="{{ file }}">{{ file }}</option>
+            {% endfor %}
+        </datalist>
+        <br>
+
+        <div id="selectColonnes" class="d-none">
+            <label class="form-label label-xl">Selectionner une colonne (variable)</label>
+            <select class="form-select" id="single-select-column" data-placeholder="Choisir une colonne">
+
+            </select>
+            <br>
+            <button class="btn btn-actions" id="afficherResumeColonne">Vue générale</button>
+            <button class="btn btn-actions" id="supprimerColonne">Supprimer</button>
+        </div>
+        <div id="dataColonne" class="row" style="margin-top: 50px">
+            <div id="resumeColonne" class="col-sm-2"></div>
+            <div class="col-sm-10"><img id="chartColonne" src=""/></div>
+        </div>
+
+        <textarea id="contentColonne" class="col-lg-12 d-none"></textarea>
+
+        <h4 id="message"></h4>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}   
+    <script>
+        $(document).ready(function() {
+            $( '#single-select-column' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                closeOnSelect: true,
+            });
+        });
+
+        $('#file').on('change', function () {
+
+            showSpinner();
+            $.ajax({
+                url: "{% url 'get_list_colonnes' %}",
+                method: 'get',
+                data: {
+                    file: $('#file').val()
+                },
+                success: function (response) {
+                    afficherListColonnes(response)
+                    hideSpinner();
+                }
+            });
+        });
+
+        $('#afficherResumeColonne').on('click', function () {
+            showSpinner();
+            $.ajax({
+                url: "{% url 'get_overview' %}",
+                method: 'get',
+                async: false,
+                data: {
+                    file: $('#file').val(),
+                    colonne: $('#single-select-column').val()
+                },
+                success: function (response) {
+                    var opened = window.open($('#single-select-column').val(), "_blank");
+                    opened.document.write(response.overview);
+                    //setTimeout(function() {}, 1000);
+                    hideSpinner();
+                },
+                error: function() {
+                    // J'affiche un message d'erreur
+                    box.html("Désolé, aucun résultat trouvé.");
+                }
+            });
+        });
+
+        function changeFavicon() {
+            var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+            link.type = 'image/x-icon';
+            link.rel = 'shortcut icon';
+            link.href = 'static/images/robot.png';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        };
+
+        $('#supprimerColonne').on('click', function () {
+            showSpinner();
+            $.ajax({
+                url: "{% url 'delete_column' %}",
+                method: 'get',
+                data: {
+                    file: $('#file').val(),
+                    colonne: $('#single-select-column').val()
+                },
+                success: function (response) {
+                    document.getElementById('single-select-column').innerHTML = "";
+                    afficherListColonnes(response)
+                    hideSpinner();
+                }
+            });
+        });
+
+        function afficherListColonnes(response){
+            var data = []
+            var elemResponse = response.split(',')
+            for (var m = 0; m < elemResponse.length; m++) {
+                var elem = elemResponse[m];
+                elem = elem.replace("'", '').replace("'", '').replace("[", '').replace("]", '').replace("\"", '');
+                data.push(elem);
+            }
+            var unique = data.filter((v, i, a) => a.indexOf(v) === i);
+            var unique = unique.sort();
+            var datalist = document.getElementById('single-select-column');
+            var len = unique.length
+            $("#single-select-column").empty();
+            for (var i = 0; i < len; i++) {
+                var option = document.createElement("option");
+                var textOption = document.createTextNode(unique[i]);
+                option.appendChild(textOption);
+                datalist.appendChild(option);
+            }
+            $('#selectColonnes').attr('class', 'd-block');
+        }
+    </script>
+{% endblock %}

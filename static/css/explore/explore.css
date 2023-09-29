@@ -1,0 +1,36 @@
+﻿.label-xxl{
+    font-size: 4vh; 
+    font-weight: bold;
+    margin-left: 2%;
+    color : rgb(91, 125, 175);
+}
+.label-xl{
+    font-size: 3vh;
+    margin-top: 3%;
+}
+td{
+    float: right;
+    padding: 5px;
+}
+.btn-actions{
+    width: 8em;
+}
+.twocolumns {
+    width: 100%;
+    -moz-column-count: 5;
+    -moz-column-gap: 10px;
+    -webkit-column-count: 5;
+    -webkit-column-gap: 10px;
+    column-count: 5;
+    column-gap: 10px;
+    padding: 2%;
+}
+
+h5{
+    color: brown;
+}
+
+option{
+    color: royalblue;
+}
+

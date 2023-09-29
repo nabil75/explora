@@ -1,0 +1,52 @@
+﻿<!-- {% load static %} -->
+<li class="question">
+    <input class="d-none" value="fermee_simple"/>
+    <div class="d-flex justify-content-between  head-question" >
+        <img class="ui-sortable handle ancre" src="{%  static '/images/quaero/ancre.png' %}"  title="Saisissez ici le pavé question pour le déplacer" />
+        <h5 class="type-question">Question fermée à choix <strong class="text-uppercase">unique</strong></h5>
+        <div>
+            <img class="remove-question" src="{%  static '/images/quaero/supprimer.png' %}"  title="Supprimer la question" onclick='remove_question(this)'/>
+            <img name="img_reduce" class="img_collapse" src="{%  static '/images/quaero/collapse.png' %}"  title="Réduire la question" onclick='collapse_question(this)'/>
+        </div>
+    </div>
+    <input class="form-control input-border-bottom libelle-question"  placeholder="Libellé de la question" />
+    <div class="div_modalites">
+        <ol class="modalites">
+            {% include 'quaero/modalite.html' %}
+            {% include 'quaero/modalite.html' %}
+        </ol>
+    </div>
+    <div style="padding: 20px;">
+        <a href="#" class="label-s" onclick="display_options_modalite(this)">Ajouter modalité <img src="{%  static '/images/quaero/plus.png' %}" title="Afficher les options" width="30vh" height="30vh" style="padding: 5px"/></a>
+            <ul class="d-none">
+                <li style="display: inline;">
+                    <img src="{%  static '/images/quaero/trait_modalite.png' %}" width="20vh" height="20vh">
+                </li>
+                <li style="display: inline;">
+                    <button type="button" class="btn btn-default bouton-modalite" onclick="add_modalite(this)">Simple</button>
+                </li>
+                <li style="display: inline;">
+                    <button type="button" class="btn btn-default bouton-modalite autre" onclick="add_modalite_autre(this)">Autre</button>
+                </li>
+                <li style="display: inline;">
+                    <button type="button" class="btn btn-default bouton-modalite nsp" onclick="add_modalite_nsp(this)">Ne sait pas</button>
+                </li>
+                <li style="display: inline;">
+                    <button type="button" class="btn btn-default bouton-modalite nc" onclick="add_modalite_nc(this)">Non concerné</button>
+                </li>
+            </ul>
+        <span class="d-none">Une question ne peut comporter 2 modalités 'Autre'</span>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox">
+            <label class="form-check-label label-s">Obligatoire</label>
+        </div>
+        <img class="img_actions btn-branchement" src="{%  static '/images/quaero/jump.png' %}"  title="Définir un branchement conditionnel" onclick="display_modal_branchement(this)"/>
+        <img class="align-items-start footer-right" src="{%  static '/images/quaero/eye.png' %}" title="Voir le résultat" onclick="display_question_fermee_unique(this)"/>
+    </div>
+    <div>
+        <textarea class="branchement d-block" placeholder="Branchement" readonly></textarea>
+    </div>
+</li>

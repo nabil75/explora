@@ -1,0 +1,45 @@
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.position}} </mat-cell>
+    </ng-container>
+
+    <!-- Intitule Column -->
+    <ng-container matColumnDef="intitule">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Intitulé </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.intitule}} </mat-cell>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date Création</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.date | date:'dd/MM/yyyy HH:mm:ss'}} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <img [routerLink]="['/edit-questionnary', row.position]" [ngClass]="'img-action'" id="img_modifier" src="assets/images/quaero/crayon.png" (click)="editRow(row.position)"  title="Modifier le questionnaire"/>
+        <img [ngClass]="'img-action'" id="img_afficher" src="assets/images/quaero/saisie.png" title="Afficher le questionnaire"/>
+        <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" (click)="deleteRow(row.position)" title="Supprimer le questionnaire"/>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

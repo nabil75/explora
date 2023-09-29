@@ -1,0 +1,78 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+    {% block style %}
+    <style>
+        /* body{
+          background-image: url('{% static "images/auth/animated_wallpaper.gif"%}');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          background-size: 10%;
+        } */
+
+    </style>
+    {% endblock %}
+    
+    {% block content %}
+      <!-- <marquee class="d-flex justify-content-center" direction="up" scrollamount="2" style="color: rgb(168, 167, 167); margin-top: 50px; font-size: 4vh;">{% trans 'baseline' %}</marquee> -->
+      <label id="baseline" class="d-flex justify-content-center" style="color: rgb(168, 167, 167); margin-top: 100px; font-size: 2vh;">{% trans 'baseline' %}</label>
+      <img class="freezeframe" src="{%  static '/images/auth/animated_wallpaper.gif' %}"/>
+    {% endblock %}
+    {% block script %}   
+    <script src="https://unpkg.com/freezeframe/dist/freezeframe.min.js"></script>
+    <script>
+      $( document ).ready(function() {
+        colorBaseline();
+        // setup freezeframe instance
+        const logo = new Freezeframe({
+        trigger: "click"
+      });
+      });
+
+
+
+      function colorBaseline(){
+        var str = document.getElementById('baseline').innerText;
+        str = str.toString();
+        document.getElementById('baseline').innerHTML = colorMe(str);
+      }
+
+      //setInterval(colorBaseline, 2000); // Repeat myFunction every 2 seconds
+
+      function generateRandomColor(){
+        var min = 73; //Math.ceil(min);
+        var max = 209; //Math.floor(max);
+        var r = Math.floor(Math.random() * (max - min + 1) + min);
+        var g = Math.floor(Math.random() * (max - min + 1) + min);
+        var b = Math.floor(Math.random() * (max - min + 1) + min);
+        return "rgb("+r+","+g+","+b+")";
+      }
+        
+      function colorMe1(str){
+        var newStr ="";
+        newStr = "<span style='color:"+generateRandomColor()+";'>"+str+"</span>";
+        return newStr;
+      }
+
+      function colorMe(str){
+        var strWords = str.split("&nbsp;");
+        var strWords = str.split(" ");
+        
+        var newStr ="";
+        for(var i = 0; i<strWords.length;i++){
+          var word = strWords[i].trim()+"&nbsp;";
+          var htmlWord="";
+          if(strWords[i]=="UNDERSTANDMYMARKET"){
+            htmlWord = "<span style='color:"+generateRandomColor()+";font-weight: bolder;'>"+word+"</span>";
+          }else{
+            htmlWord = "<span>"+word+"</span>";
+          }
+          
+          newStr = newStr+htmlWord;
+        }
+        return newStr.trim();
+      }
+    </script>
+    {% endblock %}

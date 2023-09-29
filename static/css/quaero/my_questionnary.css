@@ -1,0 +1,29 @@
+﻿.img_actions{
+    cursor: pointer; width: 3vh; height: 3vh;
+    margin-right: 10px;
+}
+.label-xxl{
+    font-size: 4vh; 
+    margin-bottom: 3%;
+    color : rgb(74, 56, 177);
+    margin-top: 50px;
+}
+table {
+    border-width:3px; 
+    border-style:solid; 
+}
+.message{
+    position:fixed;
+    padding: 2%;
+    top:40%;
+    left:40%;
+    margin: auto;
+    background-color:rgb(228, 225, 243);
+    color: rgb(45, 35, 105);
+    border: solid 2px rgb(45, 35, 105);
+    min-width: 250px;
+    min-height: 100px;
+    max-width:500px;
+    max-height: 300px; 
+    border-radius: 10px 10px 10px 10px
+}

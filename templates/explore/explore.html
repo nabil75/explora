@@ -1,0 +1,157 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Explore</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/explore/explore.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="bg-light p-5 rounded">
+        <div><img src="{%  static '/images/explore/explore_file.png' %}" width="8%" height="10%"/><label class="label-xxl">Explorer votre jeu de données</label></div>
+        {% include 'common/spinner.html' %}
+        <div>
+            <label for="file" class="form-label label-xl">Sélectionner un fichier </label>
+            <input class="form-control" list="listFiles" id="file" placeholder="Saisissez tout ou partie du nom ">
+            <datalist id="listFiles">
+                {% for file in list_files %}
+                    <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <br>
+        <div id="listMostCle" class="d-none">
+            <label for="foodsDataList" class="form-label label-xl">Rechercher un produit </label>
+            <input class="form-control" list="datalistOptions" id="foodsDataList" placeholder="Saisissez un mot clé">
+            <datalist id="datalistOptions">
+                {% for mot in mots_cle %}
+                    <option value="{{ mot }}">{{ mot }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="twocolumns" id="listProduits"></div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+        <div class="p-2 bd-highlight">
+            <h5 id="produitChoisi" class="h5-color"></h5>
+            <div id="infoProduit"></div>
+        </div>
+        <div class="p-2 bd-highlight">
+            <h5 id="categorie_produit" class="h5-color"></h5>
+            <div id="infoProduit1"></div>
+        </div>
+        <div class="p-2 bd-highlight">
+            <h5 id="tous_produit" class="h5-color"></h5>
+            <div id="infoProduit2"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}   
+    <script>
+        $(document).ready(function() {
+        
+        });
+
+        $('#file').on('change', function () {
+
+            showSpinner();
+            $.ajax({
+                url: "{% url 'get_list_mots_cle' %}",
+                method: 'get',
+                data: {
+                    file: $('#file').val()
+                },
+                success: function (response) {
+                    $("#listFiles").empty();
+                    var data = []
+                    var elemResponse = response.split(',')
+                    for (var m = 0; m < elemResponse.length; m++) {
+                        var elem = elemResponse[m];
+                        elem = elem.replace("'", '').replace("'", '').replace("[", '').replace("]", '').replace("\"", '');
+                        data.push(elem);
+                    }
+                    var unique = data.filter((v, i, a) => a.indexOf(v) === i);
+                    var unique = unique.sort();
+                    var datalist = document.getElementById('datalistOptions');
+                    var len = unique.length
+                    for (var i = 0; i < len; i++) {
+                        var option = document.createElement("option");
+                        var textOption = document.createTextNode(unique[i]);
+                        option.appendChild(textOption);
+                        datalist.appendChild(option);
+                    }
+                    $('#listMostCle').attr('class', 'd-block');
+                    hideSpinner();
+                }
+            });
+        });
+        $('#foodsDataList').on('change', function () {
+            showSpinner();
+            $.ajax({
+                url: "{% url 'get_list_product' %}",
+                method: 'get',
+                data: {
+                    produit: $('#foodsDataList').val(),
+                    file: $('#file').val()
+                },
+                success: function (response) {
+                    var data = []
+                    var elemResponse = response.split(',')
+                    for (var m = 0; m < elemResponse.length; m++) {
+                        var elem = elemResponse[m];
+                        elem = elem.replace("'", '').replace("'", '').replace("[", '').replace("]", '').replace("\"", '');
+                        data.push(elem);
+                    }
+                    var unique = data.filter((v, i, a) => a.indexOf(v) === i);
+                    $('#listProduits').html('');
+                    var div = document.getElementById('listProduits');
+                    var ul = document.createElement("ul");
+                    var len = unique.length
+                    for (var i = 0; i < len; i++) {
+                        var li = document.createElement("li");
+                        li.setAttribute('class', 'produit')
+                        var a = document.createElement("a")
+                        a.setAttribute('id', 'product_' + i)
+                        a.setAttribute('href', '#');
+                        a.setAttribute('onclick', 'clickOnProduct(this.id)')
+                        var textLi = document.createTextNode(unique[i]);
+                        a.appendChild(textLi);
+                        li.appendChild(a)
+                        ul.appendChild(li);
+                    }
+                    div.appendChild(ul);
+                    hideSpinner();
+                }
+            });
+        });
+
+        function clickOnProduct(id) {
+            var product_name = $('#' + id).text().trim();
+            $('#produitChoisi').html(product_name);
+            $('#categorie_produit').html('Produits à scrore nutritionnel équivalent');
+            $('#tous_produit').html('Tous les produits');
+            $.ajax({
+                url: "{% url 'get_info_product' %}",
+                method: 'get',
+                data: {
+                    produit: product_name,
+                    file: $('#file').val()
+                },
+                success: function (response) {
+                    var div = document.getElementById('infoProduit');
+                    var rep1 = response.produit
+                    div.innerHTML = rep1
+                    var rep2 = response.categorie
+                    var div = document.getElementById('infoProduit1');
+                    div.innerHTML = rep2
+                    var rep3 = response.tous
+                    var div = document.getElementById('infoProduit2');
+                    div.innerHTML = rep3
+                }
+            });
+        }
+    </script>
+{% endblock %}

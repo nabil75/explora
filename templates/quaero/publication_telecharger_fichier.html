@@ -1,0 +1,30 @@
+﻿{% load static %}
+
+ <!-- Modal télécharger fichier csv -->
+    <div class="modal fade bd-example-modal-sm" id="telechargerFichierModal" tabindex="-1" role="dialog" aria-labelledby="telechargerFichierModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_telecharger_fichier" class="telecharger-fichier">
+                    <h5>Veuillez télécharger un fichier au format CSV</h5>
+                    <form method="POST" enctype="multipart/form-data" style="padding: 10px">
+                        {% csrf_token %}
+                        <input class="form-control" type="file" name="document" id="document" required="required">
+                        <br>
+                        <button class="btn btn-action" id="submit">Télécharger</button>
+                    </form>
+                    <br>
+                    {% block messages %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <h5 style="color: royalblue">{{ message }}</h5>
+                            {% endfor %}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+    </div>

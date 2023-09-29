@@ -1,0 +1,47 @@
+﻿{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau questionnaire</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/my_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="bg-light p-5 rounded">
+    <div class="d-flex justify-content-between">
+        <label class="label-xxl">Mes questionnaires</label>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 6%; text-align: center">#</th>
+            <th scope="col" style="text-align: center">Intitulé questionnaire</th>
+            <th scope="col" style="width: 15%; text-align: center">Date création</th>
+            <th scope="col" style="width: 15%; text-align: center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for questionnary in list_questionnary %}
+            <tr>
+                <th scope="row" style="text-align: center">{{questionnary.0}}</th>
+                <td>{{questionnary.1}}</td>
+                <td style="width: 15%; text-align: center">{{questionnary.2}}</td>
+                <td style="width: 15%; text-align: center">
+                    <a href="{% url 'edit_questionnary' questionnary.0 %}" ><img class="img_actions" id="img_modifier" src="{%  static '/images/quaero/crayon.png' %}" title="Modifier le questionnaire"/></a>
+                    <a href="{% url 'display_questionnary' questionnary.0 %}" ><img class="img_actions" id="img_modifier" src="{%  static '/images/quaero/saisie.png' %}" title="Afficher le questionnaire"/></a>
+                    <img class="img_actions" id="img_supprimer" src="{%  static '/images/quaero/corbeille_noir.png' %}" data-url="{% url 'suppr_questionnary' %}" onclick="suppr_questionnary(this)" title="Supprimer le questionnaire"/>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    
+{% endblock %}
+{% block script %}   
+<script src="{%  static '/js/quaero/my_questionnary/my_questionnary.js' %}"></script>
+
+{% endblock %}

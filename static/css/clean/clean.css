@@ -1,0 +1,21 @@
+﻿.label-xxl{
+    font-size: 4vh; 
+    font-weight: bold;
+    margin-left: 2%;
+    color : rgb(74, 56, 177);
+}
+.label-xl{
+    font-size: 3vh; 
+    margin-top: 3%;
+}
+.btn-actions{
+    width: 8em;
+    float: right;
+    margin-left: 10px;
+    color: white;
+    background-color: rgb(74, 56, 177);
+    font-weight: bolder;
+};
+textarea{
+    width: 100%;
+}

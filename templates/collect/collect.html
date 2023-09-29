@@ -1,0 +1,39 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}<title>Collect</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/collect/collect.css' %}" />
+{% endblock %}
+{% block content %}
+    <div class="bg-light p-5 rounded">
+        <div><img src="{%  static '/images/collect/download_file.png' %}" width="8%" height="10%"/><label class="label-xxl">Veuillez télécharger un fichier au format choisi</label></div>
+        {% include 'common/spinner.html' %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input class="form-control nom_fichier" type="file" name="document" id="document" required="required">
+            <br>
+            <button class="btn btn-actions" id="submit">Télécharger</button>
+        </form>
+        <br>
+        {% block messages %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h5 class="message">{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block script %}   
+    <script>
+        $(document).ready(function() {
+            $( '#single-select-column' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                closeOnSelect: true,
+            });
+        });
+    </script>
+{% endblock %}

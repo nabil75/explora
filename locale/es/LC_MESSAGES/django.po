@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-24 20:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\explora\settings.py:124
+msgid "English"
+msgstr "Inglés"
+
+#: .\explora\settings.py:125
+msgid "French"
+msgstr "Francés"
+
+#: .\explora\settings.py:126
+msgid "Spanish"
+msgstr "Española"
+
+#: .\templates\auth\index.html:18
+msgid "baseline"
+msgstr ""
+
+#: .\templates\navbar\navbar.html:16
+msgid "collect"
+msgstr "Recoger"
+
+#: .\templates\navbar\navbar.html:33
+msgid "clean"
+msgstr "Limpiar"
+
+#: .\templates\navbar\navbar.html:45
+msgid "explore"
+msgstr "Explorar"
+
+#: .\templates\navbar\navbar.html:57
+msgid "visualize"
+msgstr "Vista"
+
+#: .\templates\navbar\navbar.html:68
+msgid "useful_links"
+msgstr "Enlaces útiles"
+
+#: .\templates\navbar\navbar.html:79
+msgid "languages"
+msgstr "Idiomas"
+
+#: .\templates\quaero\login.html:21
+msgid "not_registred_yet"
+msgstr "Usted no se ha registrado"
+
+#: .\templates\quaero\login.html:39
+msgid "already_registred"
+msgstr "Ya estás registrado"
+
+#~ msgid "home"
+#~ msgstr "Bienvenida"
+
+#~ msgid "Welcome"
+#~ msgstr "Bienvenido"

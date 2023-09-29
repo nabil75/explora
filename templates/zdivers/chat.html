@@ -1,0 +1,41 @@
+﻿{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau questionnaire</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/new_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <input id="query"class="form-control" placeholder="Entrez ici votre question" style="margin-top: 150px;"/>
+    <button class="btn btn-primary" style="float: right;margin-top: 10px;" onclick="get_response()">Envoyer</button>
+</div>
+<div>
+    <textarea id="reponse" class="textarea" rows="10" placeholder="Réponse"></textarea>
+</div>
+
+{% endblock %}
+{% block script %}   
+
+    <script>
+
+        function get_response(){
+            $.ajax({
+                url: "{% url 'generate_response' %}",
+                method: 'get',
+                data: {
+                    query: $('#query').val()
+                },
+                success: function (output) {
+                    $('#reponse').val(output);
+                }
+            });
+        }
+    </script>
+   
+{% endblock %}

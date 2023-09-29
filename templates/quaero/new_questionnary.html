@@ -1,0 +1,175 @@
+{% extends 'common/common_lib.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}<title>Nouveau</title>{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{%  static '/css/quaero/new_questionnary.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+    <div class="toolbox">
+        <ul class="">
+            <li class="li-toolbox"><img class="img_toolbox" id="img_question" src="{%  static '/images/quaero/question.png' %}"  title="Choisir un type de question";/> </li>
+            <ul id="menu-questions" class="d-none">
+                <li class="li-toolbox"><img class="img_toolbox" id="img_current_questions" src="{%  static '/images/quaero/current_questions.png' %}" title="Types de question courants"/> </li>
+                <ul id="current_questions" class="d-none">
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_fermee_simple" src="{%  static '/images/quaero/fermee_simple.png' %}" title="Question fermée à choix unique"/> </li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_fermee_multiple" src="{%  static '/images/quaero/fermee_multiple.png' %}" title="Question Fermée à choix multiple"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_ouverte" src="{%  static '/images/quaero/ouverte.png' %}" title="Question ouverte"/> </li>
+                </ul>
+                <li class="li-toolbox"><img class="img_toolbox" id="img_others_questions" src="{%  static '/images/quaero/others_questions.png' %}" title="Autres types de question"/> </li>
+                <ul id="others_questions" class="d-none">
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_tableau" src="{%  static '/images/quaero/grille.png' %}"  title="Question sous forme de Tableau"/> </li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_echelle" src="{%  static '/images/quaero/echelle.png' %}"  title="Question échelle"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_notation" src="{%  static '/images/quaero/star.png' %}"  title="Question notation"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_date" src="{%  static '/images/quaero/date.png' %}"  title="Question date"/></li>
+                    <li class="li-toolbox"><img class="img_toolbox" id="img_heure" src="{%  static '/images/quaero/heure.png' %}"  title="Question heure"/></li>
+                </ul>
+            </ul>
+            
+            <li class="li-toolbox"><img class="img_toolbox" id="img_save" src="{%  static '/images/quaero/save.png' %}" data-url="{% url 'save_questionnary' %}" title="Sauvegarder"/></li>
+            <li class="li-toolbox"><img class="img_toolbox" id="img_reduce_expand" src="{%  static '/images/quaero/reduire.png' %}"  title="Réduire toutes les questions"/></li>
+        </ul>
+    </div>
+    
+    <div class="bg-light p-5 rounded">
+        <div class="d-flex justify-content-between">
+            <label id="status_questionnary" class="label-xxl">Nouveau questionnaire</label>
+            <label class="label-xxl d-block" id="id_questionnary">{{list_questionnary.0.0}}</label>
+        </div>
+        <input class="form-control input-border-bottom intitule" placeholder="Intitulé du questionnaire" id="intitule_questionnaire" value="{{list_questionnary.0.1}}" onkeyup="displayIntituleSpan(this.id)" />
+        <span id="intituleQuestionnaireVide" class="d-none">Attention l'intitulé de votre questionnaire est vide, veuillez le renseigner puis sauvegarder</span>
+        <ol class="questions" id="main">
+        </ol>
+    </div>
+
+    <input id="content" class="d-none"></input>
+
+    {% include 'quaero/new_questionnary_modal_branchement.html' %}
+    {% include 'quaero/new_questionnary_modal_voir_question.html' %}
+
+    <template id="fermee_simple">
+        {% include 'quaero/fermee_simple.html' %}
+    </template>
+    <template id="fermee_multiple">
+        {% include 'quaero/fermee_multiple.html' %}
+    </template>
+    <template id="modalite">
+        {% include 'quaero/modalite.html' %}
+    </template>
+    <template id="modalite_autre">
+        {% include 'quaero/modalite_autre.html' %}
+    </template>
+    <template id="modalite_nsp">
+        {% include 'quaero/modalite_nsp.html' %}
+    </template>
+    <template id="modalite_nc">
+        {% include 'quaero/modalite_nc.html' %}
+    </template>
+    <template id="tableau">
+        {% include 'quaero/tableau.html' %}
+    </template>
+    <template id="ligne">
+        {% include 'quaero/ligne.html' %}
+    </template>
+    <template id="colonne">
+        {% include 'quaero/colonne.html' %}
+    </template>
+    <template id="echelle">
+        {% include 'quaero/echelle.html' %}
+    </template>
+    <template id="differentiel">
+        {% include 'quaero/differentiel.html' %}
+    </template>
+    <template id="ouverte">
+        {% include 'quaero/ouverte.html' %}
+    </template>
+    <template id="notation">
+        {% include 'quaero/notation.html' %}
+    </template>
+
+{% endblock %}
+{% block script %}   
+    <script src="{%  static '/js/quaero/new_questionnary/new_questionnary.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/echelle.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/fermee.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/notation.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/ouverte.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/tableau.js' %}"></script>
+    <script src="{%  static '/js/quaero/new_questionnary/branchement.js' %}"></script>
+    <script>
+        $( document ).ready(function() {
+
+            var list_questionnary = '{{list_questionnary.0.3|escapejs}}';
+            if(list_questionnary!=""){
+                document.getElementById('status_questionnary').innerHTML="Modifier le questionnaire";
+                document.title="Modifier";
+                list_questionnary = JSON.parse(list_questionnary.replace(/'/g, `"`));
+                if(list_questionnary[0].intitule == "" ){
+                    $("#intituleQuestionnaireVide").attr('class', "badge bg-danger d-block");
+                    $("#intituleQuestionnaireVide").attr('style', "font-size: 1.3vh; width: fit-content");
+                }
+                var content = list_questionnary[1];
+                var nbQuestions = Object.keys(content.questions).length;
+                for(var i=0;i<nbQuestions;i++){
+                    var lib_type = content['questions'][i].type;
+                    switch(lib_type){
+                        case "fermee_simple":
+                            edit_question_fermee_simple(content, i);
+                        break;
+                        case "fermee_multiple":
+                            edit_question_fermee_multiple(content, i);
+                        break;
+                        case "echelle":
+                            edit_question_echelle(content, i);
+                        break;
+                        case "tableau":
+                            edit_question_tableau(content, i);
+                        break;
+                        case "ouverte":
+                            edit_question_ouverte(content, i);
+                        break;
+                        case "notation":
+                            edit_question_notation(content, i);
+                        break;
+                        case "date":
+                            
+                        break;
+                        case "heure":
+                        
+                        break;
+                    }
+                }
+                collapse_all_questions();  
+                $('#img_reduce_expand').prop('title','Agrandir toutes les questions');
+                $('#img_reduce_expand').attr('src','/static/images/quaero/agrandir.png');              
+                $('#content').val(save_content_as_json());
+
+            }
+
+            window.addEventListener("mouseover", () => {
+                var content_after = save_content_as_json();
+                var content_before = $('#content').val();
+                if(content_after != content_before){
+                    $('#img_save').attr("src","{%  static '/images/quaero/save_reminder.png' %}" );
+                }else{
+                    $('#img_save').attr("src","{%  static '/images/quaero/save.png' %}" );
+                }
+            });
+        });
+
+        function displayIntituleSpan(id){
+            if($('#'+id).val()!==""){
+                $('#intituleQuestionnaireVide').attr('class','d-none');
+            }else{
+                $('#intituleQuestionnaireVide').attr('class','badge bg-danger d-block');
+                $("#intituleQuestionnaireVide").attr('style', "font-size: 1.3vh; width: 46%");
+            }
+        }
+
+    </script>
+
+{% endblock %}

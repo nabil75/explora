@@ -1,0 +1,6 @@
+projectKey=TEST
+serverUrl=http://127.0.0.1:9000
+serverVersion=10.0.0.68432
+dashboardUrl=http://127.0.0.1:9000/dashboard?id=TEST
+ceTaskId=AYfIpCnpN9r7Wd67eojx
+ceTaskUrl=http://127.0.0.1:9000/api/ce/task?id=AYfIpCnpN9r7Wd67eojx

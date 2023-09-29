@@ -1,0 +1,13 @@
+﻿{
+    "menu-general":{
+        "collect":"Collect",
+        "clean":"Clean",
+        "explore":"Explore",
+        "visualize":"Visualize",
+        "usefull-links":"Usefull Links",
+        "language":"Languages",
+        "theme":"Themes",
+        "en":"English",
+        "fr":"French"
+    }
+}

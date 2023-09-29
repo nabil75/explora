@@ -1,0 +1,7 @@
+<li class="modalite" cdkDrag>
+  <div class="row align-items-start">
+      <img src="assets/images/quaero/transfert.png" class="img-modalite" cdkDragHandle/>
+      <input class="form-control input-border-bottom input-modalite"  placeholder="Libellé de la modalité" value="" [(ngModel)]="libelleModalite" (onchange)="modify_branchement_content_after_modalite_change(this.componentId, this.value)" (onfocus)="modalite_value_before_change(this.value)"/>
+      <button class="btn-close btn-modalite" title="Supprimer la modalité" (click)="remove_modalite(this.componentId)"></button>
+  </div>
+</li>
