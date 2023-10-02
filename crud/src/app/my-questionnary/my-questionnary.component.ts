@@ -1,9 +1,12 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { EventEmitterService } from '../services/event-emitter.service';
+import { NgClass, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 
 /**
  * @title Data table with sorting, pagination, and filtering.
@@ -17,10 +20,11 @@ export interface Questionnary {
 }
 
 @Component({
-  selector: 'app-my-questionnary',
-  templateUrl: './my-questionnary.component.html',
-  styleUrls: ['./my-questionnary.component.css'],
-  providers: [ApiService]
+    selector: 'app-my-questionnary',
+    templateUrl: './my-questionnary.component.html',
+    styleUrls: ['./my-questionnary.component.css'],
+    standalone: true,
+    imports: [MatTableModule, MatSortModule, RouterLink, NgClass, MatPaginatorModule, DatePipe]
 })
 
 export class MyQuestionnaryComponent implements OnInit{

@@ -1,11 +1,14 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-modalite-nsp',
-  templateUrl: './modalite-nsp.component.html',
-  styleUrls: ['./modalite-nsp.component.css']
+    selector: 'app-modalite-nsp',
+    templateUrl: './modalite-nsp.component.html',
+    styleUrls: ['./modalite-nsp.component.css'],
+    standalone: true,
+    imports: [CdkDrag]
 })
 export class ModaliteNspComponent {
   componentId: any;

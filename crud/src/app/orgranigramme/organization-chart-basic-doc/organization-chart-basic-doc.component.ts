@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode, SharedModule } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
 
 @Component({
     selector: 'organization-chart-basic-doc',
     templateUrl: './organization-chart-basic-doc.component.html',
+    standalone: true,
+    imports: [OrganizationChartModule, SharedModule],
 })
 export class OrganizationChartBasicDocComponent {
 

@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatMenu } from '@angular/material/menu';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,10 +11,14 @@ import { MatMenu } from '@angular/material/menu';
 export class AppComponent {
 
   language='fr';
+  img_accueil: string ="";
 
-  constructor(private translate: TranslateService ){
-    translate.setDefaultLang('fr');
-  }
+  constructor(
+    private translate: TranslateService,
+    private router: Router,)
+    {
+      translate.setDefaultLang('fr');
+    }
 
   changeLanguage(): void {
 

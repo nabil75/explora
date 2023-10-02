@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { FormsModule } from '@angular/forms';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-modalite-simple',
-  templateUrl: './modalite-simple.component.html',
-  styleUrls: ['./modalite-simple.component.css']
+    selector: 'app-modalite-simple',
+    templateUrl: './modalite-simple.component.html',
+    styleUrls: ['./modalite-simple.component.css'],
+    standalone: true,
+    imports: [CdkDrag, CdkDragHandle, FormsModule]
 })
 export class ModaliteSimpleComponent implements OnInit {
 

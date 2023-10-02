@@ -2,16 +2,19 @@ import { Component, ComponentRef, OnInit, ViewChild, ViewContainerRef } from '@a
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { ModaliteSimpleComponent } from '../modalites/modalite-simple/modalite-simple/modalite-simple.component';
 import { ModaliteAutreComponent } from '../modalites/modalite-autre/modalite-autre/modalite-autre.component';
 import { ModaliteNspComponent } from '../modalites/modalite-nsp/modalite-nsp/modalite-nsp.component';
 import { ModaliteNcComponent } from '../modalites/modalite-nc/modalite-nc/modalite-nc.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-fermee-multiple',
-  templateUrl: './fermee-multiple.component.html',
-  styleUrls: ['./fermee-multiple.component.css']
+    selector: 'app-fermee-multiple',
+    templateUrl: './fermee-multiple.component.html',
+    styleUrls: ['./fermee-multiple.component.css'],
+    standalone: true,
+    imports: [CdkDrag, CdkDragHandle, FormsModule, CdkDropList]
 })
 export class FermeeMultipleComponent implements OnInit {
 

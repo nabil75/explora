@@ -1,7 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[appAdQuestion]'
+    selector: '[appAdQuestion]',
+    standalone: true
 })
 export class AdQuestionDirective {
 

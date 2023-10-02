@@ -8,8 +8,8 @@ describe('FermeeMultipleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FermeeMultipleComponent]
-    });
+    imports: [FermeeMultipleComponent]
+});
     fixture = TestBed.createComponent(FermeeMultipleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

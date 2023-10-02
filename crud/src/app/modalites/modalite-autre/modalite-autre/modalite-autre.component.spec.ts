@@ -8,8 +8,8 @@ describe('ModaliteAutreComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModaliteAutreComponent]
-    });
+    imports: [ModaliteAutreComponent]
+});
     fixture = TestBed.createComponent(ModaliteAutreComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

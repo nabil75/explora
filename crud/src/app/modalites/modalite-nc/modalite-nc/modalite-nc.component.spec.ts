@@ -8,8 +8,8 @@ describe('ModaliteNcComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModaliteNcComponent]
-    });
+    imports: [ModaliteNcComponent]
+});
     fixture = TestBed.createComponent(ModaliteNcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

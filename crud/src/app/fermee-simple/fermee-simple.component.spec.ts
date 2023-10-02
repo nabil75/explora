@@ -8,8 +8,8 @@ describe('FermeeSimpleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FermeeSimpleComponent]
-    });
+    imports: [FermeeSimpleComponent]
+});
     fixture = TestBed.createComponent(FermeeSimpleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

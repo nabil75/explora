@@ -1,11 +1,14 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-modalite-autre',
-  templateUrl: './modalite-autre.component.html',
-  styleUrls: ['./modalite-autre.component.css']
+    selector: 'app-modalite-autre',
+    templateUrl: './modalite-autre.component.html',
+    styleUrls: ['./modalite-autre.component.css'],
+    standalone: true,
+    imports: [CdkDrag]
 })
 export class ModaliteAutreComponent {
 

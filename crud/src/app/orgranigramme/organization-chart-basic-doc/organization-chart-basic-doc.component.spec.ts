@@ -8,8 +8,8 @@ describe('OrganizationChartBasicDocComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OrganizationChartBasicDocComponent]
-    });
+    imports: [OrganizationChartBasicDocComponent]
+});
     fixture = TestBed.createComponent(OrganizationChartBasicDocComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

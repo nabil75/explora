@@ -1,11 +1,10 @@
-import { ModaliteSimpleComponent } from './../modalites/modalite-simple/modalite-simple/modalite-simple.component';
 import { ComponentFactoryResolver, ComponentRef, Injectable, Type, ViewContainerRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DynamicComponentService {
-  [x: string]: any;
+
   constructor(private readonly componentFactoryResolver: ComponentFactoryResolver) {}
 
 

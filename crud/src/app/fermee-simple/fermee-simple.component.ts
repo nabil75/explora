@@ -6,15 +6,18 @@ import { ModaliteAutreComponent } from '../modalites/modalite-autre/modalite-aut
 import { ModaliteNcComponent } from '../modalites/modalite-nc/modalite-nc/modalite-nc.component';
 import { ModaliteNspComponent } from '../modalites/modalite-nsp/modalite-nsp/modalite-nsp.component';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { BranchementModalComponent } from '../modal/branchement/branchement-modal/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-fermee-simple',
-  templateUrl: './fermee-simple.component.html',
-  styleUrls: ['./fermee-simple.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-fermee-simple',
+    templateUrl: './fermee-simple.component.html',
+    styleUrls: ['./fermee-simple.component.css'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: true,
+    imports: [CdkDrag, CdkDragHandle, FormsModule, CdkDropList, BranchementModalComponent]
 })
 
 export class FermeeSimpleComponent {
@@ -119,7 +122,7 @@ export class FermeeSimpleComponent {
 
   add_modalite_simple(){
     const modaliteComponentRef = this.containerModalite.createComponent(ModaliteSimpleComponent);
-    // this.containerModalite.insert(modaliteComponentRef.hostView);
+    this.containerModalite.insert(modaliteComponentRef.hostView);
     this.dynamicComponentModaliteRefs.push(modaliteComponentRef);
   }
 

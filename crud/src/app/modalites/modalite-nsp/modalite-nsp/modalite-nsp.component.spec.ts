@@ -8,8 +8,8 @@ describe('ModaliteNspComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModaliteNspComponent]
-    });
+    imports: [ModaliteNspComponent]
+});
     fixture = TestBed.createComponent(ModaliteNspComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

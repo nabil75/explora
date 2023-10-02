@@ -8,8 +8,8 @@ describe('BranchementModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BranchementModalComponent]
-    });
+    imports: [BranchementModalComponent]
+});
     fixture = TestBed.createComponent(BranchementModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

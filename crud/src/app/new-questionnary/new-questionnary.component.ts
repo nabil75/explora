@@ -1,20 +1,28 @@
-import { Component, ViewChild, ViewContainerRef, ComponentRef, OnInit, Input  } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, ComponentRef, OnInit, Input } from '@angular/core';
 import { FermeeSimpleComponent } from '../fermee-simple/fermee-simple.component';
 import { FermeeMultipleComponent } from '../fermee-multiple/fermee-multiple.component';
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { IndexedDbService } from '../services/indexed-db.service';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { ModaliteSimpleComponent } from '../modalites/modalite-simple/modalite-simple/modalite-simple.component';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { DynamicComponentService } from '../services/dynamic-component.service';
 
 
 @Component({
-  selector: 'app-new-questionnary',
-  templateUrl: './new-questionnary.component.html',
-  styleUrls: ['./new-questionnary.component.css'],
-
+    selector: 'app-new-questionnary',
+    templateUrl: './new-questionnary.component.html',
+    styleUrls: ['./new-questionnary.component.css'],
+    standalone: true,
+    imports: [
+        MatCardModule,
+        NgClass,
+        FormsModule,
+        CdkDropList,
+    ],
 })
 
 export class NewQuestionnaryComponent implements OnInit {
@@ -26,8 +34,8 @@ export class NewQuestionnaryComponent implements OnInit {
   intituleQuestionnaire:string ="";
   statusQuestionnary:string="Nouveau Questionnaire";
 
+
   @ViewChild('question', { read: ViewContainerRef }) container!: ViewContainerRef;
-  @ViewChild('containerModalite', { read: ViewContainerRef }) containerModalite!: ViewContainerRef;
 
   @Input() questionnaries: any;
 
@@ -41,7 +49,6 @@ export class NewQuestionnaryComponent implements OnInit {
   ngOnInit(){
     const id = this.route.snapshot.paramMap.get('id');
     this.id_questionnary = id;
-
   }
 
   ngAfterViewInit() {
@@ -59,13 +66,30 @@ export class NewQuestionnaryComponent implements OnInit {
 
         this.intituleQuestionnaire=data[0].intitule;
         this.statusQuestionnary = "Modifier Questionnaire"
-        const questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
+        let questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
         this.container.insert(questionComponentRef.hostView);
         this.dynamicComponentRefs.push(questionComponentRef);
-        questionComponentRef.instance.add_modalite_simple();
+        console.log(questionComponentRef.instance.componentId)
+        console.log(this.dynamicComponentRefs);
+        questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
+        this.container.insert(questionComponentRef.hostView);
+        this.dynamicComponentRefs.push(questionComponentRef);
+
+        for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
+          const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
+          if (componentRef.instance['componentId'] === questionComponentRef.instance.componentId) {
+            console.log(componentRef.instance.add_modalite_simple)
+          }
+        }
+
+
+
+        // questionComponentRef.instance.add_modalite_simple();
+
+        // questionComponentRef.instance.dynamicComponentModaliteRefs.push(this.modaliteComponentRef)
+        // this.modaliteComponentRef = this.dynamicComponent.createComponent(ModaliteSimpleComponent, questionComponentRef.instance.containerModalite)
+
         
-        console.log(questionComponentRef.instance.componentId);
-        console.log(this.dynamicComponentRefs)
       });
   }
 
@@ -80,7 +104,6 @@ export class NewQuestionnaryComponent implements OnInit {
 
   createFermeeSimple() {
     // Créer une instance de question fermée simple
-    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FermeeSimpleComponent);
     const fermeeSimpleComponentRef = this.container.createComponent(FermeeSimpleComponent);
     this.dynamicComponentRefs.push(fermeeSimpleComponentRef);
     console.log(this.dynamicComponentRefs);
@@ -88,7 +111,6 @@ export class NewQuestionnaryComponent implements OnInit {
 
   createFermeeMultiple() {
     // Créer une instance de question fermée multiple
-    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(FermeeMultipleComponent);
     const fermeeMultipleComponentRef = this.container.createComponent(FermeeMultipleComponent);
     this.dynamicComponentRefs.push(fermeeMultipleComponentRef);
   }

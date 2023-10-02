@@ -1,7 +1,8 @@
 import { ComponentRef, Directive, Input, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[destroyComponent]'
+    selector: '[destroyComponent]',
+    standalone: true
 })
 export class DestroyComponentDirective {
 
