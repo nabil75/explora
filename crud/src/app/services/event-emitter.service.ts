@@ -1,5 +1,6 @@
-import { EventEmitter, Injectable, ViewContainerRef } from '@angular/core';
+import { ComponentRef, EventEmitter, Injectable, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { ModaliteAutreComponent } from '../modalites/modalite-autre/modalite-autre/modalite-autre.component';
 
 @Injectable({
   providedIn: 'root'

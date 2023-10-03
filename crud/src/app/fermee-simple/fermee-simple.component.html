@@ -16,7 +16,8 @@
   <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
     <div class="div_modalites">
       <ol class="modalites"  cdkDropList (cdkDropListDropped)="onDrop($event)" >
-        <ng-template #containerModalite ></ng-template>
+        <ng-template #containerModalite>
+        </ng-template>
       </ol>
     </div>
 

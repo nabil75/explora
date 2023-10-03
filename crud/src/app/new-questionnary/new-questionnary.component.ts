@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { DynamicComponentService } from '../services/dynamic-component.service';
+
 
 
 @Component({
@@ -21,7 +21,7 @@ import { DynamicComponentService } from '../services/dynamic-component.service';
         MatCardModule,
         NgClass,
         FormsModule,
-        CdkDropList,
+        CdkDropList
     ],
 })
 
@@ -36,6 +36,8 @@ export class NewQuestionnaryComponent implements OnInit {
 
 
   @ViewChild('question', { read: ViewContainerRef }) container!: ViewContainerRef;
+
+  @ViewChild(FermeeSimpleComponent) fermeeSimple!: FermeeSimpleComponent
 
   @Input() questionnaries: any;
 
@@ -71,14 +73,13 @@ export class NewQuestionnaryComponent implements OnInit {
         this.dynamicComponentRefs.push(questionComponentRef);
         console.log(questionComponentRef.instance.componentId)
         console.log(this.dynamicComponentRefs);
-        questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
-        this.container.insert(questionComponentRef.hostView);
-        this.dynamicComponentRefs.push(questionComponentRef);
+
 
         for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
           const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
           if (componentRef.instance['componentId'] === questionComponentRef.instance.componentId) {
-            console.log(componentRef.instance.add_modalite_simple)
+            console.log(componentRef.instance.add_modalite_simple);
+            questionComponentRef.instance.add_modalite_simple();
           }
         }
 

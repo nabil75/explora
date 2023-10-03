@@ -36,10 +36,9 @@
         <input class="form-control input-border-bottom intitule" placeholder="Intitule du questionnaire" [(ngModel)]="intituleQuestionnaire"/>
         <span id="intituleQuestionnaireVide" class="d-none">Attention l'intitulé de votre questionnaire est vide, veuillez le renseigner puis sauvegarder</span>
         <ol class="questions" #main cdkDropList (cdkDropListDropped)="onDrop($event)">
-          <ng-container #question><div #containerDiv></div></ng-container>
+          <ng-template #question></ng-template>
         </ol>
       </div>
-      
       <input id="content" class="d-none"/>
     </mat-card-content>
   </mat-card>

@@ -10,6 +10,7 @@ import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList } from '@angular/c
 import { BranchementModalComponent } from '../modal/branchement/branchement-modal/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-fermee-simple',
@@ -17,7 +18,11 @@ import { FormsModule } from '@angular/forms';
     styleUrls: ['./fermee-simple.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, FormsModule, CdkDropList, BranchementModalComponent]
+    imports: [
+              CdkDrag, CdkDragHandle, FormsModule, CdkDropList, BranchementModalComponent, 
+              CommonModule, ModaliteSimpleComponent, ModaliteNspComponent, ModaliteAutreComponent,
+              ModaliteNcComponent
+            ],
 })
 
 export class FermeeSimpleComponent {
@@ -36,6 +41,7 @@ export class FermeeSimpleComponent {
 
   libelleQuestion!: string;
   showComponentModalite = false;
+
 
 
   constructor(private eventEmitterService: EventEmitterService,
@@ -122,7 +128,6 @@ export class FermeeSimpleComponent {
 
   add_modalite_simple(){
     const modaliteComponentRef = this.containerModalite.createComponent(ModaliteSimpleComponent);
-    this.containerModalite.insert(modaliteComponentRef.hostView);
     this.dynamicComponentModaliteRefs.push(modaliteComponentRef);
   }
 

@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CdkDrag } from '@angular/cdk/drag-drop';
@@ -13,10 +13,11 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 export class ModaliteAutreComponent {
 
   componentId: any;
+ 
   value!: string;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    private eventEmitterService: EventEmitterService,
+  constructor(private eventEmitterService: EventEmitterService,
+    private componentRef: ComponentRef<ModaliteAutreComponent>,
     private utilsService: UtilsService ){
     this.componentId = this.utilsService.generateUniqueId();
   }
