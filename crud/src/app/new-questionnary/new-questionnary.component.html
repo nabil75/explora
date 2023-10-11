@@ -13,17 +13,17 @@
                   </ul>
                   <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_others_questions" src="assets/images/quaero/others_questions.png" title="Autres types de question" (click)="displayMenuOthersQuestions()"/> </li>
                   <ul id="others_questions" [hidden]="isShowMenuOthersQuestions">
-                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_tableau" src="assets/images/quaero/grille.png"  title="Question sous forme de Tableau"/> </li>
-                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_echelle" src="assets/images/quaero/echelle.png"  title="Question échelle"/></li>
-                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_notation" src="assets/images/quaero/star.png"  title="Question notation"/></li>
+                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_tableau" src="assets/images/quaero/grille.png"  title="Question sous forme de Tableau" (click)="createGrille()"/> </li>
+                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_echelle" src="assets/images/quaero/echelle.png"  title="Question échelle" (click)="createEchelle()"/></li>
+                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_notation" src="assets/images/quaero/star.png"  title="Question notation" (click)="createNotation()"/></li>
+                      <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_satifaction" src="assets/images/quaero/smiley.png"  title="Question satifaction" (click)="createSatisfaction()"/></li>
                       <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_date" src="assets/images/quaero/date.png"  title="Question date"/></li>
                       <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_heure" src="assets/images/quaero/heure.png"  title="Question heure"/></li>
                   </ul>
               </ul>
-
-              <!-- <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_find" src="assets/images/quaero/eye.png" data-url="" title="Sauvegarder" (click)="getAllDataFromIDB()"/></li> -->
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_save" src="assets/images/quaero/save.png" data-url="" title="Sauvegarder" (click)="saveQuestionnary()"/></li>
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_reduce_expand" [src]="img_collapse_expand_all"  title="Réduire toutes les questions" (click)="collapseQuestions()"/></li>
+              <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_effacer_tout" src="assets/images/quaero/poubelle.png" data-url="" title="Tout effacer" (click)="removeAllComponents()"/></li>
           </ul>
       </div>
 

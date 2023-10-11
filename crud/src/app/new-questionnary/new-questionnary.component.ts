@@ -1,14 +1,18 @@
 import { Component, ViewChild, ViewContainerRef, ComponentRef, OnInit, Input } from '@angular/core';
 import { FermeeSimpleComponent } from '../fermee-simple/fermee-simple.component';
 import { FermeeMultipleComponent } from '../fermee-multiple/fermee-multiple.component';
+import { EchelleComponent  } from '../echelle/echelle.component';
+import { GrilleComponent } from '../grille/grille.component';
 import { EventEmitterService } from '../services/event-emitter.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
 import { moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, NgSwitch } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { NotationComponent } from '../notation/notation.component';
+import { SatisfactionComponent } from '../satisfaction/satisfaction.component';
 
 
 
@@ -41,6 +45,8 @@ export class NewQuestionnaryComponent implements OnInit {
 
   @Input() questionnaries: any;
 
+
+
   constructor(private eventEmitterService: EventEmitterService,
               private collapseQuestionsService: CollapseQuestionsService,
               // private indexedDb :IndexedDbService,
@@ -65,32 +71,48 @@ export class NewQuestionnaryComponent implements OnInit {
   editQuestionnary () {
     this.api.getQuestionnary(this.id_questionnary).subscribe(
       (data) => {
-
         this.intituleQuestionnaire=data[0].intitule;
-        this.statusQuestionnary = "Modifier Questionnaire"
-        let questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
-        this.container.insert(questionComponentRef.hostView);
-        this.dynamicComponentRefs.push(questionComponentRef);
-        console.log(questionComponentRef.instance.componentId)
-        console.log(this.dynamicComponentRefs);
-
-
-        for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
-          const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
-          if (componentRef.instance['componentId'] === questionComponentRef.instance.componentId) {
-            console.log(componentRef.instance.add_modalite_simple);
-            questionComponentRef.instance.add_modalite_simple();
+        this.statusQuestionnary = "Modifier Questionnaire";
+        for (let i=0; i<data[0].content.length;i++){
+          switch(data[0].content[i].type){
+            case 'FermeeSimpleComponent':{
+              let questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
+              questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
+              questionComponentRef.instance.dataSource= data[0].content[i].modalites;
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
+            case 'FermeeMultipleComponent':{
+              let questionComponentRef = this.container.createComponent(FermeeMultipleComponent);
+              questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
+              questionComponentRef.instance.dataSource= data[0].content[i].modalites;
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
+            case 'NotationComponent':{
+              let questionComponentRef = this.container.createComponent(NotationComponent);
+              questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
+              questionComponentRef.instance.nbStars= data[0].content[i].nbStars;
+              questionComponentRef.instance.value= data[0].content[i].note;
+              for( let i=0;i< data[0].content[i].note;i++){
+                questionComponentRef.instance.imgElements[i].src="http://localhost:4200/assets/images/quaero/star_full.png"
+              }
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
+            case 'SatisfactionComponent':{
+              let questionComponentRef = this.container.createComponent(SatisfactionComponent);
+              questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
+              questionComponentRef.instance.value= data[0].content[i].note;
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
           }
         }
-
-
-
-        // questionComponentRef.instance.add_modalite_simple();
-
-        // questionComponentRef.instance.dynamicComponentModaliteRefs.push(this.modaliteComponentRef)
-        // this.modaliteComponentRef = this.dynamicComponent.createComponent(ModaliteSimpleComponent, questionComponentRef.instance.containerModalite)
-
-        
       });
   }
 
@@ -104,18 +126,33 @@ export class NewQuestionnaryComponent implements OnInit {
   }
 
   createFermeeSimple() {
-    // Créer une instance de question fermée simple
     const fermeeSimpleComponentRef = this.container.createComponent(FermeeSimpleComponent);
     this.dynamicComponentRefs.push(fermeeSimpleComponentRef);
     console.log(this.dynamicComponentRefs);
   }
 
   createFermeeMultiple() {
-    // Créer une instance de question fermée multiple
     const fermeeMultipleComponentRef = this.container.createComponent(FermeeMultipleComponent);
     this.dynamicComponentRefs.push(fermeeMultipleComponentRef);
   }
+  createGrille() {
+    const grilleComponentRef = this.container.createComponent(GrilleComponent);
+    this.dynamicComponentRefs.push(grilleComponentRef);
+  }
+  createEchelle() {
+    const echelleComponentRef = this.container.createComponent(EchelleComponent);
+    this.dynamicComponentRefs.push(echelleComponentRef);
+  }
+  
+  createNotation() {
+    const notationComponentRef = this.container.createComponent(NotationComponent);
+    this.dynamicComponentRefs.push(notationComponentRef);
+  }
 
+  createSatisfaction(){
+    const satisfactionComponentRef = this.container.createComponent(SatisfactionComponent);
+    this.dynamicComponentRefs.push(satisfactionComponentRef);
+  }
   removeComponent(idComponent: number) {
     for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
       const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
@@ -162,6 +199,7 @@ export class NewQuestionnaryComponent implements OnInit {
   }
 
   saveQuestionnary(): void{
+    console.log(this.dynamicComponentRefs)
     let content:any=[];
     let content_question: any=[];
     let quest: string="";
@@ -169,15 +207,57 @@ export class NewQuestionnaryComponent implements OnInit {
     for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
       const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
       quest=encodeURIComponent(componentRef.instance.libelleQuestion);
-      content_modalites=[];
-      for (let j = 0; j < componentRef.instance.dynamicComponentModaliteRefs.length; j++) {
-        content_modalites.push(encodeURIComponent(componentRef.instance.dynamicComponentModaliteRefs[j].instance.libelleModalite))
+      switch(componentRef.componentType.name){
+        case 'FermeeSimpleComponent':{
+          content_modalites=[];
+          for (let j = 0; j < componentRef.instance.dataSource.length; j++) {
+            content_modalites.push({"position": componentRef.instance.dataSource[j].position, "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle)})
+          }
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            question:quest,modalites:content_modalites
+          })
+          break;
+        }
+        case 'FermeeMultipleComponent':{
+          content_modalites=[];
+          for (let j = 0; j < componentRef.instance.dataSource.length; j++) {
+            content_modalites.push({"position": componentRef.instance.dataSource[j].position, "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle)})
+          }
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            ordonnee: componentRef.instance.ordonnee,
+            maxReponse: componentRef.instance.maxReponses,
+            question:quest,modalites:content_modalites
+          })
+          break;
+        }
+        case 'NotationComponent':{
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            nbStars: componentRef.instance.nbStars,
+            note: componentRef.instance.value,
+            question:quest
+          })
+          break;
+        }
+        case 'SatisfactionComponent':{
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            note: componentRef.instance.value,
+            question:quest
+          })
+          break;
+        }
       }
-      content_question.push({question:quest,modalites:content_modalites})
     }
     let dateCreation: Date = new Date(); //formatDate(new Date(),'dd/MM/yyyy', this.locale);
-    console.log(dateCreation)
     content.push({intitule: encodeURIComponent(this.intituleQuestionnaire), date:dateCreation, questions:content_question})
+
     if(this.id_questionnary == undefined){
       this.api.saveQuestionnary(JSON.stringify(content)).subscribe((response: any) => {
         this.id_questionnary = response
@@ -209,25 +289,4 @@ export class NewQuestionnaryComponent implements OnInit {
       componentRef.instance.isCollapse = this.collapseQuestionsService.isCollapseAll;
     }
   }
-
-    // saveData(): void{
-    //   const date = new Date();
-    //   this.indexedDb.storeData('100300001', {'siren':'100300001', 'denomination':'LOREM','TypeDeTache':'Validation de la cotation', 'date': date})
-    // }
-
-    // retrieveDataFromIDB(){
-    //   console.log(this.indexedDb.retrieveData('200300002'));
-    // }
-
-    // getAllDataFromIDB(){
-    //   this.indexedDb.getAllData()
-    //     .then((data) => {
-    //       //Insérer ici votre code en cas de succès
-    //       console.log('Données contenues dans la IndexedDb : ', data);
-    //     })
-    //     .catch((error) => {
-    //       // Insérer ici votre code en cas d'erreur
-    //       console.error('Une erreur s\'est produite lors de la récupération des données :', error);
-    //     });
-    // }
 }

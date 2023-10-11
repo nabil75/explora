@@ -1,0 +1,43 @@
+<li class="question" cdkDrag>
+    <input class="d-none" value="fermee_simple"/>
+    <div class="d-flex justify-content-between" >
+      <img class="ancre" src="assets/images/quaero/transfert_blanc.png" width="25vh" height="20vh" cdkDragHandle>
+      <h5 class="type-question">Question de type <strong class="text-uppercase">satisfaction</strong></h5>
+      <div>
+          <img class="remove-question" src="assets/images/quaero/supprimer.png"  title="Supprimer la question" (click)='remove_question(this.componentId)'/>
+          <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
+      </div>
+    </div>
+    <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
+    <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
+        <div class="centered">
+            <div class="d-flex justify-content-between div-images">
+                <img  class="img-smiley" src="assets/images/quaero/smiley_1.png" title="Très insatisfait" (click)="change_note($event)"/>
+                <img  class="img-smiley" src="assets/images/quaero/smiley_2.png" title="Plutôt insatisfait" (click)="change_note($event)"/>
+                <img  class="img-smiley" src="assets/images/quaero/smiley_3.png" title="Moyennement satisfait" (click)="change_note($event)"/>
+                <img  class="img-smiley" src="assets/images/quaero/smiley_4.png" title="Plutôt satisfait" (click)="change_note($event)"/>
+                <img  class="img-smiley" src="assets/images/quaero/smiley_5.png" title="Très satisfait" (click)="change_note($event)"/>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input class="input-border-bottom input-note" [(ngModel)]="value" />
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-between footer d-block">
+      <div class="form-check form-switch">
+          <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
+          <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
+      </div>
+      <img class="img-actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
+      <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_satisfaction()"/>
+    </div>
+    <div>
+        <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
+    </div>
+    <app-branchement-modal #sideModal [titre]="libelleQuestion"  [questions]="questions"></app-branchement-modal>
+  </li>
+  
+

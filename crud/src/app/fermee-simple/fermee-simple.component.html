@@ -2,10 +2,6 @@
   <input class="d-none" value="fermee_simple"/>
   <div class="d-flex justify-content-between" >
     <img class="ancre" src="assets/images/quaero/transfert_blanc.png" width="25vh" height="20vh" cdkDragHandle>
-    <!-- <svg class= "ancre" width="1.5vw" fill="white" viewBox="0 0 24 24" cdkDragHandle>
-      <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-      <path d="M0 0h24v24H0z" fill="none"></path>
-    </svg> -->
     <h5 class="type-question">Question fermée à choix <strong class="text-uppercase">unique</strong></h5>
     <div>
         <img class="remove-question" src="assets/images/quaero/supprimer.png"  title="Supprimer la question" (click)='remove_question(this.componentId)'/>
@@ -14,46 +10,41 @@
   </div>
   <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
   <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
-    <div class="div_modalites">
-      <ol class="modalites"  cdkDropList (cdkDropListDropped)="onDrop($event)" >
-        <ng-template #containerModalite>
-        </ng-template>
-      </ol>
-    </div>
+    <div class="div-modalites">
+      <span [hidden]="!dataSource.length" class="title-modalites">Modalités</span>
+      <div class="table-modalites">
+        <table class="table table-responsive-sm ">
+          <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <tr cdkDrag *ngFor="let data of dataSource">
+              <td cdkDragHandle class="colonne-position">{{data.position}}</td>
+              <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle | titlecase}}' placeholder="Libellé modalité"  (change)="onInputChange($event, data.position)"/></td>
+              <td class="colonne-actions">
+                <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" 
+                title="Supprimer la modalite"  (click)="removeModalite(data.position)"/>
+              </td>
+              <div *cdkDragPreview matchSize="true" class="container">{{data.libelle | titlecase}}</div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div style="padding: 20px;">
-        <span class="label-a" (click)="display_options_modalite()">Ajouter modalité <img [src]="img_ajout_modalite" title="Afficher les options" width="30vh" height="30vh" style="padding: 5px" /></span>
-            <ul [hidden]="isShowModaliteOptions">
-                <li style="display: inline;">
-                    <img src="assets/images/quaero/trait_modalite.png" width="20vh" height="20vh">
-                </li>
-                <li style="display: inline;">
-                    <button #btn_modalite_simple type="button" class="btn btn-default bouton-modalite" (click)="add_modalite_simple()">Simple</button>
-                </li>
-                <li style="display: inline;">
-                    <button #btn_modalite_autre type="button" class="btn btn-default bouton-modalite autre" (click)="add_modalite_autre()">Autre</button>
-                </li>
-                <li style="display: inline;">
-                    <button #btn_modalite_nsp type="button" class="btn btn-default bouton-modalite nsp" (click)="add_modalite_nsp()">Ne sait pas</button>
-                </li>
-                <li style="display: inline;">
-                    <button #btn_modalite_nc type="button" class="btn btn-default bouton-modalite nc" (click)="add_modalite_nc()">Non concerné</button>
-                </li>
-            </ul>
-        <span class="d-none">Une question ne peut comporter 2 modalités 'Autre'</span>
+      <div>
+        <button mat-raised-button (click)="addModalite()" class="demo-button">
+          Ajouter Modalité
+        </button>
+      </div>
     </div>
-    <hr>
   </div>
   <div class="d-flex justify-content-between footer d-block">
-      <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox">
-          <label class="form-check-label label-s">Obligatoire</label>
-      </div>
-      <img class="img_actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
-      <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_fermee_unique()"/>
+    <div class="form-check form-switch">
+        <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
+        <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
+    </div>
+    <img class="img-actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
+    <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_fermee_unique()"/>
   </div>
   <div>
       <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
   </div>
-  <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dynamicComponentModaliteRefs" [questions]="questions"></app-branchement-modal>
+  <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-branchement-modal>
 </li>

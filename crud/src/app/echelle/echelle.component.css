@@ -1,0 +1,114 @@
+/*Bloc Question*/
+.ancre{
+    cursor: grab;
+  }
+  .question{
+    background-color: rgb(240, 236, 239); padding: 1%; border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+    background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%);
+  }
+  .img_collapse{
+    cursor: pointer; width: 4vh; height: 4vh; margin-top: -0.8vh; border-radius: 5px 5px 5px 5px;
+  }
+  .input-border-bottom{
+    border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
+    border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+  }
+  li.question::marker{
+    font-size: 3vh;
+    color:rgb(74, 56, 177);
+    right : 15%;
+  }
+  
+  .libelle-question{
+    margin-top: 3%;
+    color:rgb(97, 55, 193);
+    font-size: 1.5vw;
+  }
+  .remove-question{
+    float: right;
+    width: 4vh;
+    height: 4vh;
+    cursor: pointer;
+    margin-top: -0.7vh;
+  }
+  .type-question{
+    color: white;
+    font-size: 2vh;
+  }
+  
+  /*Bloc Modalités*/
+  .cdk-drag-preview{
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 1.5em;
+    text-align: center;
+    opacity: 0.8;
+  }
+  .colonne-actions{
+    width: 30px;
+    padding: 20px;
+  }
+  .colonne-position{
+    width: 3px;
+    padding: 20px;
+    cursor: grab;
+  }
+  .div-modalites{
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+  }
+  .img-action{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+  .libelle-modalite{
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+  }
+  .title-modalites {
+    background-color: rgb(240, 236, 239); padding: 5px; border-radius: 0.5vh 0.5vh 0vh 0vh; margin-bottom: 2%;
+    background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%);
+    color: white;
+  }
+  .table-modalites{
+    margin-top: 3px;
+  }
+  
+  /*Bloc Footer*/
+  .branchement{
+    margin-top: 3%; width: 100%; border-radius: 5px 5px 5px 5px; border: 5px solid rgb(194, 185, 212);
+  }
+  .btn-branchement{
+    cursor: pointer; width: 35px; height: 35px; margin-top: -10px; margin-left: -65px;
+  }
+  .footer{
+    margin-top: 3%;
+  }
+  .footer-right{
+    margin-left: 25px;
+    margin-top: 5px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  .saisie-number{
+    width: 4.2vh; margin-top: -0.5vh; margin-left: 1vh; text-align: right; font-size: 2vh;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,50 +1,39 @@
-import { ChangeDetectionStrategy, Component, ComponentRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragPreview, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
+import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
-import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
+import { RatingModule } from 'ngx-bootstrap/rating';
 
 
-export interface ModaliteElement {
-  libelle: string;
-  position: number;
-}
-
-const ELEMENT_DATA: ModaliteElement[] = [];
 
 
 @Component({
-    selector: 'app-fermee-multiple',
-    templateUrl: './fermee-multiple.component.html',
-    styleUrls: ['./fermee-multiple.component.css'],
+    selector: 'app-satisfaction',
+    templateUrl: './satisfaction.component.html',
+    styleUrls: ['./satisfaction.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, BranchementModalComponent, CdkDropList, CommonModule, MatButtonModule, NgFor]
+    imports: [FormsModule, BranchementModalComponent, CommonModule, MatButtonModule, NgFor, RatingModule ],
 })
-export class FermeeMultipleComponent implements OnInit {
+
+export class SatisfactionComponent implements OnInit{
 
 
-  
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
 
-  dataSource = [...ELEMENT_DATA];
-
-  reponses: number = 0;
-  maxReponses: number =0;
-  obligatoire: boolean = true;
-  ordonnee: boolean = false;
   componentId: any;
-  public dynamicComponentModaliteRefs: ComponentRef<any>[] = [];
-  public questions: any[]= [];
-
+  questions: any= [];
+  obligatoire: boolean = true;
   img_collapse_expand: string ="assets/images/quaero/collapse.png";
-
+  img_etoile: string ="assets/images/quaero/star_empty.png";
   libelleQuestion!: string;
+  value: string = "";
+
 
   constructor(private eventEmitterService: EventEmitterService,
               private utilsService: UtilsService,
@@ -52,16 +41,13 @@ export class FermeeMultipleComponent implements OnInit {
               private newQuestionnary: NewQuestionnaryComponent,
               ){
               this.componentId = this.utilsService.generateUniqueId();
-              
             }
 
   ngOnInit(){
-    this.maxReponses = this.dataSource.length;
-    this.reponses= this.dataSource.length;
   }
 
   ngAfterViewInit() {
-    
+    // this.imgElements = this.myComponent.nativeElement.querySelectorAll('.img-smiley');   
   }
 
   filterNumbersAfterValue(arr: number[], value: number): number[] {
@@ -95,48 +81,33 @@ export class FermeeMultipleComponent implements OnInit {
     }
   }
 
-  onDrop(event: CdkDragDrop<ModaliteElement>) {
-    moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex);
-    let i: number = 1;
-    this.dataSource.forEach( (obj) => {
-      obj.position = i;
-      i++;
-    });
-  }
-
-  addModalite() {
-    const row ={'position': (this.dataSource.length+1), 'libelle':''};
-    this.dataSource.push(row);
-    this.ngOnInit();
-  }
-
-  removeModalite(position: number) {
-    this.dataSource.splice(position-1,1);
-    let i: number = 1;
-    this.dataSource.forEach( (obj) => {
-      obj.position = i;
-      i++;
-    });
-    this.ngOnInit();
-  }
-
-  onInputChange(event:any, position: number){ 
-    this.dataSource.forEach( (obj) => {
-      if(obj.position == position){
-        obj.libelle = event.target.value;
+  change_note(event: any): void {
+      let elTitle = event.target.title;
+      switch(elTitle){
+        case 'Très insatisfait': {
+          this.value="1";
+        }
+        break;
+        case 'Plutôt insatisfait': {
+          this.value="2";
+        }
+        break;
+        case 'Moyennement satisfait': {
+          this.value="3";
+        }
+        break;
+        case 'Plutôt satisfait': {
+          this.value="4";
+        }
+        break;
+        case 'Très satisfait': {
+          this.value="5";
+        }
+        break;
       }
-    });
   }
 
-  display_question_fermee_multiple(){
-    
-  }
-  controle_nombre_reponses(){
+  display_question_satisfaction(){
 
-  }
-  onKeyup(event:any){
-    if (event.target.value > this.dataSource.length) {
-      event.target.value = "";
-    }
   }
 }

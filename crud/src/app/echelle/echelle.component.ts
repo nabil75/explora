@@ -1,50 +1,46 @@
-import { ChangeDetectionStrategy, Component, ComponentRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, ViewChild, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragPreview, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragDrop, CdkDragPreview } from '@angular/cdk/drag-drop';
+import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
+import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
-import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 
 
-export interface ModaliteElement {
-  libelle: string;
+export interface SemantiqueElement {
+  libelleGauche: string;
+  libelleDroit: string;
   position: number;
 }
 
-const ELEMENT_DATA: ModaliteElement[] = [];
-
+const ELEMENT_DATA: SemantiqueElement[] = [];
 
 @Component({
-    selector: 'app-fermee-multiple',
-    templateUrl: './fermee-multiple.component.html',
-    styleUrls: ['./fermee-multiple.component.css'],
+    selector: 'app-echelle',
+    templateUrl: './echelle.component.html',
+    styleUrls: ['./echelle.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, BranchementModalComponent, CdkDropList, CommonModule, MatButtonModule, NgFor]
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, CdkDropList, BranchementModalComponent, CommonModule, MatButtonModule, NgFor],
 })
-export class FermeeMultipleComponent implements OnInit {
+
+export class EchelleComponent implements OnInit{
 
 
-  
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
 
   dataSource = [...ELEMENT_DATA];
-
-  reponses: number = 0;
-  maxReponses: number =0;
-  obligatoire: boolean = true;
-  ordonnee: boolean = false;
   componentId: any;
-  public dynamicComponentModaliteRefs: ComponentRef<any>[] = [];
-  public questions: any[]= [];
+  public questions: any= [];
+  obligatoire: boolean = true;
 
   img_collapse_expand: string ="assets/images/quaero/collapse.png";
 
   libelleQuestion!: string;
+
 
   constructor(private eventEmitterService: EventEmitterService,
               private utilsService: UtilsService,
@@ -52,16 +48,14 @@ export class FermeeMultipleComponent implements OnInit {
               private newQuestionnary: NewQuestionnaryComponent,
               ){
               this.componentId = this.utilsService.generateUniqueId();
-              
             }
 
   ngOnInit(){
-    this.maxReponses = this.dataSource.length;
-    this.reponses= this.dataSource.length;
+
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   filterNumbersAfterValue(arr: number[], value: number): number[] {
@@ -95,7 +89,7 @@ export class FermeeMultipleComponent implements OnInit {
     }
   }
 
-  onDrop(event: CdkDragDrop<ModaliteElement>) {
+  onDrop(event: CdkDragDrop<SemantiqueElement>) {
     moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex);
     let i: number = 1;
     this.dataSource.forEach( (obj) => {
@@ -104,39 +98,36 @@ export class FermeeMultipleComponent implements OnInit {
     });
   }
 
-  addModalite() {
-    const row ={'position': (this.dataSource.length+1), 'libelle':''};
+  addSemantique() {
+    const row ={'position': (this.dataSource.length+1), 'libelleGauche':'', 'libelleDroit':''};
     this.dataSource.push(row);
-    this.ngOnInit();
   }
 
-  removeModalite(position: number) {
+  removeSemantique(position: number) {
     this.dataSource.splice(position-1,1);
     let i: number = 1;
     this.dataSource.forEach( (obj) => {
       obj.position = i;
       i++;
     });
-    this.ngOnInit();
   }
 
-  onInputChange(event:any, position: number){ 
+  onInputChangeGauche(event:any, position: number){ 
     this.dataSource.forEach( (obj) => {
       if(obj.position == position){
-        obj.libelle = event.target.value;
+        obj.libelleGauche = event.target.value;
+      }
+    });
+  }
+  onInputChangeDroit(event:any, position: number){ 
+    this.dataSource.forEach( (obj) => {
+      if(obj.position == position){
+        obj.libelleDroit = event.target.value;
       }
     });
   }
 
-  display_question_fermee_multiple(){
+  display_question_fermee_unique(){
     
-  }
-  controle_nombre_reponses(){
-
-  }
-  onKeyup(event:any){
-    if (event.target.value > this.dataSource.length) {
-      event.target.value = "";
-    }
   }
 }
