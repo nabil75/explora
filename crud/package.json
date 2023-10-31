@@ -31,6 +31,7 @@
     "datatables.net-dt": "^1.13.4",
     "flatted": "^3.2.7",
     "jquery": "^3.6.4",
+    "ngx-autosize": "^2.0.4",
     "ngx-bootstrap": "^11.0.2",
     "ngx-cookie-service": "^16.0.0",
     "ngx-dynamic-hooks": "^2.1.0",

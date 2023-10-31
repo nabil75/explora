@@ -1,0 +1,26 @@
+
+    <title>Saisie</title>
+    <div [ngClass]="'toolbox'">
+      <ul>
+        <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_save" src="assets/images/quaero/save.png" data-url="" title="Sauvegarder" (click)="saveQuestionnary()"/></li>
+      </ul>
+    </div>
+    <mat-card>
+      <mat-card-content>
+        <div class="bg-light p-5 rounded fond-ecran">
+          <div class="d-flex justify-content-between">
+              <span class="badge label-xxl">{{statusQuestionnary}}</span>
+              <span class="badge label-xxl d-block">{{ id_questionnary }}</span>
+          </div>
+          <div>
+            <label class="intitule">{{intituleQuestionnaire}}</label>
+          </div>
+          <div>
+            <ol>
+              <ng-template #question></ng-template>
+            </ol>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+

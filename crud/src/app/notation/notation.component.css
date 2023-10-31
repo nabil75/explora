@@ -18,11 +18,11 @@
     color:rgb(74, 56, 177);
     right : 15%;
   }
-  
   .libelle-question{
     margin-top: 3%;
-    color:rgb(97, 55, 193);
-    font-size: 1.5vw;
+    font-size: x-large;
+    resize: none;
+    overflow-y: hidden;
   }
   .remove-question{
     float: right;
@@ -36,49 +36,6 @@
     font-size: 2vh;
   }
   
-  /*Bloc Modalités*/
-  .cdk-drag-preview{
-    box-sizing: border-box;
-    border-radius: 4px;
-    font-size: 1.5em;
-    text-align: center;
-    opacity: 0.8;
-  }
-  .colonne-actions{
-    width: 30px;
-    padding: 20px;
-  }
-  .colonne-position{
-    width: 3px;
-    padding: 20px;
-    cursor: grab;
-  }
-  .div-modalites{
-    margin-top: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 15px;
-  }
-  .img-action{
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-  }
-  .libelle-modalite{
-    width: 100%;
-    background-color: white;
-    padding: 10px;
-  }
-  .title-modalites {
-    background-color: rgb(240, 236, 239); padding: 5px; border-radius: 0.5vh 0.5vh 0vh 0vh; margin-bottom: 2%;
-    background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%);
-    color: white;
-  }
-  .table-modalites{
-    margin-top: 3px;
-  }
   
   /*Bloc Footer*/
   .branchement{
@@ -98,26 +55,36 @@
     cursor: pointer;
   }
   .saisie-number{
-    width: 4.2vh; margin-top: -0.5vh; margin-left: 1vh; text-align: right; font-size: 2vh;
-  }
-  rating {
-    color: #FFC107;
-    font-size: 5em;
+    width: 6vw; 
+    margin-top: -0.5vh; 
+    margin-left: 1vw; 
+    text-align: center; 
+    font-size: 1.5vw;
   }
   .centered{
     margin-top: 5%;
     margin-bottom: 7%;
-}
-.label-input{
-    margin-right: 1em;
-}
-.img-etoile:hover{
-    content: url("src/assets/images/quaero/star_full.png");
-}
-img{
-    cursor: pointer;
-}
-  
+  }
+  .label-input{
+      font-size: 1vw;
+      margin-top: 0.5vw;
+      color: rgb(74, 56, 117)
+  }
+  .img-etoile{
+    width: 2.3vw;
+    height: 2vw;
+  }
+  .img-etoile:hover{
+      content: url("src/assets/images/quaero/star_full.png");
+  }
+  img{
+      cursor: pointer;
+      margin-right: 0.5vw;
+  }
+  .div-etoiles{
+    margin-top: 3vw;
+  }
+    
   
   
   

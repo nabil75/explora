@@ -18,11 +18,11 @@ font-size: 3vh;
 color:rgb(74, 56, 177);
 right : 15%;
 }
-
 .libelle-question{
-margin-top: 3%;
-color:rgb(97, 55, 193);
-font-size: 1.5vw;
+    margin-top: 3%;
+    font-size: x-large;
+    resize: none;
+    overflow-y: hidden;
 }
 .remove-question{
 float: right;
@@ -34,15 +34,6 @@ margin-top: -0.7vh;
 .type-question{
 color: white;
 font-size: 2vh;
-}
-
-/*Bloc Modalités*/
-.cdk-drag-preview{
-box-sizing: border-box;
-border-radius: 4px;
-font-size: 1.5em;
-text-align: center;
-opacity: 0.8;
 }
 /*Bloc Footer*/
 .branchement{
@@ -61,31 +52,54 @@ width: 25px;
 height: 25px;
 cursor: pointer;
 }
-.label-input{
-    margin-right: 1em;
-}
 img{
-    cursor: pointer;
+cursor: pointer;
 }
   
 .img-smiley{
   margin: 1%;
-  width: 8vh;
-  height: 8vh;
+  width: 10vh;
+  height: 10vh;
 }
 .centered{
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
 }
 .input-note{
-    font-size: xx-large;
-    width: 10%;
+    font-size: 1.5vw;
+    width: 5%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
+    margin-top: 3%;
     text-align: center;
+    color: rgb(74, 56, 117);
 }
 .div-images{
-    margin-top: 15%;
+    margin-top: 5%;
+}
+
+.figure-caption{
+    font-size: medium;
+    color:rgb(46, 14, 120);
+    text-align: center;
+}
+.echelle-7{
+    width: 90%;
+}
+.echelle-5{
+    width: 60%;
+}
+.btn-type-echelle{
+    margin-top: 3%;
+    font-size: medium;
+}
+.btn-echelle{
+    color : rgb(74, 56, 177)!important;
+}
+.mat-button-toggle-checked{
+    color: white !important;
+    background-color:rgb(74, 56, 117) !important;
+}
+:not(.mat-button-toggle-checked, .type-question){
+    color:rgb(74, 56, 117) !important;
 }

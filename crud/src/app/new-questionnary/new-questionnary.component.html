@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-content>
       <div [ngClass]="'toolbox'">
-          <ul [ngClass]="">
+          <ul>
               <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_question" src="assets/images/quaero/question.png"  title="Choisir un type de question" (click)="displayMenuQuestions()"/> </li>
               <ul id="menu-questions" [hidden]="isShowMenuQuestions">
                   <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_current_questions" src="assets/images/quaero/current_questions.png" title="Types de question courants" (click)="displayMenuCurrentQuestions()"/> </li>
@@ -23,21 +23,25 @@
               </ul>
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_save" src="assets/images/quaero/save.png" data-url="" title="Sauvegarder" (click)="saveQuestionnary()"/></li>
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_reduce_expand" [src]="img_collapse_expand_all"  title="Réduire toutes les questions" (click)="collapseQuestions()"/></li>
-              <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_effacer_tout" src="assets/images/quaero/poubelle.png" data-url="" title="Tout effacer" (click)="removeAllComponents()"/></li>
+              <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_effacer_tout" src="assets/images/quaero/gomme.png" data-url="" title="Tout effacer" (click)="removeAllComponents()"/></li>
           </ul>
       </div>
 
       <div class="bg-light p-5 rounded">
         <div class="d-flex justify-content-between">
-            <label class="label-xxl">{{statusQuestionnary}}</label>
-            <label class="label-xxl d-block">{{ id_questionnary }}</label>
+            <label class="badge label-xxl">{{statusQuestionnary}}</label>
+            <label class="badge label-xxl d-block">{{ id_questionnary }}</label>
         </div>
-        <!-- <input class="form-control input-border-bottom intitule" placeholder="Intitulé du questionnaire" #intituleQuestionnaire value="" (change)="onChange($event)"/> -->
-        <input class="form-control input-border-bottom intitule" placeholder="Intitule du questionnaire" [(ngModel)]="intituleQuestionnaire"/>
-        <span id="intituleQuestionnaireVide" class="d-none">Attention l'intitulé de votre questionnaire est vide, veuillez le renseigner puis sauvegarder</span>
-        <ol class="questions" #main cdkDropList (cdkDropListDropped)="onDrop($event)">
-          <ng-template #question></ng-template>
-        </ol>
+        <div>
+          <!-- <input class="form-control input-border-bottom intitule" placeholder="Intitulé du questionnaire" #intituleQuestionnaire value="" (change)="onChange($event)"/> -->
+          <input class="form-control input-border-bottom intitule" placeholder="Intitule du questionnaire" [(ngModel)]="intituleQuestionnaire"/>
+          <span id="intituleQuestionnaireVide" class="d-none">Attention l'intitulé de votre questionnaire est vide, veuillez le renseigner puis sauvegarder</span>
+        </div>
+        <div>
+          <ol #main cdkDropList (cdkDropListDropped)="onDrop($event)">
+            <ng-template #question></ng-template>
+          </ol>
+        </div>
       </div>
       <input id="content" class="d-none"/>
     </mat-card-content>

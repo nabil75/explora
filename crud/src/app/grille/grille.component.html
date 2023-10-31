@@ -1,5 +1,5 @@
 <li class="question" cdkDrag>
-    <input class="d-none" value="fermee_simple"/>
+    <input class="d-none" value="grille"/>
     <div class="d-flex justify-content-between" >
       <img class="ancre" src="assets/images/quaero/transfert_blanc.png" width="25vh" height="20vh" cdkDragHandle>
       <h5 class="type-question">Question de type <strong class="text-uppercase">tableau</strong></h5>
@@ -8,22 +8,25 @@
           <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
       </div>
     </div>
-    <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
+    <div>
+      <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1" 
+		  [(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
+    </div>
     <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
       <div class="div-modalites" class="d-flex justify-content-between" >
         <div class="div-lignes">
-          <span [hidden]="!dataSourceLigne.length" class="title-modalites">Lignes</span>
+          <span [hidden]="!dataSourceLignes.length" class="title-modalites">Lignes</span>
           <div class="table-modalites">
             <table class="table table-responsive-sm ">
               <tbody cdkDropList (cdkDropListDropped)="onDropLigne($event)">
-                <tr cdkDrag *ngFor="let data of dataSourceLigne">
+                <tr cdkDrag *ngFor="let data of dataSourceLignes">
                   <td cdkDragHandle class="colonne-position">{{data.position}}</td>
-                  <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle | titlecase}}' placeholder="Libellé de la ligne" (change)="onInputChangeLigne($event, data.position)"/></td>
+                  <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle}}' placeholder="Libellé de la ligne" (change)="onInputChangeLigne($event, data.position)"/></td>
                   <td class="colonne-actions">
                     <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" 
                     title="Supprimer la modalite"  (click)="removeLigne(data.position)"/>
                   </td>
-                  <div *cdkDragPreview matchSize="true" class="container">{{data.libelle | titlecase}}</div>
+                  <div *cdkDragPreview matchSize="true" class="container">{{data.libelle}}</div>
                 </tr>
               </tbody>
             </table>
@@ -36,18 +39,18 @@
           </div>
         </div>
         <div class="div-colonnes">
-          <span [hidden]="!dataSourceColonne.length" class="title-modalites">Colonnes</span>
+          <span [hidden]="!dataSourceColonnes.length" class="title-modalites">Colonnes</span>
           <div class="table-modalites">
-            <table class="table table-responsive-sm ">
+            <table class="table table-responsive-sm">
               <tbody cdkDropList (cdkDropListDropped)="onDropColonne($event)">
-                <tr cdkDrag *ngFor="let data of dataSourceColonne">
+                <tr cdkDrag *ngFor="let data of dataSourceColonnes">
                   <td cdkDragHandle class="colonne-position">{{data.position}}</td>
-                  <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle | titlecase}}' placeholder="Libellé de la colonne" (change)="onInputChangeColonne($event, data.position)"/></td>
+                  <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle}}' placeholder="Libellé de la colonne" (change)="onInputChangeColonne($event, data.position)"/></td>
                   <td class="colonne-actions">
                     <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" 
                     title="Supprimer la modalite"  (click)="removeColonne(data.position)"/>
                   </td>
-                  <div *cdkDragPreview matchSize="true" class="container">{{data.libelle | titlecase}}</div>
+                  <div *cdkDragPreview matchSize="true" class="container">{{data.libelle}}</div>
                 </tr>
               </tbody>
             </table>
@@ -60,16 +63,18 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between footer d-block">
+   
+    <div class="d-flex justify-content-around footer d-block">
       <div class="form-check form-switch">
           <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
           <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
       </div>
       <img class="img-actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
-      <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_fermee_unique()"/>
+      <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_grille()"/>
     </div>
     <div>
         <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
     </div>
-    <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSourceLigne" [questions]="questions"></app-branchement-modal>
+    <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSourceLignes" [questions]="questions"></app-branchement-modal>
+    <app-grille-modal #editGrille [titre]="libelleQuestion" [lignes]="dataSourceLignes"  [colonnes]="dataSourceColonnes"></app-grille-modal>
   </li>

@@ -1,0 +1,13 @@
+<li class="li-question">
+    <div class="div-libelle-question">
+        <span class="libelle-question"> {{libelleQuestion}} </span>
+    </div>
+    <div class="d-flex justify-content-center stars">
+        <div #myComponent>
+            <img class="img-empty" src="assets/images/quaero/star_all_empty.png" (click)='all_empty_image()'/>
+            <img class="img-etoile" *ngFor="let i of Arr(nbStars).fill(1); index as n" src="assets/images/quaero/star_empty.png" title="{{n+1}}" (click)='change_image(n)'  />
+        </div>
+    </div>    
+</li>
+
+

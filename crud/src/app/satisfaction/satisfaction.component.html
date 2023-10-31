@@ -2,31 +2,139 @@
     <input class="d-none" value="fermee_simple"/>
     <div class="d-flex justify-content-between" >
       <img class="ancre" src="assets/images/quaero/transfert_blanc.png" width="25vh" height="20vh" cdkDragHandle>
-      <h5 class="type-question">Question de type <strong class="text-uppercase">satisfaction</strong></h5>
+      <h5 class="type-question">Question de type <strong class="text-uppercase type-question">satisfaction</strong></h5>
       <div>
           <img class="remove-question" src="assets/images/quaero/supprimer.png"  title="Supprimer la question" (click)='remove_question(this.componentId)'/>
           <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
       </div>
     </div>
-    <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
+    <div>
+        <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1" 
+		[(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
+    </div>
     <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
-        <div class="centered">
-            <div class="d-flex justify-content-between div-images">
-                <img  class="img-smiley" src="assets/images/quaero/smiley_1.png" title="Très insatisfait" (click)="change_note($event)"/>
-                <img  class="img-smiley" src="assets/images/quaero/smiley_2.png" title="Plutôt insatisfait" (click)="change_note($event)"/>
-                <img  class="img-smiley" src="assets/images/quaero/smiley_3.png" title="Moyennement satisfait" (click)="change_note($event)"/>
-                <img  class="img-smiley" src="assets/images/quaero/smiley_4.png" title="Plutôt satisfait" (click)="change_note($event)"/>
-                <img  class="img-smiley" src="assets/images/quaero/smiley_5.png" title="Très satisfait" (click)="change_note($event)"/>
+        
+          <mat-button-toggle-group #typeEchelle="matButtonToggleGroup" class="btn-type-echelle" [(ngModel)]="echelle">
+            <mat-button-toggle value="1" aria-label="Text align left">
+                Echelle de satisfaction à 5 positions
+            </mat-button-toggle>
+            <mat-button-toggle value="2" aria-label="Text align center">
+                Echelle de satisfaction à 7 positions
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+            <div class="centered echelle-5" *ngIf="typeEchelle.value == 1">
+                <div class="d-flex justify-content-between div-images">
+                    <figure class="figure ">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_1.png" data-value="1" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Très insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_2.png" data-value="2" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption">Plutôt insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_3.png" data-value="3" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Moyennement satisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_4.png" data-value="4" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Plutôt satisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_5.png" data-value="5" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Très satisfait.</figcaption>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="centered echelle-7" *ngIf="typeEchelle.value == 2">
+                <div class="d-flex justify-content-between div-images">
+                    <figure class="figure ">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_0.png" data-value="1" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Extrêmement insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure ">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_1.png" data-value="2" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Très insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_2.png" data-value="3" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption">Plutôt insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_3.png" data-value="4" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Ni satisfait, Ni insatisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_4.png" data-value="5" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Assez satisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_5.png" data-value="6" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Très satisfait.</figcaption>
+                        </div>
+                    </figure>
+                    <figure class="figure ">
+                        <div class="d-flex justify-content-center">
+                            <img  class="img-smiley" src="assets/images/quaero/smiley_6.png" data-value="7" (click)="change_note($event)"/>
+                        </div >
+                        <div class="d-flex justify-content-center">
+                            <figcaption class="figure-caption ">Extrêmement satisfait.</figcaption>
+                        </div>
+                    </figure>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
-                <input class="input-border-bottom input-note" [(ngModel)]="value" />
+                <input class="input-border-bottom input-note" [(ngModel)]="value" readonly />
             </div>
 
 
-
-        </div>
     </div>
-    <div class="d-flex justify-content-between footer d-block">
+         
+    <div class="d-flex justify-content-around footer d-block">
       <div class="form-check form-switch">
           <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
           <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
@@ -38,6 +146,7 @@
         <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
     </div>
     <app-branchement-modal #sideModal [titre]="libelleQuestion"  [questions]="questions"></app-branchement-modal>
+    <app-satisfaction-modal #editSatisfaction [titre]="libelleQuestion" [typeEchelle]="typeEchelle"></app-satisfaction-modal>
   </li>
   
 

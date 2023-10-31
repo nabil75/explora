@@ -1,0 +1,55 @@
+/* side-modal.component.css */
+.li-question{
+  padding: 1vw;
+  border: 1px solid rgb(236, 231, 231);
+  background-color: rgb(244, 243, 244); border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+  background-image: -webkit-linear-gradient(top, rgb(74, 56, 117) 0.5vw, transparent 0%, transparent 100%);
+}
+.div-libelle-question{
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+.libelle-question{
+  font-size: 1.5vw;
+  color:black;
+}
+.input-border-bottom{
+  border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
+  border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+}
+img{
+  cursor: pointer;
+}
+.img-smiley{
+  margin: 1vw;
+  width: 5vw;
+  height: 5vw;
+}
+.centered{
+    margin-left: auto;
+    margin-right: auto;
+}
+.input-note{
+  font-size: 3vw;
+  width: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+  text-align: center;
+}
+.div-images{
+  margin-top: 3vw;
+}
+.figure-caption{
+  font-size: medium;
+  text-align: center;
+}
+.echelle-7{
+    width: 90%;
+}
+.echelle-5{
+    width:60%;
+}
+li::marker{
+  font-size: xx-large;
+}

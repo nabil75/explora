@@ -3,7 +3,6 @@ import { ApiService } from '../api/api.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { EventEmitterService } from '../services/event-emitter.service';
 import { NgClass, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -32,18 +31,17 @@ export class MyQuestionnaryComponent implements OnInit{
   dataSource!: MatTableDataSource<Questionnary>;
   questionnaries!: any;
   idRow!: any;
-  status : any;
+  status : string ="Mes questionnaires";
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private api: ApiService,
-              private eventEmitter: EventEmitterService) {  }
+  constructor(private api: ApiService ) { }
 
   ngOnInit() {
-
+    
   }
 
   ngAfterViewInit() {
@@ -68,14 +66,8 @@ export class MyQuestionnaryComponent implements OnInit{
 
   deleteRow(idRow: string){
     this.api.deleteQuestionnary(idRow);
-    // this.ngOnInit();
-    this.ngAfterViewInit()
-    // this.getQuestionnaries();
+    this.ngAfterViewInit();
 
-  }
-
-  editRow (idRow: string) {
-    this.eventEmitter.onFirstComponentRowClick(idRow);
   }
 }
 

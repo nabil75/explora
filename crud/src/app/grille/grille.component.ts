@@ -8,6 +8,8 @@ import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.c
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { GrilleModalComponent } from '../modal/grille-modal/grille-modal.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 
 export interface ligneElement {
@@ -23,22 +25,27 @@ export interface colonneElement {
 }
 
 const ELEMENT_DATA_COLONNE: colonneElement[] = [];
+
+
 @Component({
     selector: 'app-grille',
     templateUrl: './grille.component.html',
     styleUrls: ['./grille.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, CdkDropList, BranchementModalComponent, CommonModule, MatButtonModule, NgFor],
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, BranchementModalComponent, 
+              GrilleModalComponent, CommonModule, MatButtonModule, NgFor, AutosizeModule
+            ],
 })
 
 export class GrilleComponent implements OnInit{
 
 
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('editGrille') editGrille!: GrilleModalComponent;
 
-  dataSourceLigne = [...ELEMENT_DATA_LIGNE];
-  dataSourceColonne = [...ELEMENT_DATA_COLONNE];
+  dataSourceLignes = [...ELEMENT_DATA_LIGNE];
+  dataSourceColonnes = [...ELEMENT_DATA_COLONNE];
   componentId: any;
   public questions: any= [];
   obligatoire: boolean = true;
@@ -50,8 +57,7 @@ export class GrilleComponent implements OnInit{
 
   constructor(private eventEmitterService: EventEmitterService,
               private utilsService: UtilsService,
-              public collapseQuestionsService: CollapseQuestionsService,
-              private newQuestionnary: NewQuestionnaryComponent,
+              public collapseQuestionsService: CollapseQuestionsService
               ){
               this.componentId = this.utilsService.generateUniqueId();
             }
@@ -71,14 +77,6 @@ export class GrilleComponent implements OnInit{
 
   openSideModal(): void {
     this.sideModal.openModal();
-    this.questions=[];
-    const indexArray = this.newQuestionnary.getQuestionsComponentId();
-    const indexArrayFiltered = this.filterNumbersAfterValue(indexArray, this.componentId);
-    for (let i = 0; i < this.newQuestionnary.dynamicComponentRefs.length; i++) {
-      if (indexArrayFiltered.includes(this.newQuestionnary.dynamicComponentRefs[i].instance['componentId'] )) {
-        this.questions.push({"id":this.newQuestionnary.dynamicComponentRefs[i].instance['componentId'],"libelle":this.newQuestionnary.dynamicComponentRefs[i].instance.libelleQuestion});
-      }
-    }
   }
 
   remove_question(idQuestion:number){
@@ -96,65 +94,65 @@ export class GrilleComponent implements OnInit{
   }
 
   onDropLigne(event: CdkDragDrop<ligneElement>) {
-    moveItemInArray(this.dataSourceLigne, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.dataSourceLignes, event.previousIndex, event.currentIndex);
     let i: number = 1;
-    this.dataSourceLigne.forEach( (obj) => {
+    this.dataSourceLignes.forEach( (obj) => {
       obj.position = i;
       i++;
     });
   }
   onDropColonne(event: CdkDragDrop<colonneElement>) {
-    moveItemInArray(this.dataSourceColonne, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.dataSourceColonnes, event.previousIndex, event.currentIndex);
     let i: number = 1;
-    this.dataSourceColonne.forEach( (obj) => {
+    this.dataSourceColonnes.forEach( (obj) => {
       obj.position = i;
       i++;
     });
   }
 
   addLigne() {
-    const row ={'position': (this.dataSourceLigne.length+1), 'libelle':''};
-    this.dataSourceLigne.push(row);
+    const row ={'position': (this.dataSourceLignes.length+1), 'libelle':''};
+    this.dataSourceLignes.push(row);
   }
 
   removeLigne(position: number) {
-    this.dataSourceLigne.splice(position-1,1);
+    this.dataSourceLignes.splice(position-1,1);
     let i: number = 1;
-    this.dataSourceLigne.forEach( (obj) => {
+    this.dataSourceLignes.forEach( (obj) => {
       obj.position = i;
       i++;
     });
   }
   addColonne() {
-    const row ={'position': (this.dataSourceColonne.length+1), 'libelle':''};
-    this.dataSourceColonne.push(row);
+    const row ={'position': (this.dataSourceColonnes.length+1), 'libelle':''};
+    this.dataSourceColonnes.push(row);
   }
 
   removeColonne(position: number) {
-    this.dataSourceColonne.splice(position-1,1);
+    this.dataSourceColonnes.splice(position-1,1);
     let i: number = 1;
-    this.dataSourceColonne.forEach( (obj) => {
+    this.dataSourceColonnes.forEach( (obj) => {
       obj.position = i;
       i++;
     });
   }
 
   onInputChangeLigne(event:any, position: number){ 
-    this.dataSourceLigne.forEach( (obj) => {
+    this.dataSourceLignes.forEach( (obj) => {
       if(obj.position == position){
         obj.libelle = event.target.value;
       }
     });
   }
   onInputChangeColonne(event:any, position: number){ 
-    this.dataSourceColonne.forEach( (obj) => {
+    this.dataSourceColonnes.forEach( (obj) => {
       if(obj.position == position){
         obj.libelle = event.target.value;
       }
     });
   }
 
-  display_question_fermee_unique(){
-    
+  display_question_grille(){
+    this.editGrille.openModal();
   }
 }

@@ -8,7 +8,10 @@
         <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
     </div>
   </div>
-  <input class="form-control input-border-bottom libelle-question"  placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
+  <div>
+    <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1" 
+		[(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
+  </div>
   <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
     <div class="div-modalites">
       <span [hidden]="!dataSource.length" class="title-modalites">Modalités</span>
@@ -17,12 +20,12 @@
           <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
             <tr cdkDrag *ngFor="let data of dataSource">
               <td cdkDragHandle class="colonne-position">{{data.position}}</td>
-              <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle | titlecase}}' placeholder="Libellé modalité" (change)="onInputChange($event, data.position)"/></td>
+              <td><input class="libelle-modalite input-border-bottom" value='{{data.libelle}}' placeholder="Libellé modalité" (change)="onInputChange($event, data.position)"/></td>
               <td class="colonne-actions">
                 <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" 
                 title="Supprimer la modalite"  (click)="removeModalite(data.position)"/>
               </td>
-              <div *cdkDragPreview matchSize="true" class="container">{{data.libelle | titlecase}}</div>
+              <div *cdkDragPreview matchSize="true" class="container">{{data.libelle}}</div>
             </tr>
           </tbody>
         </table>
@@ -36,13 +39,13 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-between footer d-block">
+  <div class="d-flex justify-content-around footer d-block">
       <div class="form-check form-switch">
           <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire"  type="checkbox" title="Réponse obligatoire">
           <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
       </div>
       <div class="d-flex">
-        <input class="input-border-bottom saisie-number" value="{{reponses}}" type="number" min="0" max={{maxReponses}} (keyup)="onKeyup($event)"/>
+        <input class="input-border-bottom saisie-number" type="number" min="0" [(ngModel)]= "maxReponses" (keyup)="onKeyup($event)"/>
         <label style="margin-right: 5px">Réponses possibles</label>
     </div>
       <div class="form-check form-switch">
@@ -56,4 +59,5 @@
       <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
   </div>
   <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-branchement-modal>
+  <app-fermee-multiple-modal #editFermeeMultiple [titre]="libelleQuestion" [modalites]="dataSource"></app-fermee-multiple-modal>
 </li>

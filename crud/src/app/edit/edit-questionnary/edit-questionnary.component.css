@@ -1,0 +1,30 @@
+mat-card{
+  width: 80%;
+  margin: auto;
+} 
+.label-xxl{
+  font-size: 1vw;
+  margin-bottom: 3%;
+  height: 2vw;
+  background-color: rgb(74, 56, 117);
+}
+.intitule{
+  font-size: 2vw;
+  margin-bottom: 3%;
+}
+.input-border-bottom{
+  border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
+  border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+}
+.toolbox {
+  display: block; position: fixed; left: 0; width: 50px; top: 25%;
+}
+.li-toolbox{
+  margin-bottom: 3px; margin-left: -30px; list-style-type: none;
+}
+.img_toolbox{
+  cursor: pointer; border: 1px thin rgb(217, 215, 231); border-radius: 1vh 1vh 1vh 1vh; width: 3vw; height: 3vw;
+}
+.img_toolbox:hover{
+  cursor: pointer; border: 4px solid rgb(228, 225, 243); border-radius: 1vh 1vh 1vh 1vh; width: 5vh; height: 5vh; min-width: 4vh;min-height: 4vh;
+}

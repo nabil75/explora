@@ -8,11 +8,13 @@ import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
-
+import { FermeeMultipleModalComponent } from '../modal/fermee-multiple-modal/fermee-multiple-modal.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 export interface ModaliteElement {
   libelle: string;
   position: number;
+  isChecked: boolean;
 }
 
 const ELEMENT_DATA: ModaliteElement[] = [];
@@ -24,23 +26,25 @@ const ELEMENT_DATA: ModaliteElement[] = [];
     styleUrls: ['./fermee-multiple.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, BranchementModalComponent, CdkDropList, CommonModule, MatButtonModule, NgFor]
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList,FormsModule, BranchementModalComponent, CommonModule, MatButtonModule, 
+              NgFor, FermeeMultipleModalComponent, AutosizeModule
+            ]
 })
 export class FermeeMultipleComponent implements OnInit {
 
 
   
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('editFermeeMultiple') editFermeeMultiple!: FermeeMultipleModalComponent;
 
   dataSource = [...ELEMENT_DATA];
 
-  reponses: number = 0;
   maxReponses: number =0;
   obligatoire: boolean = true;
   ordonnee: boolean = false;
   componentId: any;
-  public dynamicComponentModaliteRefs: ComponentRef<any>[] = [];
-  public questions: any[]= [];
+  dynamicComponentModaliteRefs: ComponentRef<any>[] = [];
+  questions: any[]= [];
 
   img_collapse_expand: string ="assets/images/quaero/collapse.png";
 
@@ -56,12 +60,13 @@ export class FermeeMultipleComponent implements OnInit {
             }
 
   ngOnInit(){
-    this.maxReponses = this.dataSource.length;
-    this.reponses= this.dataSource.length;
+    if(this.maxReponses>this.dataSource.length){
+      this.maxReponses=this.dataSource.length;
+    }
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   filterNumbersAfterValue(arr: number[], value: number): number[] {
@@ -105,9 +110,9 @@ export class FermeeMultipleComponent implements OnInit {
   }
 
   addModalite() {
-    const row ={'position': (this.dataSource.length+1), 'libelle':''};
+    const row ={'position': (this.dataSource.length+1), 'libelle':'', 'isChecked':false};
     this.dataSource.push(row);
-    this.ngOnInit();
+    this.maxReponses=this.maxReponses+1;
   }
 
   removeModalite(position: number) {
@@ -129,8 +134,9 @@ export class FermeeMultipleComponent implements OnInit {
   }
 
   display_question_fermee_multiple(){
-    
+    this.editFermeeMultiple.openModal();
   }
+
   controle_nombre_reponses(){
 
   }

@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ViewChild, ChangeDetectionStrategy, OnInit, Input } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
@@ -8,6 +8,8 @@ import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.c
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { EchelleModalComponent } from '../modal/echelle-modal/echelle-modal.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 
 export interface SemantiqueElement {
@@ -24,13 +26,15 @@ const ELEMENT_DATA: SemantiqueElement[] = [];
     styleUrls: ['./echelle.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, FormsModule, CdkDropList, BranchementModalComponent, CommonModule, MatButtonModule, NgFor],
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, 
+              BranchementModalComponent, CommonModule, MatButtonModule, NgFor, EchelleModalComponent, AutosizeModule],
 })
 
 export class EchelleComponent implements OnInit{
 
 
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('editEchelle') editEchelle!: BranchementModalComponent;
 
   dataSource = [...ELEMENT_DATA];
   componentId: any;
@@ -128,6 +132,6 @@ export class EchelleComponent implements OnInit{
   }
 
   display_question_fermee_unique(){
-    
+    this.editEchelle.openModal();
   }
 }

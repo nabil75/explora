@@ -8,9 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RatingModule } from 'ngx-bootstrap/rating';
-
-
-
+import { CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList } from '@angular/cdk/drag-drop';
+import { SatisfactionModalComponent } from '../modal/satisfaction-modal/satisfaction-modal.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { AutosizeModule } from 'ngx-autosize';
 
 @Component({
     selector: 'app-satisfaction',
@@ -18,13 +20,17 @@ import { RatingModule } from 'ngx-bootstrap/rating';
     styleUrls: ['./satisfaction.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [FormsModule, BranchementModalComponent, CommonModule, MatButtonModule, NgFor, RatingModule ],
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, 
+              BranchementModalComponent, SatisfactionModalComponent, CommonModule, 
+              MatButtonModule, NgFor, RatingModule, MatButtonToggleModule, MatIconModule, AutosizeModule
+             ],
 })
 
 export class SatisfactionComponent implements OnInit{
 
 
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('editSatisfaction') editSatisfaction!: SatisfactionModalComponent;
 
   componentId: any;
   questions: any= [];
@@ -33,21 +39,22 @@ export class SatisfactionComponent implements OnInit{
   img_etoile: string ="assets/images/quaero/star_empty.png";
   libelleQuestion!: string;
   value: string = "";
+  echelle: string ="";
 
-
-  constructor(private eventEmitterService: EventEmitterService,
-              private utilsService: UtilsService,
-              public collapseQuestionsService: CollapseQuestionsService,
-              private newQuestionnary: NewQuestionnaryComponent,
+  constructor(  private eventEmitterService: EventEmitterService,
+                private utilsService: UtilsService,
+                public collapseQuestionsService: CollapseQuestionsService,
+                private newQuestionnary: NewQuestionnaryComponent,
               ){
-              this.componentId = this.utilsService.generateUniqueId();
-            }
+                this.componentId = this.utilsService.generateUniqueId();
+              }
 
   ngOnInit(){
+
   }
 
   ngAfterViewInit() {
-    // this.imgElements = this.myComponent.nativeElement.querySelectorAll('.img-smiley');   
+
   }
 
   filterNumbersAfterValue(arr: number[], value: number): number[] {
@@ -82,32 +89,44 @@ export class SatisfactionComponent implements OnInit{
   }
 
   change_note(event: any): void {
-      let elTitle = event.target.title;
-      switch(elTitle){
-        case 'Très insatisfait': {
+      let elData = event.target.getAttribute('data-value');
+      switch(elData){
+        case '1': {
           this.value="1";
         }
         break;
-        case 'Plutôt insatisfait': {
+        case '2': {
           this.value="2";
         }
         break;
-        case 'Moyennement satisfait': {
+        case '3': {
           this.value="3";
         }
         break;
-        case 'Plutôt satisfait': {
+        case '4': {
           this.value="4";
         }
         break;
-        case 'Très satisfait': {
+        case '5': {
           this.value="5";
+        }
+        break;
+        case '6': {
+          this.value="6";
+        }
+        break;
+        case '7': {
+          this.value="7";
         }
         break;
       }
   }
 
   display_question_satisfaction(){
+    this.editSatisfaction.openModal();
+  }
 
+  onClickTypeEchelle(event:any):void{
+    console.log(this.echelle)
   }
 }

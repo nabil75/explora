@@ -1,0 +1,15 @@
+<div class="side-modal" [class.open]="showModal">
+    <div class="modal-content">
+        <div>
+            <h2 class="titre-modal" ></h2>
+            <button type="button" class="btn-close close-modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <h1 class="libelle-question"> {{titre}} </h1>
+        <div class="d-flex justify-content-center stars">
+            <div #myComponent>
+                <img class="img-empty" src="assets/images/quaero/star_all_empty.png" width="40vh" height="35vh" (click)='all_empty_image()'/>
+                <img class="img-etoile" *ngFor="let i of Arr(nbStars).fill(1); index as n" src="assets/images/quaero/star_empty.png" title="{{n+1}}" (click)='change_image(n)'  />
+            </div>
+        </div>
+    </div>
+</div>

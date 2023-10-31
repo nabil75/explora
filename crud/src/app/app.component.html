@@ -1,60 +1,131 @@
-<button mat-button [matMenuTriggerFor]="collecter"><img [ngClass]="'image-menu'" src="assets/images/menu/collect.png"/> {{'menu-general.collect' | translate}} </button>
-<mat-menu #collecter="matMenu" yPosition="above">
-  <span [ngClass]="'separateur'"><strong>Télécharger un fichier</strong></span>
-  <button mat-menu-item>CSV</button>
-  <button mat-menu-item>PDF</button>
-  <button mat-menu-item>XML</button>
-  <button mat-menu-item>JSON</button>
-  <span [ngClass]="'separateur'"><strong>Questionnaire</strong></span>
-  <button mat-menu-item><span routerLink="/my-questionnary">Mes questionnaires</span> </button>
-  <button mat-menu-item><span routerLink="/new-questionnary">Nouveau questionnaire</span></button>
-  <button mat-menu-item><span routerLink="/organigramme">Organigramme - Prime Ng</span></button>
-  <button mat-menu-item><span routerLink="/gauge">Gauje - Google chart</span></button>
-  <button mat-menu-item><span routerLink="/list-user">List des users</span></button>
-  <button mat-menu-item><span routerLink="/divers">Divers</span></button>
-  <button mat-menu-item>Publier un questionnaire</button>
-  <button mat-menu-item>exemple pyscript</button>
+<button mat-button [matMenuTriggerFor]="menu"><img class="menu-general" src="assets/images/menu/menu-general/menu-general.png"/></button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item><span routerLink="/accueil"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/home.png"/> Accueil</span></button>
+  <button mat-menu-item [matMenuTriggerFor]="collecter"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/collect.png"/> {{'menu-general.collect' | translate}}</button>
+  <button mat-menu-item [matMenuTriggerFor]="preparer"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/clean.png"/> {{'menu-general.clean' | translate}} </button>
+  <button mat-menu-item [matMenuTriggerFor]="explorer"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/explore.png"/> {{'menu-general.explore' | translate}} </button>
+  <button mat-menu-item [matMenuTriggerFor]="visualiser"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/visualize.png"/> {{'menu-general.visualize' | translate}} </button>
+  <button mat-menu-item [matMenuTriggerFor]="liensUtiles"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/links.png"/> {{'menu-general.usefull-links' | translate}} </button>
+  <button mat-menu-item [matMenuTriggerFor]="langues"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/language.png"/> {{'menu-general.language' | translate}} </button>
+  <button mat-menu-item [matMenuTriggerFor]="themes"><img [ngClass]="'image-menu'" src="assets/images/menu/menu-general/theme.png"/> {{'menu-general.theme' | translate}} </button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="preparer"><img [ngClass]="'image-menu'" src="assets/images/menu/clean.png"/> {{'menu-general.clean' | translate}} </button>
-<mat-menu #preparer="matMenu" yPosition="above">
-  <button mat-menu-item>Opération 1</button>
-  <button mat-menu-item>Opération 2</button>
+<mat-menu #collecter="matMenu"> 
+  <button mat-menu-item [matMenuTriggerFor]="questionnaire">Questionnaire</button>
+  <button mat-menu-item [matMenuTriggerFor]="telecharger">Télécharger un fichier</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="explorer"><img [ngClass]="'image-menu'" src="assets/images/menu/explore.png"/> {{'menu-general.explore' | translate}} </button>
+<mat-menu #preparer="matMenu">
+  <button mat-menu-item>opération 1</button>
+  <button mat-menu-item>opération 2</button>
+  <button mat-menu-item>oération 3</button>
+</mat-menu>
+
 <mat-menu #explorer="matMenu" yPosition="above">
   <button mat-menu-item>Explorer 1</button>
   <button mat-menu-item>Explorer 2</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="visualiser"><img [ngClass]="'image-menu'" src="assets/images/menu/visualize.png"/> {{'menu-general.visualize' | translate}} </button>
-<mat-menu #visualiser="matMenu" yPosition="above">
-  <button mat-menu-item>Visualiser 1</button>
-  <button mat-menu-item>Visualiser 2</button>
-</mat-menu>
-
-<button mat-button [matMenuTriggerFor]="liensUtiles"><img [ngClass]="'image-menu'" src="assets/images/menu/links.png"/> {{'menu-general.usefull-links' | translate}} </button>
 <mat-menu #liensUtiles="matMenu" yPosition="above">
   <button mat-menu-item><span><a class="dropdown-item" href="https://pandas.pydata.org/docs/index.html" target="_blank">Pandas : Documentation</a></span></button>
   <button mat-menu-item><a class="dropdown-item" href="https://numpy.org/doc/stable/" target="_blank">Numpy : Documentation</a></button>
   <button mat-menu-item><a class="dropdown-item" href="https://seaborn.pydata.org/tutorial.html" target="_blank">Seaborn : Guide & tutoriel</a></button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="langues"><img [ngClass]="'image-menu'" src="assets/images/menu/language.png"/> {{'menu-general.language' | translate}} </button>
+<mat-menu #visualiser="matMenu" yPosition="above">
+  <button mat-menu-item>Visualiser 1</button>
+  <button mat-menu-item>Visualiser 2</button>
+</mat-menu>
+
 <mat-menu #langues="matMenu" yPosition="above">
   <button mat-menu-item (click)="changeLanguage()">{{'menu-general.en' | translate}}</button>
   <button mat-menu-item (click)="changeLanguage()">{{'menu-general.fr' | translate}}</button>
 </mat-menu>
 
-<button mat-button [matMenuTriggerFor]="themes"><img [ngClass]="'image-menu'" src="assets/images/menu/theme.png"/> {{'menu-general.theme' | translate}} </button>
 <mat-menu #themes="matMenu" yPosition="above">
   <button mat-menu-item>Sombre</button>
   <button mat-menu-item>Clair</button>
 </mat-menu>
 
-<div [ngClass]="'separateur-menu'"><hr></div>
-<router-outlet></router-outlet>
+<mat-menu #telecharger="matMenu">
+  <button mat-menu-item><img [ngClass]="'image-menu-xl'" src="assets/images/menu/collect/csv.png"/></button>
+  <button mat-menu-item><img [ngClass]="'image-menu-xl'" src="assets/images/menu/collect/pdf.png"/></button>
+  <button mat-menu-item><img [ngClass]="'image-menu-xl'" src="assets/images/menu/collect/xml.png"/></button>
+  <button mat-menu-item><img [ngClass]="'image-menu-xl'" src="assets/images/menu/collect/json.png"/></button>
+  <button mat-menu-item><img [ngClass]="'image-menu-xl'" src="assets/images/menu/collect/txt.png"/></button>
+</mat-menu>
+
+<mat-menu #questionnaire="matMenu">
+  <button mat-menu-item><span routerLink="/my-questionnary"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/mes_questionnaires.png"/> Mes questionnaires</span></button>
+  <button mat-menu-item><span routerLink="/new-questionnary"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/nouveau_questionnaire.png"/>Nouveau questionnaire</span></button>
+  <button mat-menu-item><span routerLink="/organigramme"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/organigramme.png"/>Organigramme - Prime Ng</span></button>
+  <button mat-menu-item><span routerLink="/gauge">Gauje - Google chart</span></button>
+</mat-menu>
+
+
+  <!-- <button mat-button [matMenuTriggerFor]="collecter"><img [ngClass]="'image-menu'" src="assets/images/menu/collect.png"/> {{'menu-general.collect' | translate}} </button>
+  <mat-menu #collecter="matMenu" yPosition="above">
+    <span [ngClass]="'separateur'"><strong>Télécharger un fichier</strong></span>
+    <button mat-menu-item>CSV</button>
+    <button mat-menu-item>PDF</button>
+    <button mat-menu-item>XML</button>
+    <button mat-menu-item>JSON</button>
+    <span [ngClass]="'separateur'"><strong>Questionnaire</strong></span>
+    <button mat-menu-item><span routerLink="/my-questionnary">Mes questionnaires</span> </button>
+    <button mat-menu-item><span routerLink="/new-questionnary">Nouveau questionnaire</span></button>
+    <button mat-menu-item><span routerLink="/organigramme">Organigramme - Prime Ng</span></button>
+    <button mat-menu-item><span routerLink="/gauge">Gauje - Google chart</span></button>
+    <button mat-menu-item><span routerLink="/list-user">List des users</span></button>
+    <button mat-menu-item><span routerLink="/divers">Divers</span></button>
+    <button mat-menu-item>Publier un questionnaire</button>
+    <button mat-menu-item>exemple pyscript</button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="preparer"><img [ngClass]="'image-menu'" src="assets/images/menu/clean.png"/> {{'menu-general.clean' | translate}} </button>
+  <mat-menu #preparer="matMenu" yPosition="above">
+    <button mat-menu-item>Opération 1</button>
+    <button mat-menu-item>Opération 2</button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="explorer"><img [ngClass]="'image-menu'" src="assets/images/menu/explore.png"/> {{'menu-general.explore' | translate}} </button>
+  <mat-menu #explorer="matMenu" yPosition="above">
+    <button mat-menu-item>Explorer 1</button>
+    <button mat-menu-item>Explorer 2</button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="visualiser"><img [ngClass]="'image-menu'" src="assets/images/menu/visualize.png"/> {{'menu-general.visualize' | translate}} </button>
+  <mat-menu #visualiser="matMenu" yPosition="above">
+    <button mat-menu-item>Visualiser 1</button>
+    <button mat-menu-item>Visualiser 2</button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="liensUtiles"><img [ngClass]="'image-menu'" src="assets/images/menu/links.png"/> {{'menu-general.usefull-links' | translate}} </button>
+  <mat-menu #liensUtiles="matMenu" yPosition="above">
+    <button mat-menu-item><span><a class="dropdown-item" href="https://pandas.pydata.org/docs/index.html" target="_blank">Pandas : Documentation</a></span></button>
+    <button mat-menu-item><a class="dropdown-item" href="https://numpy.org/doc/stable/" target="_blank">Numpy : Documentation</a></button>
+    <button mat-menu-item><a class="dropdown-item" href="https://seaborn.pydata.org/tutorial.html" target="_blank">Seaborn : Guide & tutoriel</a></button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="langues"><img [ngClass]="'image-menu'" src="assets/images/menu/language.png"/> {{'menu-general.language' | translate}} </button>
+  <mat-menu #langues="matMenu" yPosition="above">
+    <button mat-menu-item (click)="changeLanguage()">{{'menu-general.en' | translate}}</button>
+    <button mat-menu-item (click)="changeLanguage()">{{'menu-general.fr' | translate}}</button>
+  </mat-menu>
+  
+  <button mat-button [matMenuTriggerFor]="themes"><img [ngClass]="'image-menu'" src="assets/images/menu/theme.png"/> {{'menu-general.theme' | translate}} </button>
+  <mat-menu #themes="matMenu" yPosition="above">
+    <button mat-menu-item>Sombre</button>
+    <button mat-menu-item>Clair</button>
+  </mat-menu>
+  
+  <div [ngClass]="'separateur-menu'"><hr></div> -->
+
+
+<div>
+  <router-outlet></router-outlet>
+</div>
+  
+
 
 <!-- <img style="margin-left: auto; margin-right: auto; display: block;" [src]="img_accueil" width="300em" height="200em"/> -->
 

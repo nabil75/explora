@@ -1,0 +1,34 @@
+.li-question{
+  padding: 1vw;
+  border: 1px solid rgb(236, 231, 231);
+  background-color: rgb(244, 243, 244); border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+  background-image: -webkit-linear-gradient(top, rgb(74, 56, 117) 0.5vw, transparent 0%, transparent 100%);
+}
+.div-libelle-question{
+  margin-top: 1vw;
+  margin-bottom: 2vw;
+}
+.libelle-question{
+  font-size: 1.5vw;
+  color:black;
+}
+.img-etoile{
+  width: 3vw;
+  height: 2.7vw;
+}
+.img-empty{
+  width: 2.5vw;
+  height: 2.4vw;
+}
+.img-etoile:hover{
+    content: url("src/assets/images/quaero/star_full.png");
+}
+img{
+    cursor: pointer;
+    margin-right: 0.5vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+}
+li::marker{
+  font-size: xx-large;
+}

@@ -41,15 +41,12 @@ export class ApiService {
     });
   }
 
-  getQuestionnary(idQuestionnary:any): Observable<any>{
+  getQuestionnary(idQuestionnary:string): Observable<any>{
     return(this.http.get(this.baseurl+"/get_questionnary/"+idQuestionnary+"/", { headers: this.httpHeaders_json }));
   }
 
   updateQuestionnary(id_questionnary: string, content: any ){
-    console.log("api ok : id_questionnary = "+id_questionnary+" content = "+content)
     return (this.http.get(this.baseurl+"/update_questionnary/"+id_questionnary+"/"+content, {headers: this.httpHeaders_json} ))
-    // const url = `${this.baseurl}/update_questionnary/${id_questionnary}/${content}`;
-    // return this.http.post(url, {}, { headers: this.httpHeaders_json });
   }
   saveQuestionnary(content: any){
     return (this.http.get(this.baseurl+"/save_questionnary/"+content, {headers: this.httpHeaders_json} ))
@@ -68,4 +65,11 @@ export class ApiService {
   getCsrfToken():any {
     return this.http.get<any>(this.baseurl+'/api/get_csrf_token');
   }
+
+  insertResult(content: any, idQuestionnary: number ): Observable<any>{
+    return (this.http.get(this.baseurl+"/insert_result/"+content+"/"+idQuestionnary, {headers: this.httpHeaders_json} ))
+  }
+  // updateResult(id_questionnary: string, content: any ){
+  //   return (this.http.get(this.baseurl+"/update_result/"+id_questionnary+"/"+content, {headers: this.httpHeaders_json} ))
+  // }
 }

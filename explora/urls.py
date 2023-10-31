@@ -22,6 +22,11 @@ urlpatterns = [
     path('get_questionnary/<str:id_questionnary>/',views.api_angular.angular.get_questionnary, name='get_questionnary'),
     path('save_questionnary/<str:content>/',views.api_angular.angular.save_questionnary, name='save_questionnary'),
     path('update_questionnary/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_questionnary, name='update_questionnary'),
+
+    path('insert_result/<str:content>/<str:id_questionnary>/',views.api_angular.angular.insert_result, name='insert_result'),
+    # path('update_result/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_result, name='update_result'),
+
+
     path('api/get_csrf_token', views.api_angular.angular.get_csrf_token, name='get_csrf_token'),
     path('api/set_csrf_token',views.api_angular.angular.set_csrf_token)
 ]

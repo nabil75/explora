@@ -2,13 +2,16 @@
     <input class="d-none" value="fermee_simple"/>
     <div class="d-flex justify-content-between" >
       <img class="ancre" src="assets/images/quaero/transfert_blanc.png" width="25vh" height="20vh" cdkDragHandle>
-      <h5 class="type-question">Question fermée à choix <strong class="text-uppercase">unique</strong></h5>
+      <h5 class="type-question">Question de type <strong class="text-uppercase">echelle</strong></h5>
       <div>
           <img class="remove-question" src="assets/images/quaero/supprimer.png"  title="Supprimer la question" (click)='remove_question(this.componentId)'/>
           <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
       </div>
     </div>
-    <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion"/>
+    <div>
+      <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1" 
+		  [(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
+    </div>
     <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
       <div class="div-modalites">
         <span [hidden]="!dataSource.length" class="title-modalites">Sémantiques différentiels</span>
@@ -17,13 +20,13 @@
             <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
               <tr cdkDrag *ngFor="let data of dataSource">
                 <td cdkDragHandle class="colonne-position">{{data.position}}</td>
-                <td><input class="libelle-modalite input-border-bottom" value='{{data.libelleGauche | titlecase}}' placeholder="Libellé gauche" (change)="onInputChangeGauche($event, data.position)"/></td>
-                <td><input class="libelle-modalite input-border-bottom" value='{{data.libelleDroit | titlecase}}' placeholder="Libellé droit"  (change)="onInputChangeDroit($event, data.position)"/></td>
+                <td><input class="libelle-modalite input-border-bottom" value='{{data.libelleGauche}}' placeholder="Libellé gauche" (change)="onInputChangeGauche($event, data.position)"/></td>
+                <td><input class="libelle-modalite input-border-bottom" value='{{data.libelleDroit}}' placeholder="Libellé droit"  (change)="onInputChangeDroit($event, data.position)"/></td>
                 <td class="colonne-actions">
                   <img [ngClass]="'img-action'" id="img_supprimer" src="assets/images/quaero/corbeille_noir.png" data-url="" 
                   title="Supprimer le sémantique différentiel"  (click)="removeSemantique(data.position)"/>
                 </td>
-                <div *cdkDragPreview matchSize="true" class="container">{{data.libelleGauche | titlecase}} - {{data.libelleDroit | titlecase}}</div>
+                <div *cdkDragPreview matchSize="true" class="container">{{data.libelleGauche}} - {{data.libelleDroit}}</div>
               </tr>
             </tbody>
           </table>
@@ -36,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-between footer d-block">
+    <div class="d-flex justify-content-around footer d-block">
       <div class="form-check form-switch">
           <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
           <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
@@ -48,5 +51,6 @@
         <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
     </div>
     <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-branchement-modal>
+    <app-echelle-modal #editEchelle [titre]="libelleQuestion" [semantiques]="dataSource"></app-echelle-modal>
   </li>
   

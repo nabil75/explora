@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,23 +10,31 @@ import { Router } from '@angular/router';
 export class AppComponent {
 
   language='fr';
-  img_accueil: string ="";
 
   constructor(
     private translate: TranslateService,
-    private router: Router,)
+    )
     {
       translate.setDefaultLang('fr');
+
     }
 
-  changeLanguage(): void {
+ngOnInit(){
 
-    if(this.language === 'fr'){
-      this.language ='en';
-    } else {
-      this.language = 'fr'
-    }
-    this.translate.use(this.language)
+}
+
+ngAfterViewInit(){
+
+}
+
+
+changeLanguage(): void {
+  if(this.language === 'fr'){
+    this.language ='en';
+  } else {
+    this.language = 'fr'
   }
+  this.translate.use(this.language)
+}
 
 }

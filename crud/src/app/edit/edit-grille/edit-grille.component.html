@@ -1,0 +1,28 @@
+
+<li class="li-question">
+    <div class="div-libelle-question">
+        <span class="libelle-question"> {{libelleQuestion}} </span>
+    </div>
+    <div>
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="centered">#</th>
+                    <th class="centered" *ngFor="let colonne of dataSourceColonnes"> {{ colonne.libelle}} </th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                <tr *ngFor="let ligne of dataSourceLignes; index as i">
+                    <td class="ligne"> {{ ligne.libelle}} </td>
+                    <td class="col-2 colonne" *ngFor="let colonne of dataSourceColonnes; index as j" width="50px" >
+                        <div class="form-check d-flex justify-content-center">
+                            <input class="form-check-input" type="radio" name="{{i}}" value=""/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+

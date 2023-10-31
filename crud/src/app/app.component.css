@@ -6,8 +6,16 @@
 }
 
 .image-menu{
-    width: 25px;
-    height: 25px;
-    margin-left: 25px;
-    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.image-menu-xl{
+    width: 45px;
+    height: 45px;
+}
+
+.menu-general{
+    width: 3vw; height: 3vw; min-width: 3vw;min-height: 3vw;
+    display: block; position: fixed; left: 0;
 }

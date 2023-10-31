@@ -9,12 +9,10 @@ import { moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgClass, NgSwitch } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { NotationComponent } from '../notation/notation.component';
 import { SatisfactionComponent } from '../satisfaction/satisfaction.component';
-
-
 
 @Component({
     selector: 'app-new-questionnary',
@@ -30,7 +28,6 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component';
 })
 
 export class NewQuestionnaryComponent implements OnInit {
-  [x: string]: any;
 
   public dynamicComponentRefs: ComponentRef<any>[] = [];
   id_questionnary: any;
@@ -41,18 +38,13 @@ export class NewQuestionnaryComponent implements OnInit {
 
   @ViewChild('question', { read: ViewContainerRef }) container!: ViewContainerRef;
 
-  @ViewChild(FermeeSimpleComponent) fermeeSimple!: FermeeSimpleComponent
-
   @Input() questionnaries: any;
-
-
 
   constructor(private eventEmitterService: EventEmitterService,
               private collapseQuestionsService: CollapseQuestionsService,
-              // private indexedDb :IndexedDbService,
               private api :ApiService,
               private route: ActivatedRoute,
-            ) {}
+            ) { }
 
   ngOnInit(){
     const id = this.route.snapshot.paramMap.get('id');
@@ -64,11 +56,11 @@ export class NewQuestionnaryComponent implements OnInit {
       this.removeComponent(idQuestion);
     });
     if (this.id_questionnary != undefined){
-      this.editQuestionnary();
+      this.editQuestion();
     }
   }
   
-  editQuestionnary () {
+  editQuestion () {
     this.api.getQuestionnary(this.id_questionnary).subscribe(
       (data) => {
         this.intituleQuestionnaire=data[0].intitule;
@@ -76,7 +68,7 @@ export class NewQuestionnaryComponent implements OnInit {
         for (let i=0; i<data[0].content.length;i++){
           switch(data[0].content[i].type){
             case 'FermeeSimpleComponent':{
-              let questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
+              const questionComponentRef = this.container.createComponent(FermeeSimpleComponent);
               questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
               questionComponentRef.instance.dataSource= data[0].content[i].modalites;
               this.container.insert(questionComponentRef.hostView);
@@ -84,15 +76,16 @@ export class NewQuestionnaryComponent implements OnInit {
               break;
             }
             case 'FermeeMultipleComponent':{
-              let questionComponentRef = this.container.createComponent(FermeeMultipleComponent);
+              const questionComponentRef = this.container.createComponent(FermeeMultipleComponent);
               questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
               questionComponentRef.instance.dataSource= data[0].content[i].modalites;
+              questionComponentRef.instance.maxReponses=data[0].content[i].maxReponses;
               this.container.insert(questionComponentRef.hostView);
               this.dynamicComponentRefs.push(questionComponentRef);
               break;
             }
             case 'NotationComponent':{
-              let questionComponentRef = this.container.createComponent(NotationComponent);
+              const questionComponentRef = this.container.createComponent(NotationComponent);
               questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
               questionComponentRef.instance.nbStars= data[0].content[i].nbStars;
               questionComponentRef.instance.value= data[0].content[i].note;
@@ -104,9 +97,27 @@ export class NewQuestionnaryComponent implements OnInit {
               break;
             }
             case 'SatisfactionComponent':{
-              let questionComponentRef = this.container.createComponent(SatisfactionComponent);
+              const questionComponentRef = this.container.createComponent(SatisfactionComponent);
+              questionComponentRef.instance.libelleQuestion = data[0].content[i].question;
+              questionComponentRef.instance.value = data[0].content[i].note;
+              questionComponentRef.instance.echelle = data[0].content[i].echelle;
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
+            case 'GrilleComponent':{
+              const questionComponentRef = this.container.createComponent(GrilleComponent);
               questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
-              questionComponentRef.instance.value= data[0].content[i].note;
+              questionComponentRef.instance.dataSourceLignes= data[0].content[i].lignes;
+              questionComponentRef.instance.dataSourceColonnes= data[0].content[i].colonnes;
+              this.container.insert(questionComponentRef.hostView);
+              this.dynamicComponentRefs.push(questionComponentRef);
+              break;
+            }
+            case 'EchelleComponent':{
+              const questionComponentRef = this.container.createComponent(EchelleComponent);
+              questionComponentRef.instance.libelleQuestion= data[0].content[i].question;
+              questionComponentRef.instance.dataSource= data[0].content[i].semantiques;
               this.container.insert(questionComponentRef.hostView);
               this.dynamicComponentRefs.push(questionComponentRef);
               break;
@@ -114,6 +125,7 @@ export class NewQuestionnaryComponent implements OnInit {
           }
         }
       });
+      console.log(this.dynamicComponentRefs)
   }
 
   getQuestionsComponentId(){
@@ -128,7 +140,6 @@ export class NewQuestionnaryComponent implements OnInit {
   createFermeeSimple() {
     const fermeeSimpleComponentRef = this.container.createComponent(FermeeSimpleComponent);
     this.dynamicComponentRefs.push(fermeeSimpleComponentRef);
-    console.log(this.dynamicComponentRefs);
   }
 
   createFermeeMultiple() {
@@ -199,39 +210,51 @@ export class NewQuestionnaryComponent implements OnInit {
   }
 
   saveQuestionnary(): void{
-    console.log(this.dynamicComponentRefs)
     let content:any=[];
     let content_question: any=[];
     let quest: string="";
     let content_modalites: any=[];
+    let content_semantiques: any=[]
+    let content_lignes: any=[];
+    let content_colonnes: any=[];
     for (let i = 0; i < this.dynamicComponentRefs.length; i++) {
       const componentRef: ComponentRef<any> = this.dynamicComponentRefs[i] as ComponentRef<any>;
-      quest=encodeURIComponent(componentRef.instance.libelleQuestion);
+      quest=encodeURIComponent(componentRef.instance.libelleQuestion).replace(/'/g, "''");
       switch(componentRef.componentType.name){
         case 'FermeeSimpleComponent':{
           content_modalites=[];
           for (let j = 0; j < componentRef.instance.dataSource.length; j++) {
-            content_modalites.push({"position": componentRef.instance.dataSource[j].position, "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle)})
+            content_modalites.push({
+              "position": componentRef.instance.dataSource[j].position, 
+              "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle).replace(/'/g, "''"),
+              "isChecked": componentRef.instance.dataSource[j].isChecked
+            });
           }
           content_question.push({
             type: componentRef.componentType.name, 
             obligatoire: componentRef.instance.obligatoire,
-            question:quest,modalites:content_modalites
-          })
+            question:quest,
+            modalites:content_modalites
+          });
           break;
         }
         case 'FermeeMultipleComponent':{
           content_modalites=[];
           for (let j = 0; j < componentRef.instance.dataSource.length; j++) {
-            content_modalites.push({"position": componentRef.instance.dataSource[j].position, "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle)})
+            content_modalites.push({
+              "position": componentRef.instance.dataSource[j].position, 
+              "libelle":encodeURIComponent(componentRef.instance.dataSource[j].libelle).replace(/'/g, "''"), 
+              "isChecked":componentRef.instance.dataSource[j].isChecked
+            });
           }
           content_question.push({
             type: componentRef.componentType.name, 
             obligatoire: componentRef.instance.obligatoire,
             ordonnee: componentRef.instance.ordonnee,
-            maxReponse: componentRef.instance.maxReponses,
-            question:quest,modalites:content_modalites
-          })
+            maxReponses: componentRef.instance.maxReponses,
+            question:quest,
+            modalites:content_modalites
+          });
           break;
         }
         case 'NotationComponent':{
@@ -249,14 +272,57 @@ export class NewQuestionnaryComponent implements OnInit {
             type: componentRef.componentType.name, 
             obligatoire: componentRef.instance.obligatoire,
             note: componentRef.instance.value,
+            echelle: componentRef.instance.echelle,
             question:quest
           })
           break;
         }
+        case 'GrilleComponent':{
+          content_lignes=[];
+          content_colonnes=[];
+          for (let j = 0; j < componentRef.instance.dataSourceLignes.length; j++) {
+            content_lignes.push({
+              "position": componentRef.instance.dataSourceLignes[j].position, 
+              "libelle":encodeURIComponent(componentRef.instance.dataSourceLignes[j].libelle).replace(/'/g, "''")
+            });
+          }
+          for (let j = 0; j < componentRef.instance.dataSourceColonnes.length; j++) {
+            content_colonnes.push({
+              "position": componentRef.instance.dataSourceColonnes[j].position, 
+              "libelle":encodeURIComponent(componentRef.instance.dataSourceColonnes[j].libelle).replace(/'/g, "''")
+            });
+          }
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            question:quest,
+            lignes:content_lignes,
+            colonnes:content_colonnes
+          })
+          break;
+        }
+        case 'EchelleComponent':{
+          content_semantiques=[];
+          for (let j = 0; j < componentRef.instance.dataSource.length; j++) {
+            content_semantiques.push({
+              "position": componentRef.instance.dataSource[j].position, 
+              "libelleGauche":encodeURIComponent(componentRef.instance.dataSource[j].libelleGauche).replace(/'/g, "''"),
+              "libelleDroit":encodeURIComponent(componentRef.instance.dataSource[j].libelleDroit).replace(/'/g, "''")});
+          }
+          content_question.push({
+            type: componentRef.componentType.name, 
+            obligatoire: componentRef.instance.obligatoire,
+            ordonnee: componentRef.instance.ordonnee,
+            maxReponses: componentRef.instance.maxReponses,
+            question:quest,
+            semantiques:content_semantiques
+          });
+          break;
+        }
       }
     }
-    let dateCreation: Date = new Date(); //formatDate(new Date(),'dd/MM/yyyy', this.locale);
-    content.push({intitule: encodeURIComponent(this.intituleQuestionnaire), date:dateCreation, questions:content_question})
+    let dateCreation: Date = new Date();
+    content.push({intitule: encodeURIComponent(this.intituleQuestionnaire).replace(/'/g, "''"), date:dateCreation, questions:content_question})
 
     if(this.id_questionnary == undefined){
       this.api.saveQuestionnary(JSON.stringify(content)).subscribe((response: any) => {

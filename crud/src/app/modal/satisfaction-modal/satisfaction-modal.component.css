@@ -1,0 +1,70 @@
+/* side-modal.component.css */
+.side-modal {
+    position: fixed;
+    top: 30%;
+    right: -200vw; /* La valeur négative dépends de la largeur de votre modale */
+    width: auto;
+    height: auto;
+    background-color:white;
+    transition: right 0.3s ease;
+    border: rgb(197, 194, 214) 5px solid;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white; padding: 1%; border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+    /* background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%); */
+  }
+  .input-border-bottom{
+    border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
+    border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+    }
+  
+  .side-modal.open {
+    right: 0;
+  }
+  
+  .close-modal{
+    font-size: 1vw;
+  }
+  
+  .titre-modal{
+    color: white;
+    margin-top: -1vw;
+  }
+  .libelle-question{
+    margin-top: 2%;
+    color: rgb(74, 56, 117);
+  }
+
+  img{
+    cursor: pointer;
+  }
+  .img-smiley{
+    margin: 1vw;
+    width: 5vw;
+    height: 5vw;
+  }
+  .centered{
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .input-note{
+    font-size: 3vw;
+    width: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    text-align: center;
+  }
+  .div-images{
+    margin-top: 3vw;
+  }
+  .figure-caption{
+    font-size: small;
+    color:rgb(46, 14, 120);
+    text-align: center;
+  }
+  .echelle-7{
+      width: 90%;
+  }
+  .echelle-5{
+      width:60%;
+  }

@@ -19,27 +19,29 @@ import { RouterModule } from '@angular/router';
 // Import PrimeNG modules
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { Routes } from '@angular/router';
-import { DynamicViewComponent } from './dynamic-view/dynamic-view.component';
+import { NewQuestionnaryComponent } from './new-questionnary/new-questionnary.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app-root', pathMatch: 'full' },
-
+  // { path: '', redirectTo: 'app-root', pathMatch: 'full' },
+  { path: '', 
+    loadComponent: () => import('./accueil/accueil.component').then(module => module.AccueilComponent)
+  },
+  { 
+    path: 'accueil', 
+    loadComponent: () => import('./accueil/accueil.component').then(module => module.AccueilComponent)
+  },
   { 
     path:'',
-    // providers: [EventEmitterService, IndexedDbService, ApiService, DynamicComponentService],
     loadChildren: () => import('./new-questionnary/new-questionnary.routes').then(module => module.newQuestionnaryRoutes)
   },
-
   { 
     path:'',
-    // providers: [EventEmitterService, ApiService],
+    loadChildren: () => import('./edit/edit-questionnary/edit-questionnary.routes').then(module => module.editQuestionnaryRoutes)
+  },
+  { 
+    path:'',
     loadChildren: () => import('./my-questionnary/my-questionnary.routes').then(module => module.myQuestionnaryRoutes)
   },
-
-  { path: 'divers', 
-    loadComponent: () => import('./dynamic-view/dynamic-view.component').then(module => module.DynamicViewComponent)
-  },
-
   { path: 'list-user', 
     loadComponent: () => import('./list-user/list-user.component').then(module => module.ListUserComponent)
   },
@@ -52,10 +54,7 @@ const routes: Routes = [
   { path: 'organigramme', 
     loadComponent: () => import('./orgranigramme/organization-chart-basic-doc/organization-chart-basic-doc.component').then(module => module.OrganizationChartBasicDocComponent)
   },
-
 ];
-
-
 
 @NgModule({
   declarations: [
@@ -65,8 +64,6 @@ const routes: Routes = [
   imports: [
     //primeng
     OrganizationChartModule,
-
-
     BrowserModule,
     CommonModule,
     HttpClientModule,
@@ -86,12 +83,8 @@ const routes: Routes = [
     FormsModule,
     DragDropModule,
     RouterModule.forRoot(routes)
-
-
-    
-
   ],
-  providers: [EventEmitterService, IndexedDbService, ApiService, DynamicComponentService],
+  providers: [EventEmitterService, IndexedDbService, ApiService, DynamicComponentService, NewQuestionnaryComponent],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
 

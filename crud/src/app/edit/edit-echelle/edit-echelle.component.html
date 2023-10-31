@@ -1,0 +1,24 @@
+<li class="li-question" >
+    <div class="div-libelle-question">
+       <span class="libelle-question"> {{libelleQuestion}} </span> 
+    </div>
+    <div>
+        <table class="table table-responsive">
+            <tbody>
+                <tr *ngFor="let semantique of semantiques; index as i">
+                    <td class="col-lg-3 semantique semantique-gauche"> {{ semantique.libelleGauche}} </td>
+                    <td class="col-lg-6">
+                        <mat-slider>
+                            <input matSliderThumb min="1" max="5" step="1" value="1,5" name="{{componentId}}_input-echelle" id="{{i}}"/>
+                        </mat-slider>
+                    </td>
+                    <td class="col-lg-3 semantique semantique-droit"> {{ semantique.libelleDroit}} </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+
+</li>
+
+
+

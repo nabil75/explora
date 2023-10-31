@@ -1,0 +1,30 @@
+.li-question{
+  padding: 1vw;
+  border: 1px solid rgb(236, 231, 231);
+  background-color: rgb(244, 243, 244); border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+  background-image: -webkit-linear-gradient(top, rgb(74, 56, 117) 0.5vw, transparent 0%, transparent 100%);
+}
+.div-libelle-question{
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+.libelle-question{
+  font-size: 1.5vw;
+  color:black;
+}
+  .centered{
+    text-align: center;
+  }
+  li::marker{
+    font-size: xx-large;
+  }
+  .ligne{
+    font-size: medium;
+  }
+  .colonne{
+    font-size: medium;
+  }
+  td {
+    display: table-cell;
+    vertical-align: middle;
+  }

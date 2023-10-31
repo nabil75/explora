@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RatingModule } from 'ngx-bootstrap/rating';
+import { CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList } from '@angular/cdk/drag-drop';
+import { NotationModalComponent } from '../modal/notation-modal/notation-modal.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 
 
@@ -18,13 +21,16 @@ import { RatingModule } from 'ngx-bootstrap/rating';
     styleUrls: ['./notation.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [FormsModule, BranchementModalComponent, CommonModule, MatButtonModule, NgFor, RatingModule ],
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, BranchementModalComponent, 
+              CommonModule, MatButtonModule, NgFor, RatingModule, NotationModalComponent, AutosizeModule
+            ],
 })
 
 export class NotationComponent implements OnInit{
 
 
   @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('editNotation') editNotation!: BranchementModalComponent;
   @ViewChild('myComponent') myComponent!: ElementRef;
 
   componentId: any;
@@ -39,10 +45,11 @@ export class NotationComponent implements OnInit{
 
   imgElements:any;
 
-  Arr = Array; //Array type captured in a variable
+  Arr = Array;
   nbStars: number = 10
   // max: number = this.nbStars;
   value: number = 0;
+  
 
 
   constructor(private eventEmitterService: EventEmitterService,
@@ -107,13 +114,11 @@ export class NotationComponent implements OnInit{
         element.src = "assets/images/quaero/star_empty.png";
       }
     }
-    console.log("After change nb stars : "+this.value)
   }
 
   all_empty_image(){
     this.ngAfterViewInit();
     this.value=0;
-    console.log("After empty all : "+this.value)
     const listImg = this.imgElements;
     for (let element of listImg) {
       element.src = "assets/images/quaero/star_empty.png";
@@ -121,6 +126,6 @@ export class NotationComponent implements OnInit{
   }
 
   display_question_notation(){
-
+    this.editNotation.openModal();
   }
 }

@@ -21,8 +21,9 @@ li.question::marker{
 
 .libelle-question{
   margin-top: 3%;
-  color:rgb(97, 55, 193);
-  font-size: 1.5vw;
+  font-size: x-large;
+  resize: none;
+  overflow-y: hidden;
 }
 .remove-question{
   float: right;
@@ -70,6 +71,7 @@ li.question::marker{
   width: 100%;
   background-color: white;
   padding: 10px;
+  font-size: medium;
 }
 .title-modalites {
   background-color: rgb(240, 236, 239); padding: 5px; border-radius: 0.5vh 0.5vh 0vh 0vh; margin-bottom: 2%;
