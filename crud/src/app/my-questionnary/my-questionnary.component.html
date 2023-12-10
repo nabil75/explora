@@ -27,9 +27,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
         <mat-cell *matCellDef="let row">
-          <img [routerLink]="['/new-questionnary', row.position]" class="img-action" id="img_modifier" src="assets/images/quaero/crayon.png"  title="Modifier le questionnaire"/>
-          <img [routerLink]="['/edit-questionnary', row.position]" class="img-action" id="img_afficher" src="assets/images/quaero/saisie.png" title="Saisir un questionnaire"/>
-          <img id="img_supprimer" class="img-action" src="assets/images/quaero/corbeille_noir.png" data-url="" (click)="deleteRow(row.position)" title="Supprimer le questionnaire"/>
+          <img *ngIf="showImage" [routerLink]="['/new-questionnary', row.position]" class="img-action" id="img_modifier" src="assets/images/quaero/crayon.png"  title="Modifier le questionnaire"/>
+          <img  *ngIf="showImage" [routerLink]="['/edit-questionnary', row.position]" class="img-action" id="img_afficher" src="assets/images/quaero/saisie.png" title="Saisir un questionnaire"/>
+          <img  *ngIf="showImage" id="img_supprimer" class="img-action" src="assets/images/quaero/corbeille_noir.png" data-url="" (click)="deleteRow(row.position)" title="Supprimer le questionnaire"/>
+          <img id="img_visualiser" [routerLink]="['/resultat-simple', row.position]" class="img-action" src="assets/images/quaero/explore/analyse.png" title="Analyser les résultats"/>
         </mat-cell>
       </ng-container>
   
@@ -39,8 +40,10 @@
     </mat-table>
   </div>
   
+  
   <div class="pagination">
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
   </div>
 </div>
+
 

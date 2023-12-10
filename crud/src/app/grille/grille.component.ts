@@ -3,13 +3,13 @@ import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
 import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragDrop, CdkDragPreview } from '@angular/cdk/drag-drop';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { GrilleModalComponent } from '../modal/grille-modal/grille-modal.component';
+import { GrilleModalComponent } from '../modal/afficher-question/grille-modal/grille-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { GrilleBranchementComponent } from '../modal/branchement/grille-branchement/grille-branchement.component';
 
 
 export interface ligneElement {
@@ -33,7 +33,7 @@ const ELEMENT_DATA_COLONNE: colonneElement[] = [];
     styleUrls: ['./grille.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, BranchementModalComponent, 
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, GrilleBranchementComponent, 
               GrilleModalComponent, CommonModule, MatButtonModule, NgFor, AutosizeModule
             ],
 })
@@ -41,7 +41,7 @@ const ELEMENT_DATA_COLONNE: colonneElement[] = [];
 export class GrilleComponent implements OnInit{
 
 
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: GrilleBranchementComponent;
   @ViewChild('editGrille') editGrille!: GrilleModalComponent;
 
   dataSourceLignes = [...ELEMENT_DATA_LIGNE];
@@ -154,5 +154,9 @@ export class GrilleComponent implements OnInit{
 
   display_question_grille(){
     this.editGrille.openModal();
+  }
+
+  generateQuestion(id: number){
+
   }
 }

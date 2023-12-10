@@ -24,6 +24,7 @@
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_save" src="assets/images/quaero/save.png" data-url="" title="Sauvegarder" (click)="saveQuestionnary()"/></li>
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_reduce_expand" [src]="img_collapse_expand_all"  title="Réduire toutes les questions" (click)="collapseQuestions()"/></li>
               <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_effacer_tout" src="assets/images/quaero/gomme.png" data-url="" title="Tout effacer" (click)="removeAllComponents()"/></li>
+              <li  [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_AI_Response" src="assets/images/quaero/ai.png" data-url="" title="Réponse automatique" (click)="generateQuestionnary()"/></li>
           </ul>
       </div>
 
@@ -33,8 +34,8 @@
             <label class="badge label-xxl d-block">{{ id_questionnary }}</label>
         </div>
         <div>
-          <!-- <input class="form-control input-border-bottom intitule" placeholder="Intitulé du questionnaire" #intituleQuestionnaire value="" (change)="onChange($event)"/> -->
-          <input class="form-control input-border-bottom intitule" placeholder="Intitule du questionnaire" [(ngModel)]="intituleQuestionnaire"/>
+          <textarea autosize id="intituleQuestionnaire" class="form-control input-border-bottom intitule" placeholder="Intitule du questionnaire" rows="1"
+          [(ngModel)]="intituleQuestionnaire"></textarea>
           <span id="intituleQuestionnaireVide" class="d-none">Attention l'intitulé de votre questionnaire est vide, veuillez le renseigner puis sauvegarder</span>
         </div>
         <div>

@@ -1,0 +1,32 @@
+<div class="side-modal" [class.open]="showModal">
+    <div class="modal-content">
+      <div>
+        <button type="button" class="btn-close btn-close-white close-modal" aria-label="Close" (click)="closeModal()"></button>
+        <h2 class="titre-modal" >Créer ou modifier un branchement</h2>
+        
+      </div>
+      <div>
+        <h1 class="libelle-question"> {{titre}} </h1>
+  
+        <div class="d-flex justify-content-between">
+          <p class="form-label" >Si la réponse est:</p>
+          <mat-form-field>
+            <mat-label>Modalité</mat-label>
+            <select matNativeControl required>
+              <option></option>
+              <option *ngFor="let modalite of modalites">{{ modalite.libelle}}</option>
+            </select>
+          </mat-form-field>
+          <p  class="form-label">Passer à la question:</p>
+          <mat-form-field>
+            <mat-label>Question</mat-label>
+            <select matNativeControl required>
+              <option></option>
+              <option *ngFor="let question of questions ; index as indexOfelement;" [ngValue]="question.id" > {{ question.libelle }}</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  

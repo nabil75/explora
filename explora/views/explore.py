@@ -106,8 +106,6 @@ def get_info_product(request):
     reponses['tous'] = csv_clean_file18.to_html()
     return JsonResponse(reponses)
 
-
-
 def get_list_colonnes(request):
     file = request.GET.get('file')
     filename = 'media/'+file

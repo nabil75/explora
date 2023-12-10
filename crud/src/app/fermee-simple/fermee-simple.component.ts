@@ -3,14 +3,20 @@ import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
 import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragDrop, CdkDragPreview } from '@angular/cdk/drag-drop';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { FermeeSimpleModalComponent } from '../modal/fermee-simple-modal/fermee-simple-modal.component';
+import { FermeeSimpleModalComponent } from '../modal/afficher-question/fermee-simple-modal/fermee-simple-modal.component';
+import { FermeeSimpleBranchementComponent } from '../modal/branchement/fermee-simple-branchement/fermee-simple-branchement.component';
 
 import {AutosizeModule} from 'ngx-autosize';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FermeeSimpleGeneratorComponent } from '../modal/generator/fermee-simple-generator/fermee-simple-generator.component';
 
 
 export interface ModaliteElement {
@@ -27,15 +33,23 @@ const ELEMENT_DATA: ModaliteElement[] = [];
     styleUrls: ['./fermee-simple.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, BranchementModalComponent, 
-              FermeeSimpleModalComponent, CommonModule, MatButtonModule, NgFor, AutosizeModule],
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, FermeeSimpleBranchementComponent, 
+              FermeeSimpleModalComponent, CommonModule, NgFor, AutosizeModule, FermeeSimpleGeneratorComponent, 
+              MatButtonModule, 
+              MatExpansionModule, 
+              MatIconModule,
+              MatFormFieldModule,
+              MatInputModule,
+              MatButtonToggleModule
+            ],
 })
 
 export class FermeeSimpleComponent implements OnInit{
 
 
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: FermeeSimpleBranchementComponent;
   @ViewChild('editFermeeSimple') editFermeeSimple!: FermeeSimpleModalComponent;
+  @ViewChild('generatorModal') generatorModal!: FermeeSimpleGeneratorComponent;
 
   dataSource = [...ELEMENT_DATA];
   componentId: any;
@@ -128,4 +142,14 @@ export class FermeeSimpleComponent implements OnInit{
   display_question_fermee_unique(): void{
     this.editFermeeSimple.openModal();
   }
+
+  openGeneratorModal(): void {
+    this.generatorModal.openModal();
+
+  }
+  
+  receiveQuestion(data:string){
+    this.libelleQuestion = data;
+  }
+
 }

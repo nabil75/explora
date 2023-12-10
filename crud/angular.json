@@ -32,7 +32,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/d3js/d3.js"
+            ]
           },
           "configurations": {
             "production": {

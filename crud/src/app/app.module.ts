@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { Routes } from '@angular/router';
 import { NewQuestionnaryComponent } from './new-questionnary/new-questionnary.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'app-root', pathMatch: 'full' },
@@ -42,6 +43,10 @@ const routes: Routes = [
     path:'',
     loadChildren: () => import('./my-questionnary/my-questionnary.routes').then(module => module.myQuestionnaryRoutes)
   },
+  { 
+    path:'',
+    loadChildren: () => import('./explore/resultat-simple/resultat-simple.routes').then(module => module.resultatSimpleRoutes)
+  },
   { path: 'list-user', 
     loadComponent: () => import('./list-user/list-user.component').then(module => module.ListUserComponent)
   },
@@ -52,13 +57,17 @@ const routes: Routes = [
     loadComponent: () => import('./fermee-multiple/fermee-multiple.component').then(module => module.FermeeMultipleComponent)
   },
   { path: 'organigramme', 
-    loadComponent: () => import('./orgranigramme/organization-chart-basic-doc/organization-chart-basic-doc.component').then(module => module.OrganizationChartBasicDocComponent)
+    loadComponent: () => import('./z-divers/organization-chart-basic-doc/organization-chart-basic-doc.component').then(module => module.OrganizationChartBasicDocComponent)
   },
+  { path: 'gauge', 
+  loadComponent: () => import('./z-divers/gauge/gauge.component').then(module => module.GaugeComponent)
+},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    SafeHtmlPipe,
   
   ],
   imports: [

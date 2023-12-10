@@ -17,7 +17,7 @@ export class ApiService {
 
   baseurl = "http://127.0.0.1:8000";
   httpHeaders_json = new HttpHeaders({'Content-Type':'application/json'});
-  httpHeaders_text = new HttpHeaders({'Content-Type':'text/plain', 'Access-Control-Allow-Origin': '*'});
+  httpHeaders_text = new HttpHeaders({'Content-Type':'text/plain'});
 
   getAllUsers(): Observable<any> {
     return this.http.get(this.baseurl+"/user", {headers: this.httpHeaders_json});
@@ -72,4 +72,12 @@ export class ApiService {
   // updateResult(id_questionnary: string, content: any ){
   //   return (this.http.get(this.baseurl+"/update_result/"+id_questionnary+"/"+content, {headers: this.httpHeaders_json} ))
   // }
+
+  getResultsFermee(id_questionnary: number, i: string){
+    return(this.http.get(this.baseurl+"/get_results_fermee/"+id_questionnary+"/"+i));
+  }
+ 
+  getQuestionnaryFromLmstudio(){
+    return this.http.get<any>(this.baseurl+'/get_lmstudio_response');
+  }
 }

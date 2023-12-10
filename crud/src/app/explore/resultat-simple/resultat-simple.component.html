@@ -1,0 +1,116 @@
+<div [ngClass]="'toolbox'">
+    <ul>
+        <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_question"
+                src="assets/images/quaero/explore/analyse.png" title="Choisir un type de question"
+                (click)="displayMenuAnalyse()" /> </li>
+        <ul id="menu-questions" [hidden]="isShowMenuAnalyse">
+            <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_current_questions"
+                    src="assets/images/quaero/explore/analyse-univariee.png" title="Analyse univariée"
+                    (click)="displayMenuAnalyseUnivariee()" /> </li>
+            <ul id="univariee" [hidden]="isShowMenuAnalyseUnivariee">
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox2'"
+                        src="assets/images/quaero/explore/histogramme.png" (click)="showBarChart()"
+                        title="Histogramme" /> </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox2'"
+                        src="assets/images/quaero/explore/camembert.png" (click)="showPieChart()" title="Camembert" />
+                </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox2'"
+                        src="assets/images/quaero/explore/doughnut.png" title="Doughnut" /> </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox2'"
+                        src="assets/images/quaero/explore/courbe.png" (click)="showLineChart()" title="ligne" /> </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox2'"
+                        src="assets/images/quaero/explore/scatter.png" (click)="showScatterChart()" title="Nuage de points" /> </li>
+            </ul>
+            <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_others_questions"
+                    src="assets/images/quaero/explore/analyse-bivariee.png" title="Analyse bivariée"
+                    (click)="displayMenuAnalyseBivariee()" /> </li>
+            <ul id="bivariee" [hidden]="isShowMenuAnalyseBivariee">
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/grille.png" title="Question sous forme de Tableau" /> </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/echelle.png" title="Question échelle" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/star.png" title="Question notation" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/smiley.png" title="Question satifaction" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/date.png" title="Question date" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'"
+                        src="assets/images/quaero/heure.png" title="Question heure" /></li>
+            </ul>
+            <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_others_questions"
+                    src="assets/images/quaero/explore/analyse-multifactorielle.png" title="Analyse bivariée"
+                    (click)="displayMenuAnalyseMultifactorielle()" /> </li>
+            <ul id="multifactorielle" [hidden]="isShowMenuAnalyseMultifactorielle">
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_tableau"
+                        src="assets/images/quaero/grille.png" title="Question sous forme de Tableau" /> </li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_echelle"
+                        src="assets/images/quaero/echelle.png" title="Question échelle" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_notation"
+                        src="assets/images/quaero/star.png" title="Question notation" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_satifaction"
+                        src="assets/images/quaero/smiley.png" title="Question satifaction" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_date"
+                        src="assets/images/quaero/date.png" title="Question date" /></li>
+                <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_heure"
+                        src="assets/images/quaero/heure.png" title="Question heure" /></li>
+            </ul>
+        </ul>
+        <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_save" src="assets/images/quaero/save.png"
+                data-url="" title="Sauvegarder" /></li>
+        <li [ngClass]="'li-toolbox'"><img [ngClass]="'img_toolbox'" id="img_effacer_tout"
+                src="assets/images/quaero/gomme.png" data-url="" title="Tout effacer" /></li>
+    </ul>
+</div>
+<div>
+    <label class="label-xxl">{{status}}</label>
+</div>
+<div>
+    <mat-form-field>
+        <mat-label>Choississez une question</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let question of questions, index as i" value="{{i}}"
+                (click)="getValQuestion(i.toString())">{{i+1}} - {{question}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="d-flex justify-content-center message">
+    <label *ngIf="isMessage" [style]="styleMessage"><em>{{message}}</em></label>
+</div>
+<div class="graph-tableau" *ngIf="!isMessage">
+    <div class="tableau" *ngIf="isTableau">
+        <h2>Tableau</h2>
+        <table class="table table-responsive-sm table-bordered">
+            <tbody>
+                <tr class="ligne-total">
+                    <td class="colonne-position-left">#</td>
+                    <td class="colonne-position-center colonne-resultat">Effectif</td>
+                    <td class="colonne-position-center colonne-resultat">%</td>
+                </tr>
+                <tr *ngFor="let data of dataSourceTableau">
+                    <td class="colonne-position-left">{{data.label}}</td>
+                    <td class="colonne-position-right">{{data.value}}</td>
+                    <td class="colonne-position-center">{{data.percentage | percent :'2.2'}}</td>
+                </tr> 
+                <tr class="ligne-total">
+                    <td  class="colonne-position-left">Total</td>
+                    <td class="colonne-position-right">{{sumDataSourceTableau}}</td>
+                    <td class="colonne-position-center"> {{1 | percent :'3.2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="graph-bar" *ngIf="isBarChart">
+        <app-bar [result]="data"></app-bar>
+    </div>
+    <div class="graph-pie" *ngIf="isPieChart">
+        <app-pie></app-pie>
+    </div>
+    <div class="graph-line" *ngIf="isLineChart">
+        <app-line></app-line>
+    </div>
+    <div class="graph-scatter" *ngIf="isScatterChart">
+        <app-scatter></app-scatter>
+    </div>
+</div>

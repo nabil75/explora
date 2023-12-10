@@ -22,7 +22,7 @@
 </mat-menu>
 
 <mat-menu #explorer="matMenu" yPosition="above">
-  <button mat-menu-item>Explorer 1</button>
+  <button mat-menu-item><span [routerLink]="['/my-questionnary', 'titre']"><img [ngClass]="'image-menu'" src="assets/images/menu/explore/analyse.png"/>Explorer les tendances</span></button>
   <button mat-menu-item>Explorer 2</button>
 </mat-menu>
 
@@ -59,7 +59,7 @@
   <button mat-menu-item><span routerLink="/my-questionnary"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/mes_questionnaires.png"/> Mes questionnaires</span></button>
   <button mat-menu-item><span routerLink="/new-questionnary"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/nouveau_questionnaire.png"/>Nouveau questionnaire</span></button>
   <button mat-menu-item><span routerLink="/organigramme"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/organigramme.png"/>Organigramme - Prime Ng</span></button>
-  <button mat-menu-item><span routerLink="/gauge">Gauje - Google chart</span></button>
+  <button mat-menu-item><span routerLink="/gauge"><img [ngClass]="'image-menu'" src="assets/images/menu/collect/gauge.png"/>Gauje</span></button>
 </mat-menu>
 
 

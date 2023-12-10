@@ -1,0 +1,40 @@
+/* side-modal.component.css */
+.side-modal {
+    position: fixed;
+    top: 30%;
+    right: -200vw; /* La valeur négative dépends de la largeur de votre modale */
+    width: 40%;
+    height:70%;
+    background-color:white;
+    transition: right 0.3s ease;
+    border: rgb(197, 194, 214) 5px solid;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white; padding: 1%; border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
+    background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%);
+  }
+  
+  .side-modal.open {
+    right: 0;
+  }
+  
+  .close-modal{
+    float: right;
+    margin-top: -1%;
+    font-size: 1vw;
+    color:white;
+  }
+  
+  .titre-modal{
+    color: white;
+    margin-top: -2%;
+  }
+  .condition{
+    width: auto;
+    font-size: 1vw;
+    float: right;
+  }
+  .libelle-question{
+    margin-top: 2%;
+    color: rgb(74, 56, 117);
+  }
+  

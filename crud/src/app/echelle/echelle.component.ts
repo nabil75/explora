@@ -3,13 +3,13 @@ import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
 import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragDrop, CdkDragPreview } from '@angular/cdk/drag-drop';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { EchelleModalComponent } from '../modal/echelle-modal/echelle-modal.component';
+import { EchelleModalComponent } from '../modal/afficher-question/echelle-modal/echelle-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { EchelleBranchementComponent } from '../modal/branchement/echelle-branchement/echelle-branchement.component';
 
 
 export interface SemantiqueElement {
@@ -27,14 +27,14 @@ const ELEMENT_DATA: SemantiqueElement[] = [];
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
     imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, 
-              BranchementModalComponent, CommonModule, MatButtonModule, NgFor, EchelleModalComponent, AutosizeModule],
+              EchelleBranchementComponent, CommonModule, MatButtonModule, NgFor, EchelleModalComponent, AutosizeModule],
 })
 
 export class EchelleComponent implements OnInit{
 
 
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
-  @ViewChild('editEchelle') editEchelle!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: EchelleBranchementComponent;
+  @ViewChild('editEchelle') editEchelle!: EchelleBranchementComponent;
 
   dataSource = [...ELEMENT_DATA];
   componentId: any;
@@ -133,5 +133,9 @@ export class EchelleComponent implements OnInit{
 
   display_question_fermee_unique(){
     this.editEchelle.openModal();
+  }
+  
+  generateQuestion(id: number){
+
   }
 }

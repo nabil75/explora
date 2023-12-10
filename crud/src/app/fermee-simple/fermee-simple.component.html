@@ -8,11 +8,11 @@
         <img name="img_reduce" class="img_collapse" [src]="img_collapse_expand"  title="Réduire la question" (click)='collapse_question()'/>
     </div>
   </div>
-  <div>
+  <div class="d-flex justify-content-around">
      <!-- <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion" /> -->
      <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1"
       [(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
-
+     
   </div>
  
   <div [hidden]="collapseQuestionsService.isCollapseAll" [hidden]="isCollapse" >
@@ -41,18 +41,99 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-around footer d-block">
+
+  <div class="container-fluid footer">
+    <mat-accordion multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            
+          </mat-panel-title>
+          <mat-panel-description>
+            
+          </mat-panel-description>
+          <mat-icon class="icon icon-margin-right">settings</mat-icon>
+        </mat-expansion-panel-header>
+
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="">
+                <div class="parametre-footer">
+                  <label class="label-footer">Générer une question : </label>
+                  <mat-icon class="icon"  title="Générer une question automatiquement" (click)="openGeneratorModal()">question_answer</mat-icon>
+                </div>
+              </td>
+              <td class="">
+                <div class="parametre-footer">
+                  <label class="label-footer">Afficher la question : </label>
+                  <mat-icon class="icon-settings" title="Voir le rendu de la question" (click)="display_question_fermee_unique()">remove_red_eye</mat-icon>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="">
+                <div class="parametre-footer">
+                  <label class="label-footer">Branchement : </label>
+                  <mat-icon class="icon icon-branchement"  title="Définir un branchement conditionnel" (click)="openSideModal()">low_priority</mat-icon>
+                </div>
+              </td>
+              <td class="">
+                <div>        
+                  <label class="label-footer">Réponse : </label>
+                  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="1" checked>Obligatoire</mat-button-toggle>
+                    <mat-button-toggle value="0">Facultative</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div> 
+              </td>
+            </tr>
+          </tbody>
+        </table>        
+        <!-- <div class="d-flex justify-content-around">
+          <div class="parametre-footer">
+            <label class="label-footer">Générer une question : </label>
+            <mat-icon class="icon"  title="Générer une question automatiquement" (click)="generateQuestion(this.componentId)">question_answer</mat-icon>
+          </div>
+          <div class="parametre-footer">
+            <label class="label-footer">Générer une question : </label>
+            <mat-icon class="icon-settings" title="Voir le résultat" (click)="display_question_fermee_unique()">remove_red_eye</mat-icon>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around div-margin-top">
+          <div class="parametre-footer">
+            <label class="label-footer">Branchement : </label>
+            <mat-icon class="icon icon-branchement"  title="Définir un branchement conditionnel" (click)="openSideModal()">low_priority</mat-icon>
+          </div>
+          <div>        
+            <label class="label-footer">Réponse : </label>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle value="1">Obligatoire</mat-button-toggle>
+              <mat-button-toggle value="0">Facultative</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>          
+        </div> -->
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+
+
+  <!-- <div class="d-flex justify-content-around footer d-block">
     <div class="form-check form-switch">
         <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
-        <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
+        <img class="img-actions btn-branchement" src="assets/images/quaero/obligatoire.png"  title="Réponse obligatoire"/>
     </div>
     <img class="img-actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
     <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_fermee_unique()"/>
-  </div>
+  </div> -->
+
+
   <div>
-      <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
+      <textarea class="text-area-branchement d-none" placeholder="Branchement" readonly></textarea>
   </div>
-  <app-branchement-modal #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-branchement-modal>
+  <app-fermee-simple-branchement #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-fermee-simple-branchement>
+  <app-fermee-simple-generator #generatorModal (newQuestionEvent)="receiveQuestion($event)"></app-fermee-simple-generator>
   <app-fermee-simple-modal #editFermeeSimple [titre]="libelleQuestion" [modalites]="dataSource"></app-fermee-simple-modal>
 </li>
 

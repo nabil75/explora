@@ -2,17 +2,17 @@ import { Component, ViewChild, ChangeDetectionStrategy, OnInit, ViewChildren, Qu
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList } from '@angular/cdk/drag-drop';
-import { SatisfactionModalComponent } from '../modal/satisfaction-modal/satisfaction-modal.component';
+import { SatisfactionModalComponent } from '../modal/afficher-question/satisfaction-modal/satisfaction-modal.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AutosizeModule } from 'ngx-autosize';
+import { SatisfactionBranchementComponent } from '../modal/branchement/satisfaction-branchement/satisfaction-branchement.component';
 
 @Component({
     selector: 'app-satisfaction',
@@ -21,7 +21,7 @@ import { AutosizeModule } from 'ngx-autosize';
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
     imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, 
-              BranchementModalComponent, SatisfactionModalComponent, CommonModule, 
+              SatisfactionBranchementComponent, SatisfactionModalComponent, CommonModule, 
               MatButtonModule, NgFor, RatingModule, MatButtonToggleModule, MatIconModule, AutosizeModule
              ],
 })
@@ -29,7 +29,7 @@ import { AutosizeModule } from 'ngx-autosize';
 export class SatisfactionComponent implements OnInit{
 
 
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: SatisfactionBranchementComponent;
   @ViewChild('editSatisfaction') editSatisfaction!: SatisfactionModalComponent;
 
   componentId: any;
@@ -128,5 +128,9 @@ export class SatisfactionComponent implements OnInit{
 
   onClickTypeEchelle(event:any):void{
     console.log(this.echelle)
+  }
+  
+  generateQuestion(id: number){
+
   }
 }

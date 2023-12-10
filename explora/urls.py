@@ -8,7 +8,7 @@ from explora import views
 urlpatterns = [
                 
     #Ajax
-    path('get_list_product', views.explore.get_list_product, name='get_list_product'),
+    # path('get_list_product', views.explore.get_list_product, name='get_list_product'),
     path('get_info_product', views.explore.get_info_product, name='get_info_product'),
     path('get_list_colonnes', views.explore.get_list_colonnes, name='get_list_colonnes'),
     path('get_list_mots_cle', views.explore.get_list_mots_cle, name='get_list_mots_cle'),
@@ -20,8 +20,10 @@ urlpatterns = [
     path('generate_response', views.my_chatbot.chatbot.generate_response, name='generate_response'),
     path('delete_questionnary/<str:id_questionnary>/',views.api_angular.angular.delete_questionnary, name='delete_questionnary'),
     path('get_questionnary/<str:id_questionnary>/',views.api_angular.angular.get_questionnary, name='get_questionnary'),
+    path('get_results_fermee/<str:id_questionnary>/<str:id_question>',views.api_angular.visualize.graph.get_results_fermee, name='get_results_fermee'),
     path('save_questionnary/<str:content>/',views.api_angular.angular.save_questionnary, name='save_questionnary'),
     path('update_questionnary/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_questionnary, name='update_questionnary'),
+    path('get_lmstudio_response',views.api_angular.lmstudio.server.get_lmstudio_response, name='get_lmstudio_response'),
 
     path('insert_result/<str:content>/<str:id_questionnary>/',views.api_angular.angular.insert_result, name='insert_result'),
     # path('update_result/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_result, name='update_result'),

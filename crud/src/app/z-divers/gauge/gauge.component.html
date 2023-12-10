@@ -1,0 +1,15 @@
+<ngx-gauge 
+    [type]="gaugeType" 
+    [label]="gaugeLabel"
+    [value]="gaugeValue"
+    [max]="100"
+
+    [thresholds]="thresholdConfig">
+    <ngx-gauge-value>
+        <span style="font-size: 35px">{{gaugeValue}}</span>
+    </ngx-gauge-value>
+    <ngx-gauge-append>
+        <span style="color:green">{{gaugeAppendText}}</span>
+    </ngx-gauge-append>
+</ngx-gauge>
+

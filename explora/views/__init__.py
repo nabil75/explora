@@ -7,3 +7,5 @@ from .visualize import *
 from .zdivers import *
 from .my_chatbot.chatbot import *
 from .api_angular.angular import *
+from .api_angular.visualize.graph import *
+from .api_angular.lmstudio.server import *

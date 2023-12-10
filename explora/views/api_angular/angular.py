@@ -5,6 +5,10 @@ from django.middleware.csrf import get_token
 from django.shortcuts import render
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import io
+from pandas import json_normalize
 from django.views.decorators.csrf import csrf_exempt
 from explora.connection.postgres import postgres_delete_query, postgres_insert_query, postgres_select_query, postgres_update_query
 
@@ -40,17 +44,6 @@ def get_questionnary (request, id_questionnary):
     y = json.dumps(obj)
     return HttpResponse(y)
 
-def get_results_questionnary (request, id_questionnary):
-    obj = []
-    query = "SELECT * from results where id_questionnary ='"+str(id_questionnary)+"'"
-    records = postgres_select_query(query)
-    for record in records:
-        content = record[1]
-        x = json.loads(content)
-        obj.append({"position":record[0],"intitule":x[0]['intitule'],"date":x[0]['date'], "content":x[0]['questions']})
-    y = json.dumps(obj)
-    return HttpResponse(y)
-
 # @csrf_exempt
 def save_questionnary (request, content):
     query = "INSERT INTO questionnary (content_questionnary) VALUES ('"+content+"')"
@@ -62,18 +55,6 @@ def update_questionnary (request, id_questionnary,  content):
     query = "UPDATE questionnary set content_questionnary ='"+content+"' WHERE id_questionnary ='"+id_questionnary+"'"
     postgres_update_query(query)
     return HttpResponse({"response":"OK"})
-
-# @csrf_exempt
-def insert_result (request, content, id_questionnary):
-    query = "INSERT INTO results (content_result, id_questionnary) VALUES ('"+content+"',"+id_questionnary+")"
-    last_id = postgres_insert_query(query)
-    return HttpResponse(last_id)
-
-# @csrf_exempt
-# def update_result (request, id_questionnary,  content):
-#     query = "UPDATE results set content_questionnary ='"+content+"' WHERE id_questionnary ='"+id_questionnary+"'"
-#     postgres_update_query(query)
-#     return HttpResponse({"response":"OK"})
 
 @csrf_exempt
 def delete_questionnary (request, id_questionnary):
@@ -105,6 +86,20 @@ def set_csrf_token(request):
     response = HttpResponse("Cookie Set")  
     response.set_cookie('csrfToken', get_token(request))  
     return response  
+
+###################################### Result #########################################
+
+# @csrf_exempt
+def insert_result (request, content, id_questionnary):
+    query = "INSERT INTO results (content_result, id_questionnary) VALUES ('"+content+"',"+id_questionnary+")"
+    last_id = postgres_insert_query(query)
+    return HttpResponse(last_id)
+
+# @csrf_exempt
+# def update_result (request, id_questionnary,  content):
+#     query = "UPDATE results set content_questionnary ='"+content+"' WHERE id_questionnary ='"+id_questionnary+"'"
+#     postgres_update_query(query)
+#     return HttpResponse({"response":"OK"})
 
 def convert_json_to_csv(filename):
     # Récupération des données du fichier JSON et création du dataframe correspondant

@@ -1,0 +1,45 @@
+
+<div class="side-modal" [class.open]="showModal">
+    <div class="modal-content">
+        <div>
+        <h2 class="titre-modal" ></h2>
+        <button type="button" class="btn-close close-modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div >
+            <div class="mots-cles">
+                <mat-form-field>
+                    <mat-label>Mots clés représentatifs de l'information recherchée</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Selectionnez une thématique parmi les suivantes :</mat-label>
+                    <mat-select>
+                    <mat-option value="1">Connaissance de l'univers produit</mat-option>
+                    <mat-option value="2">Comportement d'achat ou de consommation (fidélité vs butinage, fréquence, )</mat-option>
+                    <mat-option value="3">Habitudes de fréquentation (point de vente, média, lieu divers, ...)</mat-option>
+                    <mat-option value="4">Satisfaction à l'égard du produit ou service</mat-option>
+                    <mat-option value="5">Modes d'évaluation de la performance-produit</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="float: right; margin-bottom: 2%">
+                <button mat-button color="primary" (click) ="genererQuestion()">Générer une question</button>
+            </div>
+            <div> 
+                <mat-form-field>
+                    <mat-label>Proposition</mat-label>
+                    <textarea matInput>{{proposition}}</textarea>
+                </mat-form-field>
+            </div>
+            <div style="float: right; margin-top: 2%">
+                <button mat-button color="primary" (click) ="sendProposition()">Transferer la proposition</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

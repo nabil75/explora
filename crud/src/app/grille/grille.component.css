@@ -11,7 +11,7 @@
   }
   .input-border-bottom{
     border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
-    border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+    border-radius: 5px 5px 0px 0px; background-color: transparent; margin-bottom: 1%;
   }
   li.question::marker{
     font-size: 3vh;
@@ -94,7 +94,7 @@
     margin-top: 3%; width: 100%; border-radius: 5px 5px 5px 5px; border: 5px solid rgb(194, 185, 212);
   }
   .btn-branchement{
-    cursor: pointer; width: 35px; height: 35px; margin-top: -10px; margin-left: -65px;
+    cursor: pointer; width: 30px; height: 30px; margin-top: -5px; margin-left: 5px;
   }
   .footer{
     margin-top: 3%;

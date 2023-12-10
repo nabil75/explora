@@ -13,6 +13,7 @@ import { NgClass } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { NotationComponent } from '../notation/notation.component';
 import { SatisfactionComponent } from '../satisfaction/satisfaction.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 @Component({
     selector: 'app-new-questionnary',
@@ -23,7 +24,8 @@ import { SatisfactionComponent } from '../satisfaction/satisfaction.component';
         MatCardModule,
         NgClass,
         FormsModule,
-        CdkDropList
+        CdkDropList,
+        AutosizeModule
     ],
 })
 
@@ -125,7 +127,6 @@ export class NewQuestionnaryComponent implements OnInit {
           }
         }
       });
-      console.log(this.dynamicComponentRefs)
   }
 
   getQuestionsComponentId(){
@@ -354,5 +355,11 @@ export class NewQuestionnaryComponent implements OnInit {
       }
       componentRef.instance.isCollapse = this.collapseQuestionsService.isCollapseAll;
     }
+  }
+
+  generateQuestionnary () {
+    this.api.getQuestionnaryFromLmstudio().subscribe((response: any) => {
+      console.log(response.content)
+    });
   }
 }

@@ -6,10 +6,15 @@ import { moveItemInArray, CdkDrag, CdkDragHandle, CdkDropList, CdkDragPreview, C
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
-import { FermeeMultipleModalComponent } from '../modal/fermee-multiple-modal/fermee-multiple-modal.component';
+import { FermeeMultipleModalComponent } from '../modal/afficher-question/fermee-multiple-modal/fermee-multiple-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { FermeeMultipleBranchementComponent } from '../modal/branchement/fermee-multiple-branchement/fermee-multiple-branchement.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 export interface ModaliteElement {
   libelle: string;
@@ -26,15 +31,21 @@ const ELEMENT_DATA: ModaliteElement[] = [];
     styleUrls: ['./fermee-multiple.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList,FormsModule, BranchementModalComponent, CommonModule, MatButtonModule, 
-              NgFor, FermeeMultipleModalComponent, AutosizeModule
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList,FormsModule, FermeeMultipleBranchementComponent, CommonModule, 
+              NgFor, FermeeMultipleModalComponent, AutosizeModule,
+              MatButtonModule, 
+              MatExpansionModule, 
+              MatIconModule,
+              MatFormFieldModule,
+              MatInputModule,
+              MatButtonToggleModule
             ]
 })
 export class FermeeMultipleComponent implements OnInit {
 
 
   
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: FermeeMultipleBranchementComponent;
   @ViewChild('editFermeeMultiple') editFermeeMultiple!: FermeeMultipleModalComponent;
 
   dataSource = [...ELEMENT_DATA];
@@ -144,5 +155,8 @@ export class FermeeMultipleComponent implements OnInit {
     if (event.target.value > this.dataSource.length) {
       event.target.value = "";
     }
+  }
+  generateQuestion(id: number){
+
   }
 }

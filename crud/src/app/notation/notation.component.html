@@ -29,7 +29,7 @@
     <div class="d-flex justify-content-around footer d-block">
       <div class="form-check form-switch">
           <input class="form-check-input obligatoire" [(ngModel)]= "obligatoire" type="checkbox" title="Réponse obligatoire">
-          <label class="form-check-label label-s" title="Réponse obligatoire">Obligatoire</label>
+          <img class="img-actions btn-branchement" src="assets/images/quaero/obligatoire.png"  title="Réponse obligatoire"/>
       </div>
       <img class="img-actions btn-branchement" src="assets/images/quaero/jump.png"  title="Définir un branchement conditionnel" (click)="openSideModal()"/>
       <img class="align-items-start footer-right" src="assets/images/quaero/eye.png" title="Voir le résultat" (click)="display_question_notation()"/>
@@ -37,7 +37,7 @@
     <div>
         <textarea class="branchement d-none" placeholder="Branchement" readonly></textarea>
     </div>
-    <app-branchement-modal #sideModal [titre]="libelleQuestion"  [questions]="questions"></app-branchement-modal>
+    <app-notation-branchement #sideModal [titre]="libelleQuestion"  [questions]="questions"></app-notation-branchement>
     <app-notation-modal #editNotation [titre]="libelleQuestion"  [nbStars]="nbStars"></app-notation-modal>
   </li>
   

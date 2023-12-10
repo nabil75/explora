@@ -2,15 +2,15 @@ import { Component, ViewChild, ChangeDetectionStrategy, OnInit, ViewChildren, Qu
 import { EventEmitterService } from 'src/app/services/event-emitter.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { CollapseQuestionsService } from '../services/collapse-questions.service';
-import { BranchementModalComponent } from '../modal/branchement/branchement-modal.component';
 import { NewQuestionnaryComponent } from '../new-questionnary/new-questionnary.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList } from '@angular/cdk/drag-drop';
-import { NotationModalComponent } from '../modal/notation-modal/notation-modal.component';
+import { NotationModalComponent } from '../modal/afficher-question/notation-modal/notation-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { NotationBranchementComponent } from '../modal/branchement/notation-branchement/notation-branchement.component';
 
 
 
@@ -21,7 +21,7 @@ import { AutosizeModule } from 'ngx-autosize';
     styleUrls: ['./notation.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: true,
-    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, BranchementModalComponent, 
+    imports: [CdkDrag, CdkDragHandle, CdkDragPreview, CdkDropList, FormsModule, NotationBranchementComponent, 
               CommonModule, MatButtonModule, NgFor, RatingModule, NotationModalComponent, AutosizeModule
             ],
 })
@@ -29,8 +29,8 @@ import { AutosizeModule } from 'ngx-autosize';
 export class NotationComponent implements OnInit{
 
 
-  @ViewChild('sideModal') sideModal!: BranchementModalComponent;
-  @ViewChild('editNotation') editNotation!: BranchementModalComponent;
+  @ViewChild('sideModal') sideModal!: NotationBranchementComponent;
+  @ViewChild('editNotation') editNotation!: NotationBranchementComponent;
   @ViewChild('myComponent') myComponent!: ElementRef;
 
   componentId: any;
@@ -127,5 +127,9 @@ export class NotationComponent implements OnInit{
 
   display_question_notation(){
     this.editNotation.openModal();
+  }
+
+  generateQuestion(id: number){
+
   }
 }

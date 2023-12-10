@@ -11,7 +11,7 @@
 }
 .input-border-bottom{
   border-top: 0 solid transparent; border-right: 0 solid transparent; border-bottom: 1px solid gray; border-left: 0 solid transparent;
-  border-radius: 0 0 0 0; background-color: transparent; margin-bottom: 1%;
+  border-radius: 5px 5px 0px 0px;; background-color: transparent; margin-bottom: 1%;
 }
 li.question::marker{
   font-size: 3vh;
@@ -31,6 +31,13 @@ li.question::marker{
   height: 4vh;
   cursor: pointer;
   margin-top: -0.7vh;
+}
+
+.generate-question{
+  width: 3vh;
+  height: 3vh;
+  cursor: pointer;
+  margin-top: 5%;
 }
 .type-question{
   color: white;
@@ -83,11 +90,11 @@ li.question::marker{
 }
 
 /*Bloc Footer*/
-.branchement{
+.text-area-branchement{
   margin-top: 3%; width: 100%; border-radius: 5px 5px 5px 5px; border: 5px solid rgb(194, 185, 212);
 }
 .btn-branchement{
-  cursor: pointer; width: 35px; height: 35px; margin-top: -10px; margin-left: -65px;
+  cursor: pointer; width: 4vh; height: 4vh; margin-left: 10px;
 }
 .footer{
   margin-top: 3%;
@@ -104,10 +111,31 @@ li.question::marker{
 }
 
 
+.parametre-footer{
+  margin-top: 10px;
+}
+.icon{
+  cursor: pointer;
+}
+.icon-margin-right{
+  margin-right: 15px;
+}
+mat-expansion-panel{
+  background-color: transparent;
+}
+.label-footer{
+  font-size: 2vh;
+  font-weight: lighter;
+  margin-right: 10px;
+}
 
-
-
-
+.mat-button-toggle-checked {
+  color: white !important;
+  background-color: rgb(74, 56, 117) !important;
+}
+.div-margin-top{
+  margin-top: 2%;
+}
 
 
 
