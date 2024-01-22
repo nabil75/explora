@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormsModule } from '@angular/forms';
+import { AutosizeModule } from 'ngx-autosize';
 
 @Component({
   selector: 'app-edit-fermee-simple',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AutosizeModule],
   templateUrl: './edit-fermee-simple.component.html',
   styleUrls: ['./edit-fermee-simple.component.css']
 })

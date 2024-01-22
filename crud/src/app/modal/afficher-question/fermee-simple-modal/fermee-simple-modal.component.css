@@ -3,7 +3,7 @@
     position: fixed;
     top: 30%;
     right: -200vw; /* La valeur négative dépends de la largeur de votre modale */
-    width: auto;
+    width: 50%;
     min-width: 40vw;
     height: auto;
     background-color:white;
@@ -11,19 +11,36 @@
     border: rgb(197, 194, 214) 5px solid;
     border-radius: 10px 10px 10px 10px;
     background-color: white; padding: 1%; border-radius: 1vh 1vh 1vh 1vh; margin-bottom: 2%;
-    /* background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%); */
+    background-image: -webkit-linear-gradient(top, rgb(74, 56, 117), rgb(74, 56, 117) 5vh, transparent 0%, transparent 100%);
   }
   .side-modal.open {
     right: 0;
   }
   .close-modal{
-    font-size: 1vw;
+    float: right;
+    margin-top: -1%;
+    font-size: 1.5vw;
+    color:white;
+    background-color: transparent;
+    border: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
+
   .titre-modal{
     color: white;
-    margin-top: -1vw;
+    margin-top: -0.5vw;
   }
+
   .libelle-question{
     margin-top: 1vw;
     color: rgb(74, 56, 117);
+    font-size: 1vw;
+    border: none;
+    resize:none;
   }
+  .form-check{
+    margin-top: 1%;
+    margin-left: 3%;
+  }
+
+

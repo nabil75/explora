@@ -12,29 +12,20 @@ export class AppComponent {
   language='fr';
 
   constructor(
-    private translate: TranslateService,
-    )
-    {
-      translate.setDefaultLang('fr');
+    private translate: TranslateService) { translate.setDefaultLang('fr');}
 
-    }
+ngOnInit(){}
 
-ngOnInit(){
-
-}
-
-ngAfterViewInit(){
-
-}
+ngAfterViewInit(){}
 
 
-changeLanguage(): void {
-  if(this.language === 'fr'){
-    this.language ='en';
-  } else {
-    this.language = 'fr'
-  }
+switchToEnglish(): void {
+  this.language ='en';
   this.translate.use(this.language)
 }
 
+switchToFrench(): void {
+  this.language ='fr';
+  this.translate.use(this.language)
+}
 }

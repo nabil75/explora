@@ -2,14 +2,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiService } from 'src/app/api/api.service';
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-fermee-simple-generator',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, NgFor],
+  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatProgressSpinnerModule , NgFor, NgIf, FormsModule],
   templateUrl: './fermee-simple-generator.component.html',
   styleUrls: ['./fermee-simple-generator.component.css']
 })
@@ -18,10 +20,16 @@ export class FermeeSimpleGeneratorComponent {
   @Output() newQuestionEvent = new EventEmitter<string>();
   
   showModal: boolean = false;
-  proposition: string="";
+  libelle_question !: string;
+  modalites_question !: string;
+  spin: boolean = true;
+
   constructor(private api :ApiService,
   ) { }
 
+  ngOnInit(){
+
+  }
   openModal(): void {
     this.showModal = true;
   }
@@ -30,11 +38,20 @@ export class FermeeSimpleGeneratorComponent {
     this.showModal = false;
   }
   genererQuestion(){
-    this.api.getQuestionnaryFromLmstudio().subscribe((response: any) => {
-      this.proposition = response.content;
+    this.spin=true;
+    this.api.getQuestionFromLmstudio().subscribe((response: any) => {
+      this.libelle_question = response.content;
+    });
+    this.spin=false;
+  }
+
+  genererModalites(){
+    this.api.getModalitesFromLmstudio(this.libelle_question).subscribe((response: any) => {
+      this.modalites_question = response.content;
     });
   }
+
   sendProposition(){
-    this.newQuestionEvent.emit(this.proposition);
+    this.newQuestionEvent.emit(this.libelle_question);
   }
 }

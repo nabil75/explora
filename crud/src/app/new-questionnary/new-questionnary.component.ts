@@ -354,12 +354,13 @@ export class NewQuestionnaryComponent implements OnInit {
         componentRef.instance.img_collapse_expand = "assets/images/quaero/expand.png";
       }
       componentRef.instance.isCollapse = this.collapseQuestionsService.isCollapseAll;
+      componentRef.instance.expanded = !this.collapseQuestionsService.isCollapseAll; 
     }
   }
 
   generateQuestionnary () {
-    this.api.getQuestionnaryFromLmstudio().subscribe((response: any) => {
-      console.log(response.content)
-    });
+    // this.api.getQuestionFromLmstudio().subscribe((response: any) => {
+    //   console.log(response.content)
+    // });
   }
 }

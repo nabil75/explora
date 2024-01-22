@@ -23,8 +23,9 @@ urlpatterns = [
     path('get_results_fermee/<str:id_questionnary>/<str:id_question>',views.api_angular.visualize.graph.get_results_fermee, name='get_results_fermee'),
     path('save_questionnary/<str:content>/',views.api_angular.angular.save_questionnary, name='save_questionnary'),
     path('update_questionnary/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_questionnary, name='update_questionnary'),
-    path('get_lmstudio_response',views.api_angular.lmstudio.server.get_lmstudio_response, name='get_lmstudio_response'),
-
+    path('get_libelle_question',views.api_angular.lmstudio.server.get_libelle_question, name='get_libelle_question'),
+    path('get_modalites_question/<str:question>/',views.api_angular.lmstudio.server.get_modalites_question, name='get_modalites_question'),
+    path('get_modalites_json/<str:propositions>/',views.api_angular.lmstudio.server.get_modalites_json, name='get_modalites_json'),
     path('insert_result/<str:content>/<str:id_questionnary>/',views.api_angular.angular.insert_result, name='insert_result'),
     # path('update_result/<str:id_questionnary>/<str:content>/',views.api_angular.angular.update_result, name='update_result'),
 

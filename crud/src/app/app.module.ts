@@ -56,12 +56,12 @@ const routes: Routes = [
   { path: 'fermee-multiple', 
     loadComponent: () => import('./fermee-multiple/fermee-multiple.component').then(module => module.FermeeMultipleComponent)
   },
-  { path: 'organigramme', 
-    loadComponent: () => import('./z-divers/organization-chart-basic-doc/organization-chart-basic-doc.component').then(module => module.OrganizationChartBasicDocComponent)
-  },
-  { path: 'gauge', 
-  loadComponent: () => import('./z-divers/gauge/gauge.component').then(module => module.GaugeComponent)
-},
+  // { path: 'organigramme', 
+  //   loadComponent: () => import('./z-divers/organization-chart-basic-doc/organization-chart-basic-doc.component').then(module => module.OrganizationChartBasicDocComponent)
+  // },
+  // { path: 'gauge', 
+  // loadComponent: () => import('./z-divers/gauge/gauge.component').then(module => module.GaugeComponent)
+  // },
 ];
 
 @NgModule({

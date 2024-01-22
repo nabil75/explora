@@ -9,5 +9,18 @@
         "theme":"Themes",
         "en":"English",
         "fr":"French"
+    },
+    "home":{
+        "leitmotiv":"Crossupdata toolbox: An accelerator serving knowledge",
+        "learn_more":"Learn more"
+
+    },
+    "my_questionnary":{
+        "my_questionnaries":"My questionnaries",
+        "choose_questionnary": "Choose a questionnary",
+        "id":"ID",
+        "title":"Title",
+        "creation_date":"Creation date",
+        "actions":"Actions"
     }
 }

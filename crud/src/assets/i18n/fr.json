@@ -9,5 +9,19 @@
         "theme":"Thèmes",
         "en":"Anglais",
         "fr":"Français"
+    },
+    "home":{
+        "leitmotiv":"Boîte à outils Crossupdata : Un accélérateur au service de la connaissance",
+        "learn_more":"En savoir plus"
+
+    },
+
+    "my_questionnary":{
+        "my_questionnaries":"Mes questionnaires",
+        "choose_questionnary": "Choisissez un questionnaire",
+        "id":"ID",
+        "title":"Intitulé",
+        "creation_date":"Date de création",
+        "actions":"Actions"
     }
 }

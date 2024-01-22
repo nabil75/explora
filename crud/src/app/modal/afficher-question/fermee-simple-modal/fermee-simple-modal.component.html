@@ -1,11 +1,13 @@
 <div class="side-modal" [class.open]="showModal">
     <div class="modal-content">
         <div>
-        <h2 class="titre-modal" ></h2>
-        <button type="button" class="btn-close close-modal" aria-label="Close" (click)="closeModal()"></button>
+            <button type="button" class="close-modal" (click)="closeModal()">X</button>
+            <h2 class="titre-modal" >Voir le rendu visuel de la question</h2>  
         </div>
         <div>
-        <h1 class="libelle-question"> {{titre}} </h1>
+            <textarea autosize class="form-control input-border-bottom libelle-question" rows="1"
+            [(ngModel)]="titre" name="libelleQuestion"></textarea>
+
             <div class="form-check" *ngFor="let modalite of modalites; index as i">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="i">
                 <label class="form-check-label" for="i">

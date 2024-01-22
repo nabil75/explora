@@ -9,7 +9,6 @@
     </div>
   </div>
   <div class="d-flex justify-content-around">
-     <!-- <input class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" [(ngModel)]="libelleQuestion" /> -->
      <textarea autosize class="form-control input-border-bottom libelle-question" placeholder="Libellé de la question" rows="1"
       [(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
      
@@ -44,7 +43,7 @@
 
   <div class="container-fluid footer">
     <mat-accordion multi>
-      <mat-expansion-panel>
+      <mat-expansion-panel [expanded]="expanded" (click)="setValueToExpanded()">
         <mat-expansion-panel-header>
           <mat-panel-title>
             
@@ -67,7 +66,7 @@
               <td class="">
                 <div class="parametre-footer">
                   <label class="label-footer">Afficher la question : </label>
-                  <mat-icon class="icon-settings" title="Voir le rendu de la question" (click)="display_question_fermee_unique()">remove_red_eye</mat-icon>
+                  <mat-icon class="icon-settings" title="voir le rendu visuel de la question" (click)="display_question_fermee_unique()">remove_red_eye</mat-icon>
                 </div>
               </td>
             </tr>
@@ -132,6 +131,7 @@
   <div>
       <textarea class="text-area-branchement d-none" placeholder="Branchement" readonly></textarea>
   </div>
+
   <app-fermee-simple-branchement #sideModal [titre]="libelleQuestion" [modalites]="dataSource" [questions]="questions"></app-fermee-simple-branchement>
   <app-fermee-simple-generator #generatorModal (newQuestionEvent)="receiveQuestion($event)"></app-fermee-simple-generator>
   <app-fermee-simple-modal #editFermeeSimple [titre]="libelleQuestion" [modalites]="dataSource"></app-fermee-simple-modal>

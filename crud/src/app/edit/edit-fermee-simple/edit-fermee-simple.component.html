@@ -1,5 +1,7 @@
 <li class="li-question">
     <div class="div-libelle-question">
+        <textarea autosize class="form-control libelle-question" placeholder="Libellé de la question" rows="1"
+      [(ngModel)]="libelleQuestion" name="libelleQuestion"></textarea>
         <span class="libelle-question"> {{libelleQuestion}} </span>
     </div>
     <div class="form-check libelle-modalite" *ngFor="let modalite of modalites; index as i">

@@ -17,6 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FermeeSimpleGeneratorComponent } from '../modal/generator/fermee-simple-generator/fermee-simple-generator.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 
 export interface ModaliteElement {
@@ -40,7 +42,8 @@ const ELEMENT_DATA: ModaliteElement[] = [];
               MatIconModule,
               MatFormFieldModule,
               MatInputModule,
-              MatButtonToggleModule
+              MatButtonToggleModule,
+              MatSidenavModule
             ],
 })
 
@@ -54,7 +57,10 @@ export class FermeeSimpleComponent implements OnInit{
   dataSource = [...ELEMENT_DATA];
   componentId: any;
   questions: any= [];
-  obligatoire: boolean = true;
+  obligatoire: boolean = true;  
+  isCollapse: boolean = false;
+  expanded: boolean = false;
+
 
   img_collapse_expand: string ="assets/images/quaero/collapse.png";
 
@@ -98,9 +104,13 @@ export class FermeeSimpleComponent implements OnInit{
     this.eventEmitterService.onFirstComponentQuestionClick(idQuestion);
   }
 
-  isCollapse: boolean = false;
+  setValueToExpanded(){
+    this.expanded=!this.expanded;
+  }
+
   collapse_question(): void{
       this.isCollapse = !this.isCollapse;
+      this.expanded = false;
     if(this.img_collapse_expand == "assets/images/quaero/collapse.png"){
       this.img_collapse_expand = "assets/images/quaero/expand.png"
     }else{

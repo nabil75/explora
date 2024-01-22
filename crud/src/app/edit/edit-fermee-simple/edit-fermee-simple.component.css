@@ -11,6 +11,8 @@
 .libelle-question{
   font-size: 1.5vw;
   color:black;
+  border: none;
+  resize:none;
 }
 .libelle-modalite{
   font-size: 1vw;

@@ -1,3 +1,8 @@
+.fixed-size-element{
+  min-width: 800px;
+  min-height: 800px;
+}
+
 mat-card {
   width: 85%;
   margin: auto;

@@ -77,7 +77,11 @@ export class ApiService {
     return(this.http.get(this.baseurl+"/get_results_fermee/"+id_questionnary+"/"+i));
   }
  
-  getQuestionnaryFromLmstudio(){
-    return this.http.get<any>(this.baseurl+'/get_lmstudio_response');
+  getQuestionFromLmstudio(){
+    return this.http.get<any>(this.baseurl+'/get_libelle_question');
+  }
+
+  getModalitesFromLmstudio(libelle_question:string){
+    return this.http.get<any>(this.baseurl+'/get_modalites_question/'+libelle_question);
   }
 }

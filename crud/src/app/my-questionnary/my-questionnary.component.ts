@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -6,10 +6,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgClass, DatePipe, NgIf } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
 
-/**
- * @title Data table with sorting, pagination, and filtering.
- */
+
 
 export interface Questionnary {
   position: string;
@@ -23,7 +22,7 @@ export interface Questionnary {
     templateUrl: './my-questionnary.component.html',
     styleUrls: ['./my-questionnary.component.css'],
     standalone: true,
-    imports: [MatTableModule, MatSortModule, RouterLink, NgClass, MatPaginatorModule, DatePipe, NgIf]
+    imports: [MatTableModule, MatSortModule, RouterLink, NgClass, MatPaginatorModule, DatePipe, NgIf, TranslateModule]
 })
 
 export class MyQuestionnaryComponent implements OnInit{
@@ -31,33 +30,57 @@ export class MyQuestionnaryComponent implements OnInit{
   dataSource!: MatTableDataSource<Questionnary>;
   questionnaries!: any;
   idRow!: any;
-  status : string ="Mes questionnaires";
+  status!: string;
   showImage: boolean=true;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  currentLanguage!:string;
 
   constructor(private api: ApiService,
               public sanitizer: DomSanitizer,
-              private route: ActivatedRoute ) { }
+              private route: ActivatedRoute,
+              private translate: TranslateService,
+              ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('titre');
     if(id != null){
-      this.status = "Choisissez un questionnaire";
+      this.translate.get('my_questionnary.choose_questionnary').subscribe( (text: string) => {
+        this.status = text;
+      });
       this.showImage=false;
     }else{
-      this.status = "Mes questionnaires";
+      this.translate.get('my_questionnary.my_questionnaries').subscribe( (text: string) => {
+        this.status = text;
+      });
       this.showImage=true;
     }
-    
   }
 
   ngAfterViewInit() {
     this.getQuestionnaries();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      const id = this.route.snapshot.paramMap.get('titre');
+      if(id != null){
+        this.translate.get('my_questionnary.choose_questionnary').subscribe( (text: string) => {
+          this.status = text;
+        });
+        this.showImage=false;
+      }else{
+        this.translate.get('my_questionnary.my_questionnaries').subscribe( (text: string) => {
+          this.status = text;
+        });
+        this.showImage=true;
+      }
+    });
   }
+
+  // ngOnChanges(){
+  //   console.log("langue courante : "+this.translate.getDefaultLang());
+  // }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
